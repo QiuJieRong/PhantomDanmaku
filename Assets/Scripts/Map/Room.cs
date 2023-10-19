@@ -151,9 +151,9 @@ public class Room
             }
             curpoint += new Vector2Int(-1, 0);//x为-1是因为curpoint在前面的循环中加了1
             //将目标房间的墙壁消除
-            tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(-1, 0, 0), null);
-            tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(-1, 1, 0), null);
-            tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(-1, -1, 0), null);
+            tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, 0, 0), null);
+            tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, 1, 0), null);
+            tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, -1, 0), null);
         }
     }
 
