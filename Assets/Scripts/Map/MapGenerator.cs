@@ -85,12 +85,16 @@ public class MapGenerator : SingletonMono<MapGenerator>
             room.DrawGround();
             //绘制墙壁
             room.DrawWall();
+        }
+        //道路绘制需要房间绘制完毕后绘制，否则无法正常的消除房间自己生成的墙壁
+        foreach (Room room in rooms)
+        {
             //判断右侧和上侧是否有房间，有的话就生成道路
-            room.DrawRoad();
+            room.DrawRoad(roadWidth);
         }
     }
 
-    
+
     void ChangeGeneratorPoint()
     {
         int dir = Random.Range(0, 4);//0:上 1:下 2:右 3:左 

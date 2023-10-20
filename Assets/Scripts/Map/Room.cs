@@ -82,8 +82,9 @@ public class Room
         }
     }
 
-    public void DrawRoad()
+    public void DrawRoad(int roadWidth)
     {
+        roadWidth /= 2;
         //如果有房间就连接这两个房间
         Room targetRoom;
         int targetRoomIndex;
@@ -96,31 +97,60 @@ public class Room
             //道路起点
             Vector2Int roadStart = CenterCoord + new Vector2Int(0, Height / 2 + 1);
             //道路终点
-            Vector2Int roadEnd = targetRoom.CenterCoord - new Vector2Int(0, targetRoom.Height / 2);
+            Vector2Int roadEnd = targetRoom.CenterCoord + new Vector2Int(0, -targetRoom.Height / 2 - 1);
             //当前绘制点
             Vector2Int curpoint = roadStart;
+
             //将原本的墙壁消除
-            MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, 0, 0), null);
-            MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(-1, 0, 0), null);
-            MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(1, 0, 0), null);
+            for (int i = 0; i <= roadWidth; i++)
+            {
+                if (i == 0)
+                {
+                    MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint, null);
+                }
+                else
+                {
+                    MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(-i, 0, 0), null);
+                    MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(i, 0, 0), null);
+                }
+            }
+
             //道路长度
             int roadLength = (int)Vector2Int.Distance(roadStart, roadEnd);
-
-
-            for (int j = 0; j < roadLength; j++)
+            for (int i = 0; i <= roadLength; i++)
             {
-                tilemap_ground.SetTile((Vector3Int)curpoint, ground);
-                tilemap_ground.SetTile((Vector3Int)curpoint + new Vector3Int(-1, 0, 0), ground);
-                tilemap_ground.SetTile((Vector3Int)curpoint + new Vector3Int(1, 0, 0), ground);
-                tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(-2, 0, 0), wall);
-                tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(2, 0, 0), wall);
+                //绘制道路
+                for (int j = 0; j <= roadWidth; j++)
+                {
+                    if (j == 0)
+                    {
+                        MapGenerator.Instance.tilemap_ground.SetTile((Vector3Int)curpoint, ground);
+                    }
+                    else
+                    {
+                        MapGenerator.Instance.tilemap_ground.SetTile((Vector3Int)curpoint + new Vector3Int(-j, 0, 0), ground);
+                        MapGenerator.Instance.tilemap_ground.SetTile((Vector3Int)curpoint + new Vector3Int(j, 0, 0), ground);
+                    }
+                }
+                //绘制道路的墙壁
+                MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(roadWidth + 1, 0, 0), wall);
+                MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(-roadWidth - 1, 0, 0), wall);
                 curpoint += new Vector2Int(0, 1);
             }
             //将终点房间的墙消除
             curpoint += new Vector2Int(0, -1);//y为-1是因为curpoint在前面的循环中加了1
-            tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, 0, 0), null);
-            tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(-1, 0, 0), null);
-            tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(1, 0, 0), null);
+            for (int i = 0; i <= roadWidth; i++)
+            {
+                if (i == 0)
+                {
+                    MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint, null);
+                }
+                else
+                {
+                    MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(-i, 0, 0), null);
+                    MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(i, 0, 0), null);
+                }
+            }
         }
         //如果右方有房间
         if (roomMap.Contains(gridCoord + new Vector2Int(1, 0)))
@@ -131,29 +161,57 @@ public class Room
             //道路起点
             Vector2Int roadStart = CenterCoord + new Vector2Int(Width / 2 + 1, 0);
             //道路终点
-            Vector2Int roadEnd = targetRoom.CenterCoord - new Vector2Int(targetRoom.Width / 2, 0);
+            Vector2Int roadEnd = targetRoom.CenterCoord + new Vector2Int(-targetRoom.Width / 2 - 1, 0);
             //当前绘制点
             Vector2Int curpoint = roadStart;
             //将原本的墙壁消除
-            tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, 0, 0), null);
-            tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, 1, 0), null);
-            tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, -1, 0), null);
+            for (int i = 0; i <= roadWidth; i++)
+            {
+                if (i == 0)
+                {
+                    MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint, null);
+                }
+                else
+                {
+                    MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, -i, 0), null);
+                    MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, i, 0), null);
+                }
+            }
             //道路长度
             int roadLength = (int)Vector2Int.Distance(roadStart, roadEnd);
-            for (int j = 0; j < roadLength; j++)
+            for (int i = 0; i <= roadLength; i++)
             {
-                tilemap_ground.SetTile((Vector3Int)curpoint, ground);
-                tilemap_ground.SetTile((Vector3Int)curpoint + new Vector3Int(0, -1, 0), ground);
-                tilemap_ground.SetTile((Vector3Int)curpoint + new Vector3Int(0, 1, 0), ground);
-                tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, -2, 0), wall);
-                tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, 2, 0), wall);
+                for (int j = 0; j <= roadWidth; j++)
+                {
+                    if (j == 0)
+                    {
+                        MapGenerator.Instance.tilemap_ground.SetTile((Vector3Int)curpoint, ground);
+                    }
+                    else
+                    {
+                        MapGenerator.Instance.tilemap_ground.SetTile((Vector3Int)curpoint + new Vector3Int(0, -j, 0), ground);
+                        MapGenerator.Instance.tilemap_ground.SetTile((Vector3Int)curpoint + new Vector3Int(0, j, 0), ground);
+                    }
+                }
+                //绘制道路两边的墙壁
+                MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, roadWidth + 1, 0), wall);
+                MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, -roadWidth - 1, 0), wall);
                 curpoint += new Vector2Int(1, 0);
             }
             curpoint += new Vector2Int(-1, 0);//x为-1是因为curpoint在前面的循环中加了1
             //将目标房间的墙壁消除
-            tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, 0, 0), null);
-            tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, 1, 0), null);
-            tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, -1, 0), null);
+            for (int i = 0; i <= roadWidth; i++)
+            {
+                if (i == 0)
+                {
+                    MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint, null);
+                }
+                else
+                {
+                    MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, -i, 0), null);
+                    MapGenerator.Instance.tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, i, 0), null);
+                }
+            }
         }
     }
 
