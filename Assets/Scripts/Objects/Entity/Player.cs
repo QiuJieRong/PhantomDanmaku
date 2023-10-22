@@ -40,6 +40,25 @@ public class Player : EntityBase
         Vector3 mousePosWS = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (currentWeapon != null)
             currentWeapon.Ami(mousePosWS);
+        CheckIsEnterRoom();
+    }
+
+    /// <summary>
+    /// 判断是否进入了哪个房间
+    /// </summary>
+    void CheckIsEnterRoom()
+    {
+        List<Room> rooms = MapGenerator.Instance.Rooms;
+        foreach (Room room in rooms)
+        {
+            if (transform.position.x > room.CenterCoord.x - room.Info.Width / 2 &&
+                transform.position.x < room.CenterCoord.x + room.Info.Width / 2 &&
+                transform.position.y > room.CenterCoord.y - room.Info.Height / 2 + 1 &&
+                transform.position.y < room.CenterCoord.y + room.Info.Height / 2)
+            {
+                EventCenter.Instance.EventTrigger(CustomEvent.RoomEnter, room);
+            }
+        }
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -87,6 +106,11 @@ public class Player : EntityBase
     public override void Dead()
     {
         base.Dead();
+        controls.Dispose();
+    }
+
+    void OnDestroy()
+    {
         controls.Dispose();
     }
 }

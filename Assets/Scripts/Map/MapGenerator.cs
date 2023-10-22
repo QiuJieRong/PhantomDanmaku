@@ -9,6 +9,7 @@ public class MapGenerator : SingletonMono<MapGenerator>
 {
 
     [Header("总生成房间数")] public int roomNumber = 5;
+    [Header("生成房间类型列表")] public List<E_Room_Type> roomTypeList;
     [Header("最大房间宽")] public int roomMaxW = 25;
     [Header("最大房间高")] public int roomMaxH = 25;
     [Header("最小房间宽")] public int roomMinW = 15;
@@ -16,10 +17,12 @@ public class MapGenerator : SingletonMono<MapGenerator>
     [Header("房间的间隔距离")] public int distance = 30;
     [Header("道路的宽度")] public int roadWidth = 5;
     [Header("怪物密度")] public float monsterDensity = 1;
-    [Header("地板")] public TileBase ground;
-    [Header("墙")] public TileBase wall;
+    [Header("地板")] public TileBase tileBase_ground;
+    [Header("墙")] public TileBase tileBase_wall;
+    [Header("门")] public TileBase tileBase_door;
     [Header("地图地板")] public Tilemap tilemap_ground;
     [Header("地图墙壁")] public Tilemap tilemap_wall;
+    [Header("地图对象")] public Tilemap tilemap_object;
     private List<Vector2Int> roomMap = new();//用来标记是否存在房间的List
     public List<Vector2Int> RoomMap => roomMap;
     private List<Room> rooms = new();//存储生成的房间对象
@@ -29,6 +32,30 @@ public class MapGenerator : SingletonMono<MapGenerator>
     {
         UIMgr.Instance.ShowPanel<GamePanel>("GamePanel");
         GeneratorMap();
+        EventCenter.Instance.AddEventListener<Room>(CustomEvent.RoomEnter, RoomEnterCallback);
+        EventCenter.Instance.AddEventListener<Room>(CustomEvent.RoomClear, RoomClearCallback);
+    }
+
+    void RoomEnterCallback(Room room)
+    {
+        //如果该房间还未清空怪物，则关门
+        if (!room.isClear)
+        {
+            room.CloseDoor();
+        }
+    }
+    void RoomClearCallback(Room room)
+    {
+        room.isClear = true;
+        room.OpenDoor();
+    }
+
+    /// <summary>
+    /// 切换场景时，移除所有事件监听
+    /// </summary>
+    void OnDestroy()
+    {
+        EventCenter.Instance.Clear();
     }
 
     void Update()
@@ -38,39 +65,59 @@ public class MapGenerator : SingletonMono<MapGenerator>
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             PoolMgr.Instance.Clear();
         }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            foreach (var room in rooms)
+            {
+                room.OpenDoor();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            foreach (var room in rooms)
+            {
+                room.CloseDoor();
+            }
+        }
     }
 
+    /// <summary>
+    /// 生成地图
+    /// </summary>
     void GeneratorMap()
     {
         //随机生成房间,并存储起来
         GeneratorRoom();
         //绘制房间(地板和墙壁和延申的道路)
         DrawRoom();
+        //复制房间预设体中的对象瓦片
     }
 
     /// <summary>
-    /// 随机获取一个min到max之间的奇数
+    /// 生成房间存入rooms和roomMap中
     /// </summary>
-    int GetOddNumber(int min, int max)
-    {
-        int x;
-        do
-        {
-            x = Random.Range(min, max);
-        }
-        while (x % 2 == 0);
-        return x;
-    }
-
     void GeneratorRoom()
     {
         //存储要生成房间的坐标和房间
-        for (int i = 0; i < roomNumber; i++)
+        GameObject tileRoom;
+        int id = 0;
+        foreach (var type in roomTypeList)
         {
+            switch (type)
+            {
+                case E_Room_Type.FirstRoom:
+                    tileRoom = Resources.Load<GameObject>("Prefabs/Rooms/FirstRooms/FirstRoom" + Random.Range(0, 2));
+                    break;
+                case E_Room_Type.FightRoom:
+                    tileRoom = Resources.Load<GameObject>("Prefabs/Rooms/FightRooms/FightRoom" + Random.Range(0, 5));
+                    break;
+                default:
+                    tileRoom = Resources.Load<GameObject>("Prefabs/Rooms/FightRooms/FightRoom" + Random.Range(0, 5));
+                    break;
+            }
             roomMap.Add(point);
-            int width = GetOddNumber(roomMinW, roomMaxW);
-            int height = GetOddNumber(roomMinH, roomMaxH);
-            rooms.Add(new Room(point, width, height, i));//_roomMap列表和_rooms列表一一对应
+            rooms.Add(new Room(point, id, tileRoom));
+            ++id;
             ChangeGeneratorPoint();
         }
     }
@@ -85,6 +132,8 @@ public class MapGenerator : SingletonMono<MapGenerator>
             room.DrawGround();
             //绘制墙壁
             room.DrawWall();
+            //复制房间预设体中的对象瓦片
+            room.CopyRoom();
         }
         //道路绘制需要房间绘制完毕后绘制，否则无法正常的消除房间自己生成的墙壁
         foreach (Room room in rooms)
@@ -94,7 +143,9 @@ public class MapGenerator : SingletonMono<MapGenerator>
         }
     }
 
-
+    /// <summary>
+    /// 改变下一个生成点位
+    /// </summary>
     void ChangeGeneratorPoint()
     {
         int dir = Random.Range(0, 4);//0:上 1:下 2:右 3:左 

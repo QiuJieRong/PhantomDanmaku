@@ -95,7 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74acd1dbd30a8d4998fd32030b21d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackTarget: {fileID: 0}
   weapon: {fileID: 5261999147911945205}
 --- !u!1 &7261956380480569813
 GameObject:
@@ -201,7 +200,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 0c085d67fb9832c45ba18b50b2621f7f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -220,6 +219,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7261956380480569810}
     m_Modifications:
+    - target: {fileID: 3297134667831116532, guid: 7b9857a5b10c65c489751eff63c5808a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3297134667831116533, guid: 7b9857a5b10c65c489751eff63c5808a, type: 3}
       propertyPath: m_RootOrder
       value: 0

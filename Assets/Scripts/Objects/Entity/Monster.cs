@@ -69,5 +69,6 @@ public class Monster : EntityBase
     public override void Dead()
     {
         base.Dead();
+        EventCenter.Instance.EventTrigger(CustomEvent.MonsterDead, gameObject);
     }
 }
