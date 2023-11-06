@@ -27,17 +27,6 @@ public class Player : EntityBase
 
         controls = new Controls();
         controls.Enable();
-        controls.Player.Move.performed += (context) =>
-        {
-            Vector2 dir = context.ReadValue<Vector2>();
-            rig.velocity = dir * speed;
-            animator.SetFloat("Speed", rig.velocity.magnitude);
-        };
-        controls.Player.Move.canceled += (context) =>
-        {
-            rig.velocity = Vector2.zero;
-            animator.SetFloat("Speed", 0);
-        };
         controls.Player.Attack.performed += (context) =>
         {
             Attack();
@@ -45,6 +34,10 @@ public class Player : EntityBase
     }
     void Update()
     {
+        Vector2 dir = controls.Player.Move.ReadValue<Vector2>();
+        rig.velocity = dir * speed;
+        animator.SetFloat("Speed", rig.velocity.magnitude);
+        
         Vector3 mousePosWS = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (currentWeapon != null)
             currentWeapon.Ami(mousePosWS);
