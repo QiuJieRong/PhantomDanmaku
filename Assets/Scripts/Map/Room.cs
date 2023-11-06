@@ -50,11 +50,9 @@ public class Room
         if (monsters.Contains(monster))
         {
             monsters.Remove(monster);
-            Debug.Log("remove");
         }
-        if (monsters.Count == 0)
+        if (monsters.Count == 0 && !isClear)
         {
-            Debug.Log("Clear");
             isClear = true;
             EventCenter.Instance.EventTrigger(CustomEvent.RoomClear, this);
         }

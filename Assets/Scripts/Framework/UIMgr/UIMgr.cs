@@ -41,7 +41,7 @@ public class UIMgr : SingletonBase<UIMgr>
     Transform mid;
     Transform top;
     Transform system;
-    private Dictionary<string,PanelBase> panelDic = new Dictionary<string, PanelBase>();
+    private Dictionary<string, PanelBase> panelDic = new Dictionary<string, PanelBase>();
 
     public UIMgr()
     {
@@ -66,7 +66,7 @@ public class UIMgr : SingletonBase<UIMgr>
     /// <returns></returns>
     public Transform GetLayer(E_UI_Layer layer)
     {
-        switch(layer)
+        switch (layer)
         {
             case E_UI_Layer.bot:
                 return bot;
@@ -87,37 +87,37 @@ public class UIMgr : SingletonBase<UIMgr>
     /// <param name="layer">面板在Canvas下的层级,不填写默认中层</param>
     /// <param name="callback">面板创建好之后的回调函数，参数时创建好的面板</param>
     /// <typeparam name="T">面板组件的类型</typeparam>
-    public void ShowPanel<T>(string panelName,E_UI_Layer layer = E_UI_Layer.mid,UnityAction<T> callback = null) where T : PanelBase
+    public void ShowPanel<T>(string panelName, E_UI_Layer layer = E_UI_Layer.mid, UnityAction<T> callback = null) where T : PanelBase
     {
-        if(panelDic.ContainsKey(panelName))
+        if (panelDic.ContainsKey(panelName))
         {
             //如果面板已经存在，又显示的话就直接调用回调函数
             callback?.Invoke(panelDic[panelName] as T);
             return;
         }
-        ResMgr.Instance.LoadAsync<GameObject>("UI/"+panelName,(panelObj)=>
+        ResMgr.Instance.LoadAsync<GameObject>("UI/" + panelName, (panelObj) =>
         {
             //加载好后，设置panelObj的父对象（设置层级）
-            switch(layer)
+            switch (layer)
             {
                 case E_UI_Layer.bot:
-                    panelObj.transform.SetParent(bot,false);
+                    panelObj.transform.SetParent(bot, false);
                     break;
                 case E_UI_Layer.mid:
-                    panelObj.transform.SetParent(mid,false);
+                    panelObj.transform.SetParent(mid, false);
                     break;
                 case E_UI_Layer.top:
-                    panelObj.transform.SetParent(top,false);
+                    panelObj.transform.SetParent(top, false);
                     break;
                 case E_UI_Layer.system:
-                    panelObj.transform.SetParent(system,false);
+                    panelObj.transform.SetParent(system, false);
                     break;
             }
             T panel = panelObj.GetComponent<T>();
             //执行面板的Show函数
             panel.Show();
             //将面板组件存入字典
-            panelDic.Add(panelName,panel);
+            panelDic.Add(panelName, panel);
             //通过回调函数返回这个面板组件,此时这个面板组件的Start函数还未执行,
             //此时加载好了面板，这个面板的Awake函数执行完毕，但是尚未执行这个面板的Start
             //有一些操作可能会被面板Start里的操作覆盖，比如对Text控件的text文本赋值
@@ -132,12 +132,13 @@ public class UIMgr : SingletonBase<UIMgr>
     /// <param name="panelName">要隐藏的面板名字</param>
     public void HidePanel(string panelName)
     {
-        if(panelDic.ContainsKey(panelName))
+        if (panelDic.ContainsKey(panelName))
         {
             //执行面板的Hide函数
             panelDic[panelName].Hide();
             //销毁该面板
-            Object.Destroy(panelDic[panelName].gameObject);
+            if (panelDic[panelName].gameObject != null)
+                Object.Destroy(panelDic[panelName].gameObject);
             //从字典里移除
             panelDic.Remove(panelName);
         }
@@ -145,15 +146,15 @@ public class UIMgr : SingletonBase<UIMgr>
 
     public T GetPanel<T>(string panelName) where T : PanelBase
     {
-        if(panelDic.ContainsKey(panelName))
+        if (panelDic.ContainsKey(panelName))
             return panelDic[panelName] as T;
         return null;
     }
 
-    public static void AddCustomEventListener(UIBehaviour control,EventTriggerType type,UnityAction<BaseEventData> callback)
+    public static void AddCustomEventListener(UIBehaviour control, EventTriggerType type, UnityAction<BaseEventData> callback)
     {
         EventTrigger eventTrigger = control.gameObject.GetComponent<EventTrigger>();
-        if(eventTrigger == null)
+        if (eventTrigger == null)
             eventTrigger = control.gameObject.AddComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = type;

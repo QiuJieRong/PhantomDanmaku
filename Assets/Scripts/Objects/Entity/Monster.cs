@@ -33,28 +33,31 @@ public class Monster : EntityBase
     }
     void Update()
     {
-        //检测范围内是否有敌人，如果有的话设置攻击目标,如果没有的话攻击目标设置为空
-        Collider2D target = Physics2D.OverlapCircle(transform.position, 15, 1 << LayerMask.NameToLayer("Player"));
-        if (target == null)
-            attackTarget = null;
-        else
+        if (Player.instance.IsInRoom)
         {
-            if (attackCoroutine == null)
-                attackCoroutine = StartCoroutine(AttackIenum());
-            attackTarget = target.transform;
-        }
-        if (attackTarget != null)
-        {
-            weapon.Ami(attackTarget.position);
-            Vector3 dir = Vector3.Normalize(attackTarget.position - transform.position);
-            rig.velocity = dir * speed;
-        }
-        else
-        {
-            rig.velocity = Vector3.zero;
-            if (attackCoroutine != null)
-                StopCoroutine(attackCoroutine);
-            attackCoroutine = null;
+            //检测范围内是否有敌人，如果有的话设置攻击目标,如果没有的话攻击目标设置为空
+            Collider2D target = Physics2D.OverlapCircle(transform.position, 15, 1 << LayerMask.NameToLayer("Player"));
+            if (target == null)
+                attackTarget = null;
+            else
+            {
+                if (attackCoroutine == null)
+                    attackCoroutine = StartCoroutine(AttackIenum());
+                attackTarget = target.transform;
+            }
+            if (attackTarget != null)
+            {
+                weapon.Ami(attackTarget.position);
+                Vector3 dir = Vector3.Normalize(attackTarget.position - transform.position);
+                rig.velocity = dir * speed;
+            }
+            else
+            {
+                rig.velocity = Vector3.zero;
+                if (attackCoroutine != null)
+                    StopCoroutine(attackCoroutine);
+                attackCoroutine = null;
+            }
         }
     }
     IEnumerator AttackIenum()

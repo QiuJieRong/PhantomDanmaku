@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class Player : EntityBase
 {
+    public static Player instance;
+    public Player Instance => instance;
     private Rigidbody2D rig;
     private Animator animator;
     private Controls controls;
     private WeaponBase currentWeapon;
     public WeaponBase CurrentWeapon => currentWeapon;
+    //是否在房间中
+    public bool IsInRoom = true;
+    void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         EventCenter.Instance.EventTrigger<EntityBase>(CustomEvent.PlayerSpawn, this);
@@ -48,6 +56,7 @@ public class Player : EntityBase
     /// </summary>
     void CheckIsEnterRoom()
     {
+        bool isInRoom = false;
         List<Room> rooms = MapGenerator.Instance.Rooms;
         foreach (Room room in rooms)
         {
@@ -56,9 +65,16 @@ public class Player : EntityBase
                 transform.position.y > room.CenterCoord.y - room.Info.Height / 2 + 1 &&
                 transform.position.y < room.CenterCoord.y + room.Info.Height / 2)
             {
+                isInRoom = true;
                 EventCenter.Instance.EventTrigger(CustomEvent.RoomEnter, room);
+                break;
             }
         }
+        IsInRoom = isInRoom;
+        // if(!IsInRoom)
+        // {
+        //     EventCenter.Instance.EventTrigger(CustomEvent.RoomLeave);
+        // }
     }
 
     void OnTriggerStay2D(Collider2D other)

@@ -56,6 +56,7 @@ public class MapGenerator : SingletonMono<MapGenerator>
     void OnDestroy()
     {
         EventCenter.Instance.Clear();
+        UIMgr.Instance.HidePanel("GamePanel");
     }
 
     void Update()
