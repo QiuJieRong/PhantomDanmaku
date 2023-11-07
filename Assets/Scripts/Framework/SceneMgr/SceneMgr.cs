@@ -10,10 +10,10 @@ public class SceneMgr : SingletonBase<SceneMgr>
     /// </summary>
     /// <param name="sceneName">要加载的场景的名字</param>
     /// <param name="action">加载完场景后要执行的方法</param>
-    public void LoadScene(string sceneName,UnityAction action)
+    public void LoadScene(string sceneName,UnityAction action = null)
     {
         SceneManager.LoadScene(sceneName);
-        action.Invoke();
+        action?.Invoke();
     }
 
     /// <summary>

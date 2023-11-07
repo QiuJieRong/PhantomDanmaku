@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class MapGenerator : SingletonMono<MapGenerator>
 {
-
-    [Header("总生成房间数")] public int roomNumber = 5;
     [Header("生成房间类型列表")] public List<E_Room_Type> roomTypeList;
     [Header("最大房间宽")] public int roomMaxW = 25;
     [Header("最大房间高")] public int roomMaxH = 25;
@@ -48,6 +46,17 @@ public class MapGenerator : SingletonMono<MapGenerator>
     {
         room.isClear = true;
         room.OpenDoor();
+        bool isAllClear = true;
+        foreach (var item in rooms)
+        {
+            if (!item.isClear)
+                isAllClear = false;
+        }
+        if (isAllClear)
+        {
+            UIMgr.Instance.HidePanel("GamePanel");
+            UIMgr.Instance.ShowPanel<EndPanel>("EndPanel");
+        }
     }
 
     /// <summary>

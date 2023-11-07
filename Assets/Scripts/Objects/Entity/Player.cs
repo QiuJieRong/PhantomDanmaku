@@ -37,7 +37,7 @@ public class Player : EntityBase
         Vector2 dir = controls.Player.Move.ReadValue<Vector2>();
         rig.velocity = dir * speed;
         animator.SetFloat("Speed", rig.velocity.magnitude);
-        
+
         Vector3 mousePosWS = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (currentWeapon != null)
             currentWeapon.Ami(mousePosWS);
@@ -53,10 +53,10 @@ public class Player : EntityBase
         List<Room> rooms = MapGenerator.Instance.Rooms;
         foreach (Room room in rooms)
         {
-            if (transform.position.x > room.CenterCoord.x - room.Info.Width / 2 &&
-                transform.position.x < room.CenterCoord.x + room.Info.Width / 2 &&
-                transform.position.y > room.CenterCoord.y - room.Info.Height / 2 + 1 &&
-                transform.position.y < room.CenterCoord.y + room.Info.Height / 2)
+            if (transform.position.x > (room.CenterCoord.x - room.Info.Width / 2) &&
+                transform.position.x < (room.CenterCoord.x + room.Info.Width / 2 + 1) &&
+                transform.position.y > (room.CenterCoord.y - room.Info.Height / 2 + 0.5) &&
+                transform.position.y < (room.CenterCoord.y + room.Info.Height / 2 + 1))
             {
                 isInRoom = true;
                 EventCenter.Instance.EventTrigger(CustomEvent.RoomEnter, room);
@@ -116,6 +116,8 @@ public class Player : EntityBase
     {
         base.Dead();
         controls.Dispose();
+        UIMgr.Instance.HidePanel("GamePanel");
+        UIMgr.Instance.ShowPanel<EndPanel>("EndPanel");
     }
 
     void OnDestroy()

@@ -137,7 +137,7 @@ public class UIMgr : SingletonBase<UIMgr>
             //执行面板的Hide函数
             panelDic[panelName].Hide();
             //销毁该面板
-            if (panelDic[panelName].gameObject != null)
+            if (panelDic[panelName] != null)
                 Object.Destroy(panelDic[panelName].gameObject);
             //从字典里移除
             panelDic.Remove(panelName);
