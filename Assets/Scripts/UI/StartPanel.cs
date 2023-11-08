@@ -7,11 +7,14 @@ public class StartPanel : PanelBase
 {
     void Start()
     {
-        GetControl<Button>("StartButton").onClick.AddListener(()=>
+        var startButton = GetControl<Button>("StartButton");
+
+        startButton.onClick.AddListener(()=>
         {
             UIMgr.Instance.HidePanel("StartPanel");
             SceneMgr.Instance.LoadScene("SampleScene");
         });
+
         GetControl<Button>("ExitButton").onClick.AddListener(()=>
         {
             Application.Quit();

@@ -86,7 +86,10 @@ public class Player : EntityBase
     protected override void Attack()
     {
         if (currentWeapon != null)
+        {
             currentWeapon.Attack();
+            SoundMgr.Instance.PlaySound("Fire", false);
+        }
     }
 
     public override void SetCurrentWeapon(WeaponBase weapon)
@@ -118,6 +121,7 @@ public class Player : EntityBase
         controls.Dispose();
         UIMgr.Instance.HidePanel("GamePanel");
         UIMgr.Instance.ShowPanel<EndPanel>("EndPanel");
+        SoundMgr.Instance.PlaySound("Dead", false);
     }
 
     void OnDestroy()

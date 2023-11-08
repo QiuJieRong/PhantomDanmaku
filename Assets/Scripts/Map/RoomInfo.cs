@@ -7,7 +7,7 @@ public enum E_Room_Type
 {
     FightRoom,
     FirstRoom,
-    AwardRoom,
+    RewardRoom,
     FinalRoom
 }
 

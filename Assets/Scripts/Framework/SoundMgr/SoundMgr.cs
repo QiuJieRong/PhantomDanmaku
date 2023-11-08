@@ -18,7 +18,7 @@ public class SoundMgr : SingletonBase<SoundMgr>
         {
             return musicVolume;
         }
-        private set{}
+        private set { }
     }
 
     private float soundVolume = 1;
@@ -28,7 +28,7 @@ public class SoundMgr : SingletonBase<SoundMgr>
         {
             return soundVolume;
         }
-        private set{}
+        private set { }
     }
 
     //音效组件依附的对象
@@ -44,10 +44,10 @@ public class SoundMgr : SingletonBase<SoundMgr>
     //每帧去清除播放完毕的AudioSource组件
     private void Update()
     {
-        for(int i = 0;i<sounds.Count;i++)
+        for (int i = 0; i < sounds.Count; i++)
         {
             //如果音效播放结束，就停止播放，删除实例化的组件
-            if(!sounds[i].isPlaying)
+            if (!sounds[i].isPlaying)
             {
                 //停止播放音效，并删除组件,并从sounds列表里移除
                 StopSound(sounds[i]);
@@ -63,12 +63,12 @@ public class SoundMgr : SingletonBase<SoundMgr>
     /// <param name="name">背景音乐的名字,会从路径“Resources/Music/name”去找</param>
     public void PlayBkMusic(string name)
     {
-        if(bkAudioSource == null)
+        if (bkAudioSource == null)
         {
             GameObject obj = new GameObject("BKMusic");
             bkAudioSource = obj.AddComponent<AudioSource>();
         }
-        ResMgr.Instance.LoadAsync<AudioClip>("Music/" + name,(clip)=>
+        ResMgr.Instance.LoadAsync<AudioClip>("Music/" + name, (clip) =>
         {
             bkAudioSource.clip = clip;
             bkAudioSource.loop = true;
@@ -94,17 +94,17 @@ public class SoundMgr : SingletonBase<SoundMgr>
     public void SetBkMusicVolume(float volume)
     {
         musicVolume = volume;
-        if(bkAudioSource!=null)
+        if (bkAudioSource != null)
             bkAudioSource.volume = musicVolume;
     }
 
-    public void PlaySound(string name,bool isLoop,UnityAction<AudioSource> callback = null)
+    public void PlaySound(string name, bool isLoop, UnityAction<AudioSource> callback = null)
     {
-        if(soundObj == null)
+        if (soundObj == null)
         {
             soundObj = new GameObject("Sound");
         }
-        ResMgr.Instance.LoadAsync<AudioClip>("Sound/" + name,(clip)=>
+        ResMgr.Instance.LoadAsync<AudioClip>("Sound/" + name, (clip) =>
         {
             AudioSource audioSource = soundObj.AddComponent<AudioSource>();
             audioSource.clip = clip;
@@ -118,7 +118,7 @@ public class SoundMgr : SingletonBase<SoundMgr>
 
     public void StopSound(AudioSource audioSource)
     {
-        if(sounds.Contains(audioSource))
+        if (sounds.Contains(audioSource))
         {
             sounds.Remove(audioSource);
             audioSource.Stop();
@@ -129,10 +129,15 @@ public class SoundMgr : SingletonBase<SoundMgr>
     public void SetSoundVolume(float volume)
     {
         soundVolume = volume;
-        foreach(AudioSource audioSource in sounds)
+        foreach (AudioSource audioSource in sounds)
         {
             audioSource.volume = soundVolume;
         }
+    }
+
+    public void ClearSounds()
+    {
+        sounds.Clear();
     }
 
 }

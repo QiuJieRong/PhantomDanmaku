@@ -8,6 +8,7 @@ public class GameStart : MonoBehaviour
     void Start()
     {
         UIMgr.Instance.ShowPanel<StartPanel>("StartPanel");
+        SoundMgr.Instance.PlayBkMusic("");
     }
 
     // Update is called once per frame

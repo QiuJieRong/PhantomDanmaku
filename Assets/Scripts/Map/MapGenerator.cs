@@ -121,6 +121,9 @@ public class MapGenerator : SingletonMono<MapGenerator>
                 case E_Room_Type.FightRoom:
                     tileRoom = Resources.Load<GameObject>("Prefabs/Rooms/FightRooms/FightRoom" + Random.Range(0, 5));
                     break;
+                case E_Room_Type.RewardRoom:
+                    tileRoom = Resources.Load<GameObject>("Prefabs/Rooms/RewardRooms/RewardRoom" + Random.Range(0, 1));
+                    break;
                 default:
                     tileRoom = Resources.Load<GameObject>("Prefabs/Rooms/FightRooms/FightRoom" + Random.Range(0, 5));
                     break;
