@@ -8,13 +8,8 @@ using UnityEngine.UI;
 public class MapGenerator : SingletonMono<MapGenerator>
 {
     [Header("生成房间类型列表")] public List<E_Room_Type> roomTypeList;
-    [Header("最大房间宽")] public int roomMaxW = 25;
-    [Header("最大房间高")] public int roomMaxH = 25;
-    [Header("最小房间宽")] public int roomMinW = 15;
-    [Header("最小房间高")] public int roomMinH = 15;
     [Header("房间的间隔距离")] public int distance = 30;
     [Header("道路的宽度")] public int roadWidth = 5;
-    [Header("怪物密度")] public float monsterDensity = 1;
     [Header("地板")] public TileBase tileBase_ground;
     [Header("墙")] public TileBase tileBase_wall;
     [Header("门")] public TileBase tileBase_door;
