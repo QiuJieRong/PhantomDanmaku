@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GuidedBullet : BulletBase
+namespace PhantomDanmaku
 {
-    protected override void Update()
+    
+    public class GuidedBullet : BulletBase
     {
-        dir = owner.transform.right;
-        base.Update();
+        protected override void Update()
+        {
+            dir = owner.transform.right;
+            base.Update();
+        }
     }
+
 }

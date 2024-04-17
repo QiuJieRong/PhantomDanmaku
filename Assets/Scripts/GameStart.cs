@@ -1,19 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GameStart : MonoBehaviour
+namespace PhantomDanmaku
 {
-    // Start is called before the first frame update
-    void Start()
+    public class GameStart : MonoBehaviour
     {
-        UIMgr.Instance.ShowPanel<StartPanel>("StartPanel");
-        SoundMgr.Instance.PlayBkMusic("");
-    }
+        // Start is called before the first frame update
+        void Start()
+        {
+            UIMgr.Instance.ShowPanel<StartPanel>("StartPanel");
+            SoundMgr.Instance.PlayBkMusic("");
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
+        // Update is called once per frame
+        void Update()
+        {
         
+        }
     }
 }

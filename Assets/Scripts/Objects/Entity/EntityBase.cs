@@ -2,48 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EntityBase : MonoBehaviour
+namespace PhantomDanmaku
 {
-    protected int hp = 5;//生命值
-    public int Hp => hp;
-    protected int curHp = 5;//当前生命值
-    public int CurHp => curHp;//当前生命值
-    protected int shield = 3;//护盾值
-    public int Shield => shield;//
-    protected int curShield = 3;//当前护盾值
-    public int CurShield => curShield;
-    protected int energy = 100;//能量值
-    public int Energy => energy;//
-    protected int curEnergy = 100;//当前能量值
-    public int CurEnergy => curEnergy;
 
-    protected int speed = 3;//移动速度
-    protected string camp;
-    public string Camp => camp;
-
-    protected abstract void Attack();
-    public virtual void Wounded(WeaponBase damageSource)
+    public abstract class EntityBase : MonoBehaviour
     {
-        int damage = damageSource.Atk;
-        if (damage >= curShield)
+        protected int hp = 5; //生命值
+        public int Hp => hp;
+        protected int curHp = 5; //当前生命值
+        public int CurHp => curHp; //当前生命值
+        protected int shield = 3; //护盾值
+        public int Shield => shield; //
+        protected int curShield = 3; //当前护盾值
+        public int CurShield => curShield;
+        protected int energy = 100; //能量值
+        public int Energy => energy; //
+        protected int curEnergy = 100; //当前能量值
+        public int CurEnergy => curEnergy;
+
+        protected int speed = 3; //移动速度
+        protected string camp;
+        public string Camp => camp;
+
+        protected abstract void Attack();
+
+        public virtual void Wounded(WeaponBase damageSource)
         {
-            damage = damage - curShield;
-            curShield = 0;
-        }
-        else if(damage < curShield)
-        {
-            curShield -= damage;
-            damage = 0;
+            int damage = damageSource.Atk;
+            if (damage >= curShield)
+            {
+                damage = damage - curShield;
+                curShield = 0;
+            }
+            else if (damage < curShield)
+            {
+                curShield -= damage;
+                damage = 0;
+            }
+
+            curHp = curHp - damage < 0 ? 0 : curHp - damage;
+            if (curHp == 0)
+                Dead();
         }
 
-        curHp = curHp - damage < 0 ? 0 : curHp - damage;
-        if (curHp == 0)
-            Dead();
+        public virtual void Dead()
+        {
+            PoolMgr.Instance.PushObj(gameObject);
+            // Destroy(this.gameObject);
+        }
+
+        public abstract void SetCurrentWeapon(WeaponBase weapon);
     }
-    public virtual void Dead()
-    {
-        PoolMgr.Instance.PushObj(gameObject);
-        // Destroy(this.gameObject);
-    }
-    public abstract void SetCurrentWeapon(WeaponBase weapon);
+
 }
