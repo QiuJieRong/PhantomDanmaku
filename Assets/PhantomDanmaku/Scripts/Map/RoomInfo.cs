@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 namespace PhantomDanmaku
 {
     
-    public enum E_Room_Type
+    public enum RoomType
     {
         FightRoom,
         FirstRoom,
@@ -22,7 +22,7 @@ namespace PhantomDanmaku
         [SerializeField]
         private int height;
         public int Height => height;
-        [Header("房间类型")] public E_Room_Type type;
+        [Header("房间类型")] public RoomType type;
         public TileBase tileBase_ground;
         public TileBase tileBase_wall;
 

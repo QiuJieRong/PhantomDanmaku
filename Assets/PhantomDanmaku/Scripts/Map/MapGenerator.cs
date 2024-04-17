@@ -8,7 +8,7 @@ namespace PhantomDanmaku
 
     public class MapGenerator : SingletonMono<MapGenerator>
     {
-        [Header("生成房间类型列表")] public List<E_Room_Type> roomTypeList;
+        [Header("生成房间类型列表")] public List<RoomType> roomTypeList;
         [Header("房间的间隔距离")] public int distance = 30;
         [Header("道路的宽度")] public int roadWidth = 5;
         [Header("地板")] public TileBase tileBase_ground;
@@ -116,15 +116,15 @@ namespace PhantomDanmaku
             {
                 switch (type)
                 {
-                    case E_Room_Type.FirstRoom:
+                    case RoomType.FirstRoom:
                         tileRoom = Resources.Load<GameObject>("Prefabs/Rooms/FirstRooms/FirstRoom" +
                                                               Random.Range(0, 2));
                         break;
-                    case E_Room_Type.FightRoom:
+                    case RoomType.FightRoom:
                         tileRoom = Resources.Load<GameObject>("Prefabs/Rooms/FightRooms/FightRoom" +
                                                               Random.Range(0, 5));
                         break;
-                    case E_Room_Type.RewardRoom:
+                    case RoomType.RewardRoom:
                         tileRoom = Resources.Load<GameObject>("Prefabs/Rooms/RewardRooms/RewardRoom" +
                                                               Random.Range(0, 1));
                         break;

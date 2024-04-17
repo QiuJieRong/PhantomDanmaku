@@ -40,7 +40,7 @@ namespace PhantomDanmaku
             this.gridCoord = gridCoord;
             this.id = id;
             this.roomPrefab = roomPrefab;
-            if (Info.type == E_Room_Type.FightRoom)
+            if (Info.type == RoomType.FightRoom)
                 isClear = false;
             EventCenter.Instance.AddEventListener<GameObject>(CustomEvent.MonsterDead, MonsterDeadCallback);
         }

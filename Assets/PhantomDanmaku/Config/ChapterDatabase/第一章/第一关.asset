@@ -21,12 +21,54 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
+    - Name: RoomPrefabDic
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[PhantomDanmaku.RoomType, Assembly-CSharp],[System.Collections.Generic.List`1[[UnityEngine.AddressableAssets.AssetReferenceGameObject,
+        Unity.Addressables]], mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[PhantomDanmaku.RoomType,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: RoomCountDic
+      Entry: 7
+      Data: 2|System.Collections.Generic.Dictionary`2[[PhantomDanmaku.RoomType, Assembly-CSharp],[UnityEngine.Vector2,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 9
+      Data: 1
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: OnLevelStart
       Entry: 7
-      Data: 0|PhantomDanmaku.Config.StartFlowchart, Assembly-CSharp
+      Data: 3|PhantomDanmaku.Config.StartFlowchart, Assembly-CSharp
     - Name: Flowchart
       Entry: 7
-      Data: 1|UnityEngine.AddressableAssets.AssetReferenceGameObject, Unity.Addressables
+      Data: 4|UnityEngine.AddressableAssets.AssetReferenceGameObject, Unity.Addressables
     - Name: m_AssetGUID
       Entry: 1
       Data: 147930522ea52f34f998fecb67977c15
@@ -47,10 +89,10 @@ MonoBehaviour:
       Data: 
     - Name: OnLevelEnd
       Entry: 7
-      Data: 2|PhantomDanmaku.Config.StartFlowchart, Assembly-CSharp
+      Data: 5|PhantomDanmaku.Config.StartFlowchart, Assembly-CSharp
     - Name: Flowchart
       Entry: 7
-      Data: 3|UnityEngine.AddressableAssets.AssetReferenceGameObject, Unity.Addressables
+      Data: 6|UnityEngine.AddressableAssets.AssetReferenceGameObject, Unity.Addressables
     - Name: m_AssetGUID
       Entry: 1
       Data: 147930522ea52f34f998fecb67977c15
@@ -73,3 +115,5 @@ MonoBehaviour:
   Id: 0
   Name: 
   Desc: 
+  RoomDistance: 0
+  RoadWidth: 0
