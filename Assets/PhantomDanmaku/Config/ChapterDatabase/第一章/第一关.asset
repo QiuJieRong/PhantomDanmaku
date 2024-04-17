@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c3cb985795ea3498ca8c84621dcd26, type: 3}
+  m_Name: "\u7B2C\u4E00\u5173"
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: OnLevelStart
+      Entry: 7
+      Data: 0|PhantomDanmaku.Config.StartFlowchart, Assembly-CSharp
+    - Name: Flowchart
+      Entry: 7
+      Data: 1|UnityEngine.AddressableAssets.AssetReferenceGameObject, Unity.Addressables
+    - Name: m_AssetGUID
+      Entry: 1
+      Data: 147930522ea52f34f998fecb67977c15
+    - Name: m_SubObjectName
+      Entry: 1
+      Data: 
+    - Name: m_SubObjectType
+      Entry: 1
+      Data: 
+    - Name: m_EditorAssetChanged
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: OnLevelEnd
+      Entry: 7
+      Data: 2|PhantomDanmaku.Config.StartFlowchart, Assembly-CSharp
+    - Name: Flowchart
+      Entry: 7
+      Data: 3|UnityEngine.AddressableAssets.AssetReferenceGameObject, Unity.Addressables
+    - Name: m_AssetGUID
+      Entry: 1
+      Data: 147930522ea52f34f998fecb67977c15
+    - Name: m_SubObjectName
+      Entry: 1
+      Data: 
+    - Name: m_SubObjectType
+      Entry: 1
+      Data: 
+    - Name: m_EditorAssetChanged
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  Guid: 5125b7e7-e6d9-4ec8-9bf3-b7e51f49e91e
+  Id: 0
+  Name: 
+  Desc: 
