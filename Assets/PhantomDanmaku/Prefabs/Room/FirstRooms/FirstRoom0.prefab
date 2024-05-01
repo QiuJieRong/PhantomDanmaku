@@ -205,9 +205,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff1efb482816e64b96ae686b17d25bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 15
-  height: 15
-  type: 1
+  m_Width: 15
+  m_Height: 15
+  m_RoomType: 1
   tileBase_ground: {fileID: 11400000, guid: dfb6f29bba710774480a6083bda06ce1, type: 2}
   tileBase_wall: {fileID: 11400000, guid: 087da673c86054d41956a665670875ea, type: 2}
 --- !u!1 &8694493581872600893

@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using PhantomDanmaku.Config;
 using PhantomDanmaku.Scripts.System;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 namespace PhantomDanmaku
@@ -20,6 +21,19 @@ namespace PhantomDanmaku
             var chapterDatabase = PhantomSystem.Get<ChapterDatabase>();
             var levelConfig = chapterDatabase.Values[0].LevelConfigs[0];
             levelConfig.OnLevelStart.StartEvent().Forget();
+            //初始化地图
+            //获取场景中的瓦片地图
+            var grid = GameObject.Find("Grid").transform;
+            var tilemapGround = grid.Find("Ground").GetComponent<Tilemap>();
+            var tilemapObject = grid.Find("Object").GetComponent<Tilemap>();
+            var tilemapWall = grid.Find("Wall").GetComponent<Tilemap>();
+            var data = new MapGeneratorData(levelConfig, tilemapGround, tilemapWall,tilemapObject );
+            //初始化地图生成器
+            MapGenerator.Instance.Init(data).ContinueWith(() =>
+            {
+                //生成地图
+                MapGenerator.Instance.GeneratorMap();
+            });
         }
         public override void Hide()
         {

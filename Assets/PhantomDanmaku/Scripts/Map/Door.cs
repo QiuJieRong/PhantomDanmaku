@@ -14,8 +14,8 @@ namespace PhantomDanmaku
 
     public class Door
     {
-        private Tilemap tilemap_object => MapGenerator.Instance.tilemap_object;
-        private TileBase door => MapGenerator.Instance.tileBase_door;
+        private Tilemap tilemap_object => MapGenerator.Instance.TilemapObject;
+        private TileBase door => MapGenerator.Instance.TileBaseDoor;
         private Vector2Int centerCoord;
         private int width;
         private E_Door_Type type;

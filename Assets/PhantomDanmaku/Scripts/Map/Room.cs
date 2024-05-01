@@ -10,10 +10,7 @@ namespace PhantomDanmaku
         public int id; //房间id
         public Vector2Int gridCoord; //房间的坐标，间隔为1
 
-        public Vector2Int CenterCoord //房间中心坐标，间隔为distance
-        {
-            get { return gridCoord * MapGenerator.Instance.distance; }
-        }
+        public Vector2Int CenterCoord => gridCoord * MapGenerator.Instance.RoomDistance; //房间中心坐标，间隔为distance
 
         private GameObject roomPrefab; //Grid\Tilemap层级结构的预制件，Grid上挂载了RoomInfo组件
 
@@ -28,11 +25,11 @@ namespace PhantomDanmaku
         private List<Door> doors = new();
 
         //获得地图生成器的tilemap  和roomMap和rooms等成员
-        private Tilemap tilemap_ground => MapGenerator.Instance.tilemap_ground;
-        private Tilemap tilemap_wall => MapGenerator.Instance.tilemap_wall;
-        private Tilemap tilemap_object => MapGenerator.Instance.tilemap_object;
-        private List<Vector2Int> roomMap => MapGenerator.Instance.RoomMap;
-        private List<Room> rooms => MapGenerator.Instance.Rooms;
+        private static Tilemap TilemapGround => MapGenerator.Instance.TilemapGround;
+        private static Tilemap TilemapWall => MapGenerator.Instance.TilemapWall;
+        private static Tilemap TilemapObject => MapGenerator.Instance.TilemapObject;
+        private static List<Vector2Int> RoomMap => MapGenerator.Instance.RoomPosList;
+        private static List<Room> Rooms => MapGenerator.Instance.Rooms;
 
 
         public Room(Vector2Int gridCoord, int id, GameObject roomPrefab)
@@ -40,7 +37,7 @@ namespace PhantomDanmaku
             this.gridCoord = gridCoord;
             this.id = id;
             this.roomPrefab = roomPrefab;
-            if (Info.type == RoomType.FightRoom)
+            if (Info.m_RoomType == RoomType.FightRoom)
                 isClear = false;
             EventCenter.Instance.AddEventListener<GameObject>(CustomEvent.MonsterDead, MonsterDeadCallback);
         }
@@ -68,7 +65,7 @@ namespace PhantomDanmaku
                 {
                     Vector3Int drawPos = (Vector3Int)(CenterCoord + new Vector2Int(i, j) -
                                                       new Vector2Int(Info.Width / 2, Info.Height / 2));
-                    tilemap_ground.SetTile(drawPos, Info.tileBase_ground);
+                    TilemapGround.SetTile(drawPos, Info.tileBase_ground);
                 }
             }
         }
@@ -81,7 +78,7 @@ namespace PhantomDanmaku
             {
                 Vector3Int drawPos = (Vector3Int)(CenterCoord + new Vector2Int(i, Info.Height) -
                                                   new Vector2Int(Info.Width / 2, Info.Height / 2));
-                tilemap_wall.SetTile(drawPos, Info.tileBase_wall);
+                TilemapWall.SetTile(drawPos, Info.tileBase_wall);
             }
 
             //底部
@@ -89,7 +86,7 @@ namespace PhantomDanmaku
             {
                 Vector3Int drawPos = (Vector3Int)(CenterCoord + new Vector2Int(i, -1) -
                                                   new Vector2Int(Info.Width / 2, Info.Height / 2));
-                tilemap_wall.SetTile(drawPos, Info.tileBase_wall);
+                TilemapWall.SetTile(drawPos, Info.tileBase_wall);
             }
 
             //右侧
@@ -97,7 +94,7 @@ namespace PhantomDanmaku
             {
                 Vector3Int drawPos = (Vector3Int)(CenterCoord + new Vector2Int(Info.Width, i) -
                                                   new Vector2Int(Info.Width / 2, Info.Height / 2));
-                tilemap_wall.SetTile(drawPos, Info.tileBase_wall);
+                TilemapWall.SetTile(drawPos, Info.tileBase_wall);
             }
 
             //左侧
@@ -105,7 +102,7 @@ namespace PhantomDanmaku
             {
                 Vector3Int drawPos = (Vector3Int)(CenterCoord + new Vector2Int(-1, i) -
                                                   new Vector2Int(Info.Width / 2, Info.Height / 2));
-                tilemap_wall.SetTile(drawPos, Info.tileBase_wall);
+                TilemapWall.SetTile(drawPos, Info.tileBase_wall);
             }
         }
 
@@ -115,10 +112,10 @@ namespace PhantomDanmaku
             Room targetRoom;
             int targetRoomIndex;
             //如果上方有房间
-            if (roomMap.Contains(gridCoord + new Vector2Int(0, 1)))
+            if (RoomMap.Contains(gridCoord + new Vector2Int(0, 1)))
             {
-                targetRoomIndex = roomMap.IndexOf(gridCoord + new Vector2Int(0, 1));
-                targetRoom = rooms[targetRoomIndex];
+                targetRoomIndex = RoomMap.IndexOf(gridCoord + new Vector2Int(0, 1));
+                targetRoom = Rooms[targetRoomIndex];
                 //绘制连接这两个房间的道路
                 //道路起点
                 Vector2Int roadStart = CenterCoord + new Vector2Int(0, Info.Height / 2 + 1);
@@ -132,19 +129,19 @@ namespace PhantomDanmaku
                 {
                     if (i == 0)
                     {
-                        tilemap_wall.SetTile((Vector3Int)roadStart, null); //起点
-                        tilemap_wall.SetTile((Vector3Int)roadEnd, null); //终点
+                        TilemapWall.SetTile((Vector3Int)roadStart, null); //起点
+                        TilemapWall.SetTile((Vector3Int)roadEnd, null); //终点
                         doors.Add(new Door(roadStart, roadWidth, E_Door_Type.Horizontal)); //起点
                         targetRoom.doors.Add(new Door(roadEnd, roadWidth, E_Door_Type.Horizontal)); //终点
                     }
                     else
                     {
                         //起点
-                        tilemap_wall.SetTile((Vector3Int)roadStart + new Vector3Int(-i, 0, 0), null);
-                        tilemap_wall.SetTile((Vector3Int)roadStart + new Vector3Int(i, 0, 0), null);
+                        TilemapWall.SetTile((Vector3Int)roadStart + new Vector3Int(-i, 0, 0), null);
+                        TilemapWall.SetTile((Vector3Int)roadStart + new Vector3Int(i, 0, 0), null);
                         //终点
-                        tilemap_wall.SetTile((Vector3Int)roadEnd + new Vector3Int(-i, 0, 0), null);
-                        tilemap_wall.SetTile((Vector3Int)roadEnd + new Vector3Int(i, 0, 0), null);
+                        TilemapWall.SetTile((Vector3Int)roadEnd + new Vector3Int(-i, 0, 0), null);
+                        TilemapWall.SetTile((Vector3Int)roadEnd + new Vector3Int(i, 0, 0), null);
                     }
                 }
 
@@ -157,31 +154,31 @@ namespace PhantomDanmaku
                     {
                         if (j == 0)
                         {
-                            tilemap_ground.SetTile((Vector3Int)curpoint, Info.tileBase_ground);
+                            TilemapGround.SetTile((Vector3Int)curpoint, Info.tileBase_ground);
                         }
                         else
                         {
-                            tilemap_ground.SetTile((Vector3Int)curpoint + new Vector3Int(-j, 0, 0),
+                            TilemapGround.SetTile((Vector3Int)curpoint + new Vector3Int(-j, 0, 0),
                                 Info.tileBase_ground);
-                            tilemap_ground.SetTile((Vector3Int)curpoint + new Vector3Int(j, 0, 0),
+                            TilemapGround.SetTile((Vector3Int)curpoint + new Vector3Int(j, 0, 0),
                                 Info.tileBase_ground);
                         }
                     }
 
                     //绘制道路的墙壁
-                    tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(roadWidth / 2 + 1, 0, 0),
+                    TilemapWall.SetTile((Vector3Int)curpoint + new Vector3Int(roadWidth / 2 + 1, 0, 0),
                         Info.tileBase_wall);
-                    tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(-roadWidth / 2 - 1, 0, 0),
+                    TilemapWall.SetTile((Vector3Int)curpoint + new Vector3Int(-roadWidth / 2 - 1, 0, 0),
                         Info.tileBase_wall);
                     curpoint += new Vector2Int(0, 1);
                 }
             }
 
             //如果右方有房间
-            if (roomMap.Contains(gridCoord + new Vector2Int(1, 0)))
+            if (RoomMap.Contains(gridCoord + new Vector2Int(1, 0)))
             {
-                targetRoomIndex = roomMap.IndexOf(gridCoord + new Vector2Int(1, 0));
-                targetRoom = rooms[targetRoomIndex];
+                targetRoomIndex = RoomMap.IndexOf(gridCoord + new Vector2Int(1, 0));
+                targetRoom = Rooms[targetRoomIndex];
                 //绘制连接这两个房间的道路
                 //道路起点
                 Vector2Int roadStart = CenterCoord + new Vector2Int(Info.Width / 2 + 1, 0);
@@ -194,19 +191,19 @@ namespace PhantomDanmaku
                 {
                     if (i == 0)
                     {
-                        tilemap_wall.SetTile((Vector3Int)roadStart, null); //起点
-                        tilemap_wall.SetTile((Vector3Int)roadEnd, null); //终点
+                        TilemapWall.SetTile((Vector3Int)roadStart, null); //起点
+                        TilemapWall.SetTile((Vector3Int)roadEnd, null); //终点
                         doors.Add(new Door(roadStart, roadWidth, E_Door_Type.Vertical)); //起点
                         targetRoom.doors.Add(new Door(roadEnd, roadWidth, E_Door_Type.Vertical)); //终点
                     }
                     else
                     {
                         //起点
-                        tilemap_wall.SetTile((Vector3Int)roadStart + new Vector3Int(0, -i, 0), null);
-                        tilemap_wall.SetTile((Vector3Int)roadStart + new Vector3Int(0, i, 0), null);
+                        TilemapWall.SetTile((Vector3Int)roadStart + new Vector3Int(0, -i, 0), null);
+                        TilemapWall.SetTile((Vector3Int)roadStart + new Vector3Int(0, i, 0), null);
                         //终点
-                        tilemap_wall.SetTile((Vector3Int)roadEnd + new Vector3Int(0, -i, 0), null);
-                        tilemap_wall.SetTile((Vector3Int)roadEnd + new Vector3Int(0, i, 0), null);
+                        TilemapWall.SetTile((Vector3Int)roadEnd + new Vector3Int(0, -i, 0), null);
+                        TilemapWall.SetTile((Vector3Int)roadEnd + new Vector3Int(0, i, 0), null);
                     }
                 }
 
@@ -218,21 +215,21 @@ namespace PhantomDanmaku
                     {
                         if (j == 0)
                         {
-                            tilemap_ground.SetTile((Vector3Int)curpoint, Info.tileBase_ground);
+                            TilemapGround.SetTile((Vector3Int)curpoint, Info.tileBase_ground);
                         }
                         else
                         {
-                            tilemap_ground.SetTile((Vector3Int)curpoint + new Vector3Int(0, -j, 0),
+                            TilemapGround.SetTile((Vector3Int)curpoint + new Vector3Int(0, -j, 0),
                                 Info.tileBase_ground);
-                            tilemap_ground.SetTile((Vector3Int)curpoint + new Vector3Int(0, j, 0),
+                            TilemapGround.SetTile((Vector3Int)curpoint + new Vector3Int(0, j, 0),
                                 Info.tileBase_ground);
                         }
                     }
 
                     //绘制道路两边的墙壁
-                    tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, roadWidth / 2 + 1, 0),
+                    TilemapWall.SetTile((Vector3Int)curpoint + new Vector3Int(0, roadWidth / 2 + 1, 0),
                         Info.tileBase_wall);
-                    tilemap_wall.SetTile((Vector3Int)curpoint + new Vector3Int(0, -roadWidth / 2 - 1, 0),
+                    TilemapWall.SetTile((Vector3Int)curpoint + new Vector3Int(0, -roadWidth / 2 - 1, 0),
                         Info.tileBase_wall);
                     curpoint += new Vector2Int(1, 0);
                 }
@@ -248,11 +245,11 @@ namespace PhantomDanmaku
             foreach (var position in target_tilemap_wall.cellBounds.allPositionsWithin)
             {
                 if (target_tilemap_wall.GetTile(position) != null)
-                    tilemap_wall.SetTile((Vector3Int)CenterCoord + position, target_tilemap_wall.GetTile(position));
+                    TilemapWall.SetTile((Vector3Int)CenterCoord + position, target_tilemap_wall.GetTile(position));
                 if (target_tilemap_object.GetTile(position) != null)
                 {
-                    tilemap_object.SetTile((Vector3Int)CenterCoord + position, target_tilemap_object.GetTile(position));
-                    GameObject obj = tilemap_object.GetInstantiatedObject((Vector3Int)CenterCoord + position);
+                    TilemapObject.SetTile((Vector3Int)CenterCoord + position, target_tilemap_object.GetTile(position));
+                    GameObject obj = TilemapObject.GetInstantiatedObject((Vector3Int)CenterCoord + position);
                     monsters.Add(obj);
                 }
             }

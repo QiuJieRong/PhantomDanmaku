@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Tilemaps;
 
 namespace PhantomDanmaku.Config
 {
@@ -17,10 +18,10 @@ namespace PhantomDanmaku.Config
         public string Desc;
 
         [LabelText("房间配置")]
-        public Dictionary<RoomType, List<AssetReferenceGameObject>> RoomPrefabDic;
+        public Dictionary<RoomType, RoomPrefabList> RoomPrefabDic;
 
         [LabelText("房间数量配置")]
-        public Dictionary<RoomType, Vector2> RoomCountDic;
+        public Dictionary<RoomType, Vector2Int> RoomCountDic;
         
         [LabelText("房间间距")]
         public int RoomDistance;
@@ -28,10 +29,26 @@ namespace PhantomDanmaku.Config
         [LabelText("道路宽度")]
         public int RoadWidth;
 
+        [LabelText("地板")]
+        public TileBase TileBaseGround;
+
+        [LabelText("墙")]
+        public TileBase TileBaseWall;
+
+        [LabelText("门")]
+        public TileBase TileBaseDoor;
+        
         [Title("关卡开始事件")]
         public Event OnLevelStart;
         
         [Title("关卡结束事件")]
         public Event OnLevelEnd;
+    }
+
+    [LabelText("房间预设列表")]
+    public class RoomPrefabList
+    {
+        [DrawWithUnity]
+        public List<AssetReferenceGameObject> RoomPrefabs;
     }
 }

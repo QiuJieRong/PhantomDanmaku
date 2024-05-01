@@ -1,32 +1,84 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using PhantomDanmaku.Config;
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 namespace PhantomDanmaku
 {
-
-    public class MapGenerator : SingletonMono<MapGenerator>
+    public class MapGenerator : SingletonBase<MapGenerator>
     {
-        [Header("生成房间类型列表")] public List<RoomType> roomTypeList;
-        [Header("房间的间隔距离")] public int distance = 30;
-        [Header("道路的宽度")] public int roadWidth = 5;
-        [Header("地板")] public TileBase tileBase_ground;
-        [Header("墙")] public TileBase tileBase_wall;
-        [Header("门")] public TileBase tileBase_door;
-        [Header("地图地板")] public Tilemap tilemap_ground;
-        [Header("地图墙壁")] public Tilemap tilemap_wall;
-        [Header("地图对象")] public Tilemap tilemap_object;
-        private List<Vector2Int> roomMap = new(); //用来标记是否存在房间的List
-        public List<Vector2Int> RoomMap => roomMap;
-        private List<Room> rooms = new(); //存储生成的房间对象
-        public List<Room> Rooms => rooms;
+        /// <summary>
+        /// 关卡配置
+        /// </summary>
+        private LevelConfig m_LevelConfig;
+        /// <summary>
+        /// 生成房间类型字典
+        /// </summary>
+        private Dictionary<RoomType, List<GameObject>> m_RoomTypeDic;
+        
+        /// <summary>
+        /// 房间间距
+        /// </summary>
+        private int m_RoomDistance;
+
+        public int RoomDistance => m_RoomDistance;
+        
+        /// <summary>
+        /// 道路宽度
+        /// </summary>
+        private int m_RoadWidth = 5;
+        
+        private TileBase m_TileBaseGround;
+        private TileBase m_TileBaseWall;
+        private TileBase m_TileBaseDoor;
+        public TileBase TileBaseDoor => m_TileBaseDoor;
+        public Tilemap TilemapGround { get; private set; }
+        public Tilemap TilemapWall{ get; private set; }
+        public Tilemap TilemapObject{ get; private set; }
+        
+        private List<Vector2Int> m_RoomPosList; //用来标记是否存在房间的List
+        public List<Vector2Int> RoomPosList => m_RoomPosList;
+        private List<Room> m_Rooms; //存储生成的房间对象
+        public List<Room> Rooms => m_Rooms;
         Vector2Int point = new Vector2Int(0, 0); //当前要生成房间的坐标
 
-        void Start()
+        private List<AsyncOperationHandle> m_Handles;
+
+        public async UniTask Init(object userData)
         {
-            UIMgr.Instance.ShowPanel<GamePanel>("GamePanel");
-            GeneratorMap();
+            if (userData is MapGeneratorData mapGeneratorData)
+            {
+                m_Handles = new List<AsyncOperationHandle>();
+                m_RoomPosList = new List<Vector2Int>();
+                m_Rooms = new List<Room>();
+                //加载房间配置
+                m_RoomTypeDic = new Dictionary<RoomType, List<GameObject>>();
+                m_LevelConfig = mapGeneratorData.LevelConfig;
+                foreach (var kvp in m_LevelConfig.RoomPrefabDic)
+                {
+                    m_RoomTypeDic.Add(kvp.Key,new List<GameObject>());
+                    foreach (var roomPrefab in kvp.Value.RoomPrefabs)
+                    {
+                        var handle = roomPrefab.LoadAssetAsync();
+                        await handle;
+                        m_Handles.Add(handle);
+                        m_RoomTypeDic[kvp.Key].Add(handle.Result);
+                    }
+                }
+                m_RoomDistance = m_LevelConfig.RoomDistance;
+                m_RoadWidth = m_LevelConfig.RoadWidth;
+                //加载瓦片配置
+                m_TileBaseGround = m_LevelConfig.TileBaseGround;
+                m_TileBaseWall = m_LevelConfig.TileBaseWall;
+                m_TileBaseDoor = m_LevelConfig.TileBaseDoor;
+                //设置瓦片地图
+                TilemapGround = mapGeneratorData.TilemapGround;
+                TilemapWall = mapGeneratorData.TilemapWall;
+                TilemapObject = mapGeneratorData.TilemapObject;
+            }
             EventCenter.Instance.AddEventListener<Room>(CustomEvent.RoomEnter, RoomEnterCallback);
             EventCenter.Instance.AddEventListener<Room>(CustomEvent.RoomClear, RoomClearCallback);
         }
@@ -45,7 +97,7 @@ namespace PhantomDanmaku
             room.isClear = true;
             room.OpenDoor();
             bool isAllClear = true;
-            foreach (var item in rooms)
+            foreach (var item in m_Rooms)
             {
                 if (!item.isClear)
                     isAllClear = false;
@@ -77,7 +129,7 @@ namespace PhantomDanmaku
 
             if (Input.GetKeyDown(KeyCode.O))
             {
-                foreach (var room in rooms)
+                foreach (var room in m_Rooms)
                 {
                     room.OpenDoor();
                 }
@@ -85,7 +137,7 @@ namespace PhantomDanmaku
 
             if (Input.GetKeyDown(KeyCode.C))
             {
-                foreach (var room in rooms)
+                foreach (var room in m_Rooms)
                 {
                     room.CloseDoor();
                 }
@@ -95,7 +147,7 @@ namespace PhantomDanmaku
         /// <summary>
         /// 生成地图
         /// </summary>
-        void GeneratorMap()
+        public void GeneratorMap()
         {
             //随机生成房间,并存储起来
             GeneratorRoom();
@@ -109,35 +161,29 @@ namespace PhantomDanmaku
         /// </summary>
         void GeneratorRoom()
         {
-            //存储要生成房间的坐标和房间
-            GameObject tileRoom;
             int id = 0;
-            foreach (var type in roomTypeList)
-            {
-                switch (type)
-                {
-                    case RoomType.FirstRoom:
-                        tileRoom = Resources.Load<GameObject>("Prefabs/Rooms/FirstRooms/FirstRoom" +
-                                                              Random.Range(0, 2));
-                        break;
-                    case RoomType.FightRoom:
-                        tileRoom = Resources.Load<GameObject>("Prefabs/Rooms/FightRooms/FightRoom" +
-                                                              Random.Range(0, 5));
-                        break;
-                    case RoomType.RewardRoom:
-                        tileRoom = Resources.Load<GameObject>("Prefabs/Rooms/RewardRooms/RewardRoom" +
-                                                              Random.Range(0, 1));
-                        break;
-                    default:
-                        tileRoom = Resources.Load<GameObject>("Prefabs/Rooms/FightRooms/FightRoom" +
-                                                              Random.Range(0, 5));
-                        break;
-                }
 
-                roomMap.Add(point);
-                rooms.Add(new Room(point, id, tileRoom));
-                ++id;
-                ChangeGeneratorPoint();
+            var roomTypeDic = new Dictionary<RoomType, int>();
+            //根据配置生成房间列表
+            foreach (var kvp in m_RoomTypeDic)
+            {
+                //随机数量
+                var count = m_LevelConfig.RoomCountDic[kvp.Key].GetRandom();
+                roomTypeDic.Add(kvp.Key, count);
+            }
+            
+            foreach (var kvp in roomTypeDic)
+            {
+                var tileRoom = m_RoomTypeDic[kvp.Key].GetRandom();
+
+                int count = kvp.Value;
+                while (count-- > 0)
+                {
+                    m_RoomPosList.Add(point);
+                    m_Rooms.Add(new Room(point, id, tileRoom));
+                    ++id;
+                    ChangeGeneratorPoint();
+                }
             }
         }
 
@@ -146,7 +192,7 @@ namespace PhantomDanmaku
         /// </summary>
         void DrawRoom()
         {
-            foreach (Room room in rooms)
+            foreach (Room room in m_Rooms)
             {
                 //绘制地板
                 room.DrawGround();
@@ -157,10 +203,10 @@ namespace PhantomDanmaku
             }
 
             //道路绘制需要房间绘制完毕后绘制，否则无法正常的消除房间自己生成的墙壁
-            foreach (Room room in rooms)
+            foreach (Room room in m_Rooms)
             {
                 //判断右侧和上侧是否有房间，有的话就生成道路
-                room.DrawRoad(roadWidth);
+                room.DrawRoad(m_RoadWidth);
             }
         }
 
@@ -187,8 +233,25 @@ namespace PhantomDanmaku
                         point += new Vector2Int(-1, 0);
                         break;
                 }
-            } while (roomMap.Contains(point));
+            } while (m_RoomPosList.Contains(point));
         }
     }
 
+    public class MapGeneratorData
+    {
+        public LevelConfig LevelConfig { get; }
+
+        public Tilemap TilemapGround { get; }
+        public Tilemap TilemapWall { get; }
+        public Tilemap TilemapObject { get; }
+
+        public MapGeneratorData(LevelConfig levelConfig, Tilemap tilemapGround, Tilemap tilemapWall,
+            Tilemap tilemapObject)
+        {
+            LevelConfig = levelConfig;
+            TilemapGround = tilemapGround;
+            TilemapWall = tilemapWall;
+            TilemapObject = tilemapObject;
+        }
+    }
 }

@@ -34,6 +34,7 @@ namespace PhantomDanmaku
             controls = new Controls();
             controls.Enable();
             controls.Player.Attack.performed += (context) => { Attack(); };
+            UIMgr.Instance.ShowPanel<GamePanel>("GamePanel");
         }
 
         void Update()
@@ -55,6 +56,8 @@ namespace PhantomDanmaku
         {
             bool isInRoom = false;
             List<Room> rooms = MapGenerator.Instance.Rooms;
+            if (rooms == null)
+                return;
             foreach (Room room in rooms)
             {
                 if (transform.position.x > (room.CenterCoord.x - room.Info.Width / 2) &&

@@ -17,8 +17,12 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 444d91532a29f04488a3d206f74a29a0
   m_SerializeEntries:
+  - m_GUID: cb45a59841884524e968b3e5dc2ba47b
+    m_Address: Assets/PhantomDanmaku/Prefabs/Room
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   - m_GUID: 4aa0a7561380f0e449a98d443a8fb90c
-    m_Address: Assets/PhantomDanmaku/Flowcharts
+    m_Address: Assets/PhantomDanmaku/Prefabs/Flowchart
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
