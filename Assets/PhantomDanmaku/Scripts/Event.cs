@@ -11,7 +11,7 @@ namespace PhantomDanmaku.Config
     {
         public virtual async UniTask StartEvent()
         {
-            
+            await UniTask.Yield();
         }
     }
 

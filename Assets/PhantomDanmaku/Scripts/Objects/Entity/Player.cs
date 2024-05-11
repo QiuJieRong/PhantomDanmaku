@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using PhantomDanmaku.Runtime.UI;
 using UnityEngine;
 
 namespace PhantomDanmaku
@@ -26,6 +27,7 @@ namespace PhantomDanmaku
         void Start()
         {
             EventCenter.Instance.EventTrigger<EntityBase>(CustomEvent.PlayerSpawn, this);
+            GameEntry.UI.SendUIMessage("RefreshHUDUIForm",this);
             camp = "Player";
             speed = 10;
             rig = GetComponent<Rigidbody2D>();
@@ -34,7 +36,7 @@ namespace PhantomDanmaku
             controls = new Controls();
             controls.Enable();
             controls.Player.Attack.performed += (context) => { Attack(); };
-            UIMgr.Instance.ShowPanel<GamePanel>("GamePanel");
+            GameEntry.UI.Open<HUDUIForm>(null);
         }
 
         void Update()
@@ -122,15 +124,17 @@ namespace PhantomDanmaku
         {
             base.Wounded(damageSource);
             EventCenter.Instance.EventTrigger<EntityBase>(CustomEvent.PlayerWounded, this);
+            GameEntry.UI.SendUIMessage("RefreshHUDUIForm",this);
         }
 
         public override void Dead()
         {
             base.Dead();
             controls.Dispose();
-            UIMgr.Instance.HidePanel("GamePanel");
-            UIMgr.Instance.ShowPanel<EndPanel>("EndPanel");
+            GameEntry.UI.Close<HUDUIForm>();
+            GameEntry.UI.Open<EndUIForm>(null);
             SoundMgr.Instance.PlaySound("Dead", false);
+            Destroy(gameObject);
         }
 
         void OnDestroy()

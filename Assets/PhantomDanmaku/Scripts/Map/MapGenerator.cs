@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using PhantomDanmaku.Config;
+using PhantomDanmaku.Runtime.UI;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 namespace PhantomDanmaku
@@ -43,7 +43,7 @@ namespace PhantomDanmaku
         public List<Vector2Int> RoomPosList => m_RoomPosList;
         private List<Room> m_Rooms; //存储生成的房间对象
         public List<Room> Rooms => m_Rooms;
-        Vector2Int point = new Vector2Int(0, 0); //当前要生成房间的坐标
+        private Vector2Int point = Vector2Int.zero; //当前要生成房间的坐标
 
         private List<AsyncOperationHandle> m_Handles;
 
@@ -51,6 +51,7 @@ namespace PhantomDanmaku
         {
             if (userData is MapGeneratorData mapGeneratorData)
             {
+                point = Vector2Int.zero;
                 m_Handles = new List<AsyncOperationHandle>();
                 m_RoomPosList = new List<Vector2Int>();
                 m_Rooms = new List<Room>();
@@ -59,15 +60,23 @@ namespace PhantomDanmaku
                 m_LevelConfig = mapGeneratorData.LevelConfig;
                 foreach (var kvp in m_LevelConfig.RoomPrefabDic)
                 {
-                    m_RoomTypeDic.Add(kvp.Key,new List<GameObject>());
+                    m_RoomTypeDic.Add(kvp.Key, new List<GameObject>());
                     foreach (var roomPrefab in kvp.Value.RoomPrefabs)
                     {
-                        var handle = roomPrefab.LoadAssetAsync();
-                        await handle;
-                        m_Handles.Add(handle);
-                        m_RoomTypeDic[kvp.Key].Add(handle.Result);
+                        if (roomPrefab.IsValid())
+                        {
+                            
+                        }
+                        else
+                        {
+                            var handle = roomPrefab.LoadAssetAsync();
+                            await handle;
+                            m_Handles.Add(handle);
+                        }
+                        m_RoomTypeDic[kvp.Key].Add((GameObject)roomPrefab.Asset); 
                     }
                 }
+
                 m_RoomDistance = m_LevelConfig.RoomDistance;
                 m_RoadWidth = m_LevelConfig.RoadWidth;
                 //加载瓦片配置
@@ -78,9 +87,11 @@ namespace PhantomDanmaku
                 TilemapGround = mapGeneratorData.TilemapGround;
                 TilemapWall = mapGeneratorData.TilemapWall;
                 TilemapObject = mapGeneratorData.TilemapObject;
+                EventCenter.Instance.RemoveEventListener<Room>(CustomEvent.RoomEnter, RoomEnterCallback);
+                EventCenter.Instance.RemoveEventListener<Room>(CustomEvent.RoomClear, RoomClearCallback);
+                EventCenter.Instance.AddEventListener<Room>(CustomEvent.RoomEnter, RoomEnterCallback);
+                EventCenter.Instance.AddEventListener<Room>(CustomEvent.RoomClear, RoomClearCallback);
             }
-            EventCenter.Instance.AddEventListener<Room>(CustomEvent.RoomEnter, RoomEnterCallback);
-            EventCenter.Instance.AddEventListener<Room>(CustomEvent.RoomClear, RoomClearCallback);
         }
 
         void RoomEnterCallback(Room room)
@@ -105,42 +116,8 @@ namespace PhantomDanmaku
 
             if (isAllClear)
             {
-                UIMgr.Instance.HidePanel("GamePanel");
-                UIMgr.Instance.ShowPanel<EndPanel>("EndPanel");
-            }
-        }
-
-        /// <summary>
-        /// 切换场景时，移除所有事件监听
-        /// </summary>
-        void OnDestroy()
-        {
-            EventCenter.Instance.Clear();
-            UIMgr.Instance.HidePanel("GamePanel");
-        }
-
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                PoolMgr.Instance.Clear();
-            }
-
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                foreach (var room in m_Rooms)
-                {
-                    room.OpenDoor();
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                foreach (var room in m_Rooms)
-                {
-                    room.CloseDoor();
-                }
+                GameEntry.UI.Close<HUDUIForm>();
+                GameEntry.UI.Open<EndUIForm>(null);
             }
         }
 

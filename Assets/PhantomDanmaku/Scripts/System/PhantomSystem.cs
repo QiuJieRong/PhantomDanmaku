@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace PhantomDanmaku.Scripts.System
+namespace PhantomDanmaku.Runtime.System
 {
     public class PhantomSystem : SingletonBase<PhantomSystem>
     {
