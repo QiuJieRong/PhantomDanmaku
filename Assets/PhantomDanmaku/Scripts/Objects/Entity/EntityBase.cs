@@ -47,7 +47,7 @@ namespace PhantomDanmaku
 
         public virtual void Dead()
         {
-            PoolMgr.Instance.PushObj(gameObject);
+            GameEntry.ObjectPool.PushObj(gameObject);
             // Destroy(this.gameObject);
         }
 

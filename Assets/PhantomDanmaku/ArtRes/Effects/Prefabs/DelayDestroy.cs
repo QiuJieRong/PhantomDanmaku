@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DelayDestroy : MonoBehaviour
+namespace PhantomDanmaku
 {
-    /// <summary>
-    /// This function is called when the object becomes enabled and active.
-    /// </summary>
-    void OnEnable()
+    public class DelayDestroy : MonoBehaviour
     {
-        Invoke("DestroySelf", 2.0f);
-    }
-    void DestroySelf()
-    {
-        PoolMgr.Instance.PushObj(gameObject);
+        /// <summary>
+        /// This function is called when the object becomes enabled and active.
+        /// </summary>
+        void OnEnable()
+        {
+            Invoke("DestroySelf", 2.0f);
+        }
+        void DestroySelf()
+        {
+            GameEntry.ObjectPool.PushObj(gameObject);
+        }
     }
 }

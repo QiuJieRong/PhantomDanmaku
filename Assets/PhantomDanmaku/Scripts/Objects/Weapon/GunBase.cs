@@ -13,7 +13,7 @@ namespace PhantomDanmaku
 
         public override void Attack()
         {
-            GameObject obj = PoolMgr.Instance.GetObj(bulletPrefab.name, bulletPrefab);
+            GameObject obj = GameEntry.ObjectPool.GetObj(bulletPrefab.name, bulletPrefab);
             BulletBase bullet = obj.GetComponent<BulletBase>();
             bullet.SetOwner(this);
             obj.transform.position = gameObject.transform.position;

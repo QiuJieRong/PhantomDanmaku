@@ -51,9 +51,9 @@ namespace PhantomDanmaku
                 }
 
                 // Destroy(gameObject);
-                PoolMgr.Instance.PushObj(gameObject);
+                GameEntry.ObjectPool.PushObj(gameObject);
                 //创建特效对象
-                GameObject obj = PoolMgr.Instance.GetObj("BulletEffect", bulletEffect);
+                GameObject obj = GameEntry.ObjectPool.GetObj("BulletEffect", bulletEffect);
                 obj.transform.position = transform.position;
                 //创建音效
                 SoundMgr.Instance.PlaySound("Explosion", false);
