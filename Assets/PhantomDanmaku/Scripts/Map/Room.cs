@@ -39,7 +39,7 @@ namespace PhantomDanmaku
             this.roomPrefab = roomPrefab;
             if (Info.m_RoomType == RoomType.FightRoom)
                 isClear = false;
-            EventCenter.Instance.AddEventListener<GameObject>(CustomEvent.MonsterDead, MonsterDeadCallback);
+            GameEntry.EventCenter.AddEventListener<GameObject>(CustomEvent.MonsterDead, MonsterDeadCallback);
         }
 
         void MonsterDeadCallback(GameObject monster)
@@ -52,7 +52,7 @@ namespace PhantomDanmaku
             if (monsters.Count == 0 && !isClear)
             {
                 isClear = true;
-                EventCenter.Instance.EventTrigger(CustomEvent.RoomClear, this);
+                GameEntry.EventCenter.EventTrigger(CustomEvent.RoomClear, this);
             }
         }
 

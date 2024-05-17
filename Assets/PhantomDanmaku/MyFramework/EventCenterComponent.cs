@@ -1,30 +1,30 @@
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using UnityEngine.Events;
 
-public interface IEventAction{}
-
-public class EventAction<T> : IEventAction
+namespace MyFramework.Runtime
 {
-    public UnityAction<T> actions;
-    public EventAction(UnityAction<T> action)
+    public interface IEventAction{}
+
+    public class EventAction<T> : IEventAction
     {
-        actions += action;
+        public UnityAction<T> actions;
+        public EventAction(UnityAction<T> action)
+        {
+            actions += action;
+        }
     }
-}
 
-public class EventAction : IEventAction
-{
-    public UnityAction actions;
-    public EventAction(UnityAction action)
+    public class EventAction : IEventAction
     {
-        actions += action;
+        public UnityAction actions;
+        public EventAction(UnityAction action)
+        {
+            actions += action;
+        }
     }
-}
-
-public class EventCenter : SingletonBase<EventCenter>
-{
-    private Dictionary<string ,IEventAction> eventDic = new Dictionary<string, IEventAction>();
+    public class EventCenterComponent : GameFrameworkComponent
+    {
+        private Dictionary<string ,IEventAction> eventDic = new Dictionary<string, IEventAction>();
 
     /// <summary>
     /// 添加事件监听，事件触发时执行，用泛型委托接收参数
@@ -95,5 +95,6 @@ public class EventCenter : SingletonBase<EventCenter>
     public void Clear()
     {
         eventDic.Clear();
+    }
     }
 }

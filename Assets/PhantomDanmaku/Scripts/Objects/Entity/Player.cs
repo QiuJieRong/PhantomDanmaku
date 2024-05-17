@@ -26,7 +26,7 @@ namespace PhantomDanmaku
 
         void Start()
         {
-            EventCenter.Instance.EventTrigger<EntityBase>(CustomEvent.PlayerSpawn, this);
+            GameEntry.EventCenter.EventTrigger<EntityBase>(CustomEvent.PlayerSpawn, this);
             GameEntry.UI.SendUIMessage("RefreshHUDUIForm",this);
             camp = "Player";
             speed = 10;
@@ -68,7 +68,7 @@ namespace PhantomDanmaku
                     transform.position.y < (room.CenterCoord.y + room.Info.Height / 2 + 1))
                 {
                     isInRoom = true;
-                    EventCenter.Instance.EventTrigger(CustomEvent.RoomEnter, room);
+                    GameEntry.EventCenter.EventTrigger(CustomEvent.RoomEnter, room);
                     break;
                 }
             }
@@ -123,7 +123,7 @@ namespace PhantomDanmaku
         public override void Wounded(WeaponBase damageSource)
         {
             base.Wounded(damageSource);
-            EventCenter.Instance.EventTrigger<EntityBase>(CustomEvent.PlayerWounded, this);
+            GameEntry.EventCenter.EventTrigger<EntityBase>(CustomEvent.PlayerWounded, this);
             GameEntry.UI.SendUIMessage("RefreshHUDUIForm",this);
         }
 

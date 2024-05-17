@@ -32,7 +32,7 @@ namespace PhantomDanmaku.Runtime.UI
                 //生成地图
                 MapGenerator.Instance.GeneratorMap();
                 //发送地图生成结束通知
-                EventCenter.Instance.EventTrigger("MapGeneratorComplete");
+                GameEntry.EventCenter.EventTrigger("MapGeneratorComplete");
             });
 
             var sceneLoadCompletion = false;
@@ -40,10 +40,10 @@ namespace PhantomDanmaku.Runtime.UI
             void LoadComplete()
             {
                 sceneLoadCompletion = true;
-                EventCenter.Instance.RemoveEventListener("MapGeneratorComplete",LoadComplete);
+                GameEntry.EventCenter.RemoveEventListener("MapGeneratorComplete",LoadComplete);
             }
                 
-            EventCenter.Instance.AddEventListener("MapGeneratorComplete",LoadComplete);
+            GameEntry.EventCenter.AddEventListener("MapGeneratorComplete",LoadComplete);
 
             await UniTask.WaitUntil(() => sceneLoadCompletion);
         }

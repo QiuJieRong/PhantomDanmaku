@@ -87,10 +87,10 @@ namespace PhantomDanmaku
                 TilemapGround = mapGeneratorData.TilemapGround;
                 TilemapWall = mapGeneratorData.TilemapWall;
                 TilemapObject = mapGeneratorData.TilemapObject;
-                EventCenter.Instance.RemoveEventListener<Room>(CustomEvent.RoomEnter, RoomEnterCallback);
-                EventCenter.Instance.RemoveEventListener<Room>(CustomEvent.RoomClear, RoomClearCallback);
-                EventCenter.Instance.AddEventListener<Room>(CustomEvent.RoomEnter, RoomEnterCallback);
-                EventCenter.Instance.AddEventListener<Room>(CustomEvent.RoomClear, RoomClearCallback);
+                GameEntry.EventCenter.RemoveEventListener<Room>(CustomEvent.RoomEnter, RoomEnterCallback);
+                GameEntry.EventCenter.RemoveEventListener<Room>(CustomEvent.RoomClear, RoomClearCallback);
+                GameEntry.EventCenter.AddEventListener<Room>(CustomEvent.RoomEnter, RoomEnterCallback);
+                GameEntry.EventCenter.AddEventListener<Room>(CustomEvent.RoomClear, RoomClearCallback);
             }
         }
 

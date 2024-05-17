@@ -79,7 +79,7 @@ namespace PhantomDanmaku
         public override void Dead()
         {
             base.Dead();
-            EventCenter.Instance.EventTrigger(CustomEvent.MonsterDead, gameObject);
+            GameEntry.EventCenter.EventTrigger(CustomEvent.MonsterDead, gameObject);
         }
     }
 

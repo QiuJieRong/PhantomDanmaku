@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using PhantomDanmaku;
 using UnityEngine;
 
 public class InputMgr : SingletonBase<InputMgr>
@@ -43,16 +44,16 @@ public class InputMgr : SingletonBase<InputMgr>
     {
         if(Input.GetKeyDown(key))
         {
-            EventCenter.Instance.EventTrigger<KeyCode>("KeyDown",key);
+            GameEntry.EventCenter.EventTrigger<KeyCode>("KeyDown",key);
         }
         if(Input.GetKeyUp(key))
         {
-            EventCenter.Instance.EventTrigger<KeyCode>("KeyUp",key);
+            GameEntry.EventCenter.EventTrigger<KeyCode>("KeyUp",key);
         }
     }
     public void CheckAnyKeyPress()
     {
         if(Input.anyKey)
-            EventCenter.Instance.EventTrigger("AnyKeyDown");        
+            GameEntry.EventCenter.EventTrigger("AnyKeyDown");        
     }
 }
