@@ -9,7 +9,7 @@ namespace PhantomDanmaku.Runtime.UI
 {
     public class UIComponent : GameFrameworkComponent
     {
-        private readonly List<UIFormBase> m_UIFormList = new();
+        private readonly List<UIFormBase> m_OpenedUIFormList = new();
 
         private readonly Dictionary<Type,AsyncOperationHandle<GameObject>> m_UIFormHandleDic = new();
 
@@ -74,7 +74,7 @@ namespace PhantomDanmaku.Runtime.UI
         public bool Open<T>(object userData) where T : UIFormBase
         {
             //判断页面是否已经存在
-            if (m_UIFormList.Exists(uiForm => uiForm.GetType() == typeof(T)))
+            if (m_OpenedUIFormList.Exists(uiForm => uiForm.GetType() == typeof(T)))
             {
                 Debug.LogError("页面已存在");
                 return false;
@@ -96,7 +96,7 @@ namespace PhantomDanmaku.Runtime.UI
                             standbyUIForm.gameObject.SetActive(true);
                             standbyUIForm.transform.SetParent(Root);
                             standbyUIForm.OnOpen(userData);
-                            m_UIFormList.Add(standbyUIForm);
+                            m_OpenedUIFormList.Add(standbyUIForm);
                             m_StandbyUIFormList.Remove(standbyUIForm);
                             m_UIFormStack.Push(standbyUIForm);
                             return true;
@@ -114,7 +114,7 @@ namespace PhantomDanmaku.Runtime.UI
                             uiForm.OnOpen(userData);
 
                             //加入列表
-                            m_UIFormList.Add(uiForm);
+                            m_OpenedUIFormList.Add(uiForm);
                             m_UIFormStack.Push(uiForm);
                             return true;
                         }
@@ -162,7 +162,7 @@ namespace PhantomDanmaku.Runtime.UI
                         uiForm.OnOpen(userData);
 
                         //加入列表
-                        m_UIFormList.Add(uiForm);
+                        m_OpenedUIFormList.Add(uiForm);
                         
                         //设置加载状态为已完成
                         m_UIFormLoadStateDic[typeof(T)] = UIFormLoadState.Loaded;
@@ -193,7 +193,7 @@ namespace PhantomDanmaku.Runtime.UI
             uiFormGo.transform.SetParent(Standby);
             uiForm.gameObject.SetActive(false);
 
-            m_UIFormList.Remove(uiForm);
+            m_OpenedUIFormList.Remove(uiForm);
             m_StandbyUIFormList.Add(uiForm);
 
             if (m_Current == uiForm)
@@ -213,7 +213,7 @@ namespace PhantomDanmaku.Runtime.UI
         /// <returns></returns>
         public T GetOpenedUIForm<T>() where T : UIFormBase
         {
-            foreach (var uiFormBase in m_UIFormList)
+            foreach (var uiFormBase in m_OpenedUIFormList)
             {
                 if (uiFormBase is T uiForm)
                 {
