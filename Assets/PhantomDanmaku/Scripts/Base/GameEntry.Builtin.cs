@@ -10,12 +10,15 @@ namespace PhantomDanmaku
         public static BattleComponent Battle;
 
         public static ObjectPoolComponent ObjectPool;
+
+        public static SaveComponent Save;
         
         private static void InitBuiltinComponents()
         {
             UI = MyFramework.Runtime.GameEntry.GetComponent<UIComponent>();
             Battle = MyFramework.Runtime.GameEntry.GetComponent<BattleComponent>();
             ObjectPool = MyFramework.Runtime.GameEntry.GetComponent<ObjectPoolComponent>();
+            Save = MyFramework.Runtime.GameEntry.GetComponent<SaveComponent>();
         }
     }
 }
