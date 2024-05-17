@@ -151,11 +151,10 @@ namespace PhantomDanmaku
             
             foreach (var kvp in roomTypeDic)
             {
-                var tileRoom = m_RoomTypeDic[kvp.Key].GetRandom();
-
-                int count = kvp.Value;
+                var count = kvp.Value;
                 while (count-- > 0)
                 {
+                    var tileRoom = m_RoomTypeDic[kvp.Key].GetRandom();
                     m_RoomPosList.Add(point);
                     m_Rooms.Add(new Room(point, id, tileRoom));
                     ++id;
