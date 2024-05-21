@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-/// <summary>
-/// 使用SoundMgr需要将音乐资源和音效资源分别放在Resources文件夹下的Music和Sound下面
-/// 加载的时候只用传资源的文件名字即可
-/// </summary>
-public class SoundMgr : SingletonBase<SoundMgr>
+namespace MyFramework.Runtime
 {
-    //背景音乐
+    public class SoundComponent : GameFrameworkComponent
+    {
+        //背景音乐
     private AudioSource bkAudioSource;
     private float musicVolume = 1;
     public float MusicVolume
@@ -36,11 +33,6 @@ public class SoundMgr : SingletonBase<SoundMgr>
     //所有音效的容器
     private List<AudioSource> sounds = new List<AudioSource>();
 
-    //构造函数里添加帧更新监听
-    public SoundMgr()
-    {
-        MonoMgr.Instance.AddUpdateListener(Update);
-    }
     //每帧去清除播放完毕的AudioSource组件
     private void Update()
     {
@@ -139,5 +131,5 @@ public class SoundMgr : SingletonBase<SoundMgr>
     {
         sounds.Clear();
     }
-
+    }
 }

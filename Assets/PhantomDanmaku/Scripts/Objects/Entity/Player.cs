@@ -98,7 +98,7 @@ namespace PhantomDanmaku
             if (currentWeapon != null)
             {
                 currentWeapon.Attack();
-                SoundMgr.Instance.PlaySound("Fire", false);
+                GameEntry.Sound.PlaySound("Fire", false);
             }
         }
 
@@ -133,7 +133,7 @@ namespace PhantomDanmaku
             controls.Dispose();
             GameEntry.UI.Close<HUDUIForm>();
             GameEntry.UI.Open<EndUIForm>(null);
-            SoundMgr.Instance.PlaySound("Dead", false);
+            GameEntry.Sound.PlaySound("Dead", false);
             Destroy(gameObject);
         }
 

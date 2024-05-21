@@ -56,7 +56,7 @@ namespace PhantomDanmaku
                 GameObject obj = GameEntry.ObjectPool.GetObj("BulletEffect", bulletEffect);
                 obj.transform.position = transform.position;
                 //创建音效
-                SoundMgr.Instance.PlaySound("Explosion", false);
+                GameEntry.Sound.PlaySound("Explosion", false);
             }
         }
     }
