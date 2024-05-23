@@ -13,7 +13,7 @@ namespace PhantomDanmaku.Runtime
         }
         void DestroySelf()
         {
-            GameEntry.ObjectPool.PushObj(gameObject);
+            Components.ObjectPool.PushObj(gameObject);
         }
     }
 }

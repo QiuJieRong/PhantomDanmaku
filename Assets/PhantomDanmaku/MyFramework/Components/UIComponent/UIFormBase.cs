@@ -32,17 +32,17 @@ namespace PhantomDanmaku.Runtime.UI
 
         protected void RegisterUIMessage(string key, Action<object> action)
         {
-            GameEntry.UI.RegisterUIMessage(key,action);
+            Components.UI.RegisterUIMessage(key,action);
         }
 
         protected void UnRegisterUIMessage(string key, Action<object> action)
         {
-            GameEntry.UI.UnRegisterUIMessage(key,action);
+            Components.UI.UnRegisterUIMessage(key,action);
         }
 
         protected void SendUIMessage(string key,object userData)
         {
-            GameEntry.UI.SendUIMessage(key,userData);
+            Components.UI.SendUIMessage(key,userData);
         }
         
     }

@@ -31,9 +31,6 @@ namespace PhantomDanmaku.Runtime
             m_Camp = entity.Camp;
         }
 
-        /// <summary>
-        /// 武器的朝向也决定了角色的朝向
-        /// </summary>
         public void Aim(Vector3 dir)
         {
             m_Transform.localScale = dir.x < 0 ? _reverseXY : Vector3.one;

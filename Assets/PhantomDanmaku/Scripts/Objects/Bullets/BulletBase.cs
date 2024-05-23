@@ -48,12 +48,12 @@ namespace PhantomDanmaku.Runtime
                 }
 
                 // Destroy(gameObject);
-                GameEntry.ObjectPool.PushObj(gameObject);
+                Components.ObjectPool.PushObj(gameObject);
                 //创建特效对象
-                GameObject obj = GameEntry.ObjectPool.GetObj("BulletEffect", bulletEffect);
+                GameObject obj = Components.ObjectPool.GetObj("BulletEffect", bulletEffect);
                 obj.transform.position = transform.position;
                 //创建音效
-                GameEntry.Sound.PlaySound("Explosion", false);
+                Components.Sound.PlaySound("Explosion", false);
             }
         }
     }

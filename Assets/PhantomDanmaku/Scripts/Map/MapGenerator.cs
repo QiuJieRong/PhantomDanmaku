@@ -87,10 +87,10 @@ namespace PhantomDanmaku.Runtime
                 TilemapGround = mapGeneratorData.TilemapGround;
                 TilemapWall = mapGeneratorData.TilemapWall;
                 TilemapObject = mapGeneratorData.TilemapObject;
-                GameEntry.EventCenter.RemoveEventListener<Room>(CustomEvent.RoomEnter, RoomEnterCallback);
-                GameEntry.EventCenter.RemoveEventListener<Room>(CustomEvent.RoomClear, RoomClearCallback);
-                GameEntry.EventCenter.AddEventListener<Room>(CustomEvent.RoomEnter, RoomEnterCallback);
-                GameEntry.EventCenter.AddEventListener<Room>(CustomEvent.RoomClear, RoomClearCallback);
+                Components.EventCenter.RemoveEventListener<Room>(CustomEvent.RoomEnter, RoomEnterCallback);
+                Components.EventCenter.RemoveEventListener<Room>(CustomEvent.RoomClear, RoomClearCallback);
+                Components.EventCenter.AddEventListener<Room>(CustomEvent.RoomEnter, RoomEnterCallback);
+                Components.EventCenter.AddEventListener<Room>(CustomEvent.RoomClear, RoomClearCallback);
             }
         }
 
@@ -116,8 +116,8 @@ namespace PhantomDanmaku.Runtime
 
             if (isAllClear)
             {
-                GameEntry.UI.Close<HUDUIForm>();
-                GameEntry.UI.Open<EndUIForm>(null);
+                Components.UI.Close<HUDUIForm>();
+                Components.UI.Open<EndUIForm>(null).Forget();
             }
         }
 

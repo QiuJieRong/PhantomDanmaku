@@ -83,7 +83,7 @@ namespace PhantomDanmaku.Runtime
 
         protected virtual void Dead()
         {
-            GameEntry.ObjectPool.PushObj(gameObject);
+            Components.ObjectPool.PushObj(gameObject);
             // Destroy(this.gameObject);
         }
 

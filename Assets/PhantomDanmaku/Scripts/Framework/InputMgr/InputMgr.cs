@@ -46,19 +46,19 @@ namespace PhantomDanmaku.Runtime
         {
             if (Input.GetKeyDown(key))
             {
-                GameEntry.EventCenter.EventTrigger<KeyCode>("KeyDown", key);
+                Components.EventCenter.EventTrigger<KeyCode>("KeyDown", key);
             }
 
             if (Input.GetKeyUp(key))
             {
-                GameEntry.EventCenter.EventTrigger<KeyCode>("KeyUp", key);
+                Components.EventCenter.EventTrigger<KeyCode>("KeyUp", key);
             }
         }
 
         public void CheckAnyKeyPress()
         {
             if (Input.anyKey)
-                GameEntry.EventCenter.EventTrigger("AnyKeyDown");
+                Components.EventCenter.EventTrigger("AnyKeyDown");
         }
     }
 }

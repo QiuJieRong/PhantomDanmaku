@@ -23,7 +23,7 @@ namespace PhantomDanmaku.Runtime
         protected override void Update()
         {
             base.Update();
-            if (Player.instance.IsInRoom)
+            if (Player.Instance.IsInRoom)
             {
                 //检测范围内是否有敌人，如果有的话设置攻击目标,如果没有的话攻击目标设置为空
                 Collider2D target =
@@ -59,7 +59,7 @@ namespace PhantomDanmaku.Runtime
         protected override void Dead()
         {
             base.Dead();
-            GameEntry.EventCenter.EventTrigger(CustomEvent.MonsterDead, gameObject);
+            Components.EventCenter.EventTrigger(CustomEvent.MonsterDead, gameObject);
         }
     }
 

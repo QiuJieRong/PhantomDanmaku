@@ -12,7 +12,7 @@ namespace PhantomDanmaku.Runtime.UI
             base.OnInit(userData);
             m_StartButton.onClick.AddListener(() =>
             {
-                GameEntry.UI.Close(this);
+                Components.UI.Close(this);
                 
                 BattleComponent.StartBattle(0, 0).Forget();
             });
@@ -21,9 +21,6 @@ namespace PhantomDanmaku.Runtime.UI
             {
                 Application.Quit();
             });
-        
-            //加载配置，暂时放在这里
-            PhantomSystem.Instance.LoadConfig().Forget();
         }
     }
 }

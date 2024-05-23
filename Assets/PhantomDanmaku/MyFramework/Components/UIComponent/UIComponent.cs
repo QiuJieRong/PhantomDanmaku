@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Cysharp.Threading.Tasks;
 using MyFramework.Runtime;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -17,9 +19,7 @@ namespace PhantomDanmaku.Runtime.UI
 
         private readonly List<UIFormBase> m_StandbyUIFormList = new();
         
-        private readonly Stack<UIFormBase> m_UIFormStack = new();
-        
-        private UIFormBase m_Current => m_UIFormStack.Peek();
+        private UIFormBase Current => m_OpenedUIFormList.Last();
         
         private Transform Root => transform.Find("Root");
 
@@ -71,7 +71,7 @@ namespace PhantomDanmaku.Runtime.UI
         /// <typeparam name="T"></typeparam>
         /// <returns>是否打开成功</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public bool Open<T>(object userData) where T : UIFormBase
+        public async UniTask<bool> Open<T>(object userData) where T : UIFormBase
         {
             //判断页面是否已经存在
             if (m_OpenedUIFormList.Exists(uiForm => uiForm.GetType() == typeof(T)))
@@ -98,7 +98,6 @@ namespace PhantomDanmaku.Runtime.UI
                             standbyUIForm.OnOpen(userData);
                             m_OpenedUIFormList.Add(standbyUIForm);
                             m_StandbyUIFormList.Remove(standbyUIForm);
-                            m_UIFormStack.Push(standbyUIForm);
                             return true;
                         }
                         //如果Standby中没有则重新实例化
@@ -115,7 +114,6 @@ namespace PhantomDanmaku.Runtime.UI
 
                             //加入列表
                             m_OpenedUIFormList.Add(uiForm);
-                            m_UIFormStack.Push(uiForm);
                             return true;
                         }
                         break;
@@ -166,8 +164,8 @@ namespace PhantomDanmaku.Runtime.UI
                         
                         //设置加载状态为已完成
                         m_UIFormLoadStateDic[typeof(T)] = UIFormLoadState.Loaded;
-                        m_UIFormStack.Push(uiForm);
                     };
+                    await uiHandle;
                     return true;
                 }
                 else
@@ -198,15 +196,6 @@ namespace PhantomDanmaku.Runtime.UI
 
             m_OpenedUIFormList.Remove(uiForm);
             m_StandbyUIFormList.Add(uiForm);
-
-            if (m_Current == uiForm)
-            {
-                m_UIFormStack.Pop();
-            }
-            else
-            {
-                Debug.LogError("当前关闭的页面不是栈顶页面");
-            }
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using PhantomDanmaku.Runtime.UI;
 using UnityEngine;
 
@@ -7,8 +8,8 @@ namespace PhantomDanmaku.Runtime
 
     public class Player : EntityBase
     {
-        public static Player instance;
-        public Player Instance => instance;
+        private static Player instance;
+        public static Player Instance => instance;
         private Rigidbody2D rig;
         private Animator animator;
         private Controls controls;
@@ -26,8 +27,8 @@ namespace PhantomDanmaku.Runtime
         {
             base.Start();
             m_MainCamera = Camera.main;
-            GameEntry.EventCenter.EventTrigger<EntityBase>(CustomEvent.PlayerSpawn, this);
-            GameEntry.UI.SendUIMessage("RefreshHUDUIForm",this);
+            Components.EventCenter.EventTrigger<EntityBase>(CustomEvent.PlayerSpawn, this);
+            Components.UI.SendUIMessage("RefreshHUDUIForm",this);
             m_Camp = Camp.Player;
             m_Speed = 10;
             rig = GetComponent<Rigidbody2D>();
@@ -36,7 +37,6 @@ namespace PhantomDanmaku.Runtime
             controls = new Controls();
             controls.Enable();
             controls.Player.Attack.performed += (context) => { Attack(); };
-            GameEntry.UI.Open<HUDUIForm>(this);
         }
 
         private void Update()
@@ -67,7 +67,7 @@ namespace PhantomDanmaku.Runtime
                     transform.position.y < (room.CenterCoord.y + room.Info.Height / 2 + 1))
                 {
                     isInRoom = true;
-                    GameEntry.EventCenter.EventTrigger(CustomEvent.RoomEnter, room);
+                    Components.EventCenter.EventTrigger(CustomEvent.RoomEnter, room);
                     break;
                 }
             }
@@ -93,7 +93,7 @@ namespace PhantomDanmaku.Runtime
             if (CurWeapon != null)
             {
                 CurWeapon.Attack();
-                GameEntry.Sound.PlaySound("Fire", false);
+                Components.Sound.PlaySound("Fire", false);
             }
         }
         public void ChangeCurrentWeapon(WeaponBase weapon)
@@ -107,17 +107,17 @@ namespace PhantomDanmaku.Runtime
         public override void Wounded(WeaponBase damageSource)
         {
             base.Wounded(damageSource);
-            GameEntry.EventCenter.EventTrigger<EntityBase>(CustomEvent.PlayerWounded, this);
-            GameEntry.UI.SendUIMessage("RefreshHUDUIForm",this);
+            Components.EventCenter.EventTrigger<EntityBase>(CustomEvent.PlayerWounded, this);
+            Components.UI.SendUIMessage("RefreshHUDUIForm",this);
         }
 
         protected override void Dead()
         {
             base.Dead();
             controls.Dispose();
-            GameEntry.UI.Close<HUDUIForm>();
-            GameEntry.UI.Open<EndUIForm>(null);
-            GameEntry.Sound.PlaySound("Dead", false);
+            Components.UI.Close<HUDUIForm>();
+            Components.UI.Open<EndUIForm>(null).Forget();
+            Components.Sound.PlaySound("Dead", false);
             Destroy(gameObject);
         }
 
