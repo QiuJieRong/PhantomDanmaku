@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace PhantomDanmaku
+namespace PhantomDanmaku.Runtime
 {
 
     public class Monster : MonsterBase

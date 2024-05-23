@@ -1,6 +1,4 @@
-using PhantomDanmaku.Runtime;
-
-namespace PhantomDanmaku
+namespace PhantomDanmaku.Runtime
 {
     public partial class GameEntry
     {

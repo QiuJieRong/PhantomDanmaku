@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace PhantomDanmaku
+namespace PhantomDanmaku.Runtime
 {
     
     public enum E_Item_Type

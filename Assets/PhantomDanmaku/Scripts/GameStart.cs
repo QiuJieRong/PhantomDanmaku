@@ -1,7 +1,7 @@
 using PhantomDanmaku.Runtime.UI;
 using UnityEngine;
 
-namespace PhantomDanmaku
+namespace PhantomDanmaku.Runtime
 {
     public class GameStart : MonoBehaviour
     {

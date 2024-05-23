@@ -1,7 +1,7 @@
 using MyFramework.Runtime;
 using PhantomDanmaku.Runtime.UI;
 
-namespace PhantomDanmaku
+namespace PhantomDanmaku.Runtime
 {
     public partial class GameEntry
     {

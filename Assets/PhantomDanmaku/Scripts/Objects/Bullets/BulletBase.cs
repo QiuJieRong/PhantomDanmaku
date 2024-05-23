@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-namespace PhantomDanmaku
+namespace PhantomDanmaku.Runtime
 {
 
     public class BulletBase : MonoBehaviour

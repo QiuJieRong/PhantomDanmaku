@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.Tilemaps;
 
-namespace PhantomDanmaku
+namespace PhantomDanmaku.Runtime
 {
     public class MapGenerator : SingletonBase<MapGenerator>
     {

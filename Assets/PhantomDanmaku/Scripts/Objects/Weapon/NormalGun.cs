@@ -1,4 +1,4 @@
-namespace PhantomDanmaku
+namespace PhantomDanmaku.Runtime
 {
     
     public class NormalGun : GunBase

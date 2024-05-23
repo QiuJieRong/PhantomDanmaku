@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace PhantomDanmaku
+namespace PhantomDanmaku.Runtime
 {
 
     public enum E_Door_Type

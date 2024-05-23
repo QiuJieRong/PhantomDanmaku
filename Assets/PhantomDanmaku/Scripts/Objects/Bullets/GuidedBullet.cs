@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace PhantomDanmaku
+namespace PhantomDanmaku.Runtime
 {
     
     public class GuidedBullet : BulletBase

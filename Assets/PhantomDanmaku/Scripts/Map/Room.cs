@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace PhantomDanmaku
+namespace PhantomDanmaku.Runtime
 {
 
     public class Room

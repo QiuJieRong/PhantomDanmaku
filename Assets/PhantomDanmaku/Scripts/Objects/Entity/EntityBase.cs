@@ -1,6 +1,5 @@
 using UnityEngine;
-
-namespace PhantomDanmaku
+namespace PhantomDanmaku.Runtime
 {
     public abstract class EntityBase : MonoBehaviour
     {

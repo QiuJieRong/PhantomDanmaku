@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using PhantomDanmaku.Runtime.UI;
 using UnityEngine;
 
-namespace PhantomDanmaku
+namespace PhantomDanmaku.Runtime
 {
 
     public class Player : EntityBase

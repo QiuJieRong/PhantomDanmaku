@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.VFX;
 
-namespace PhantomDanmaku
+namespace PhantomDanmaku.Runtime
 {
     
     public class GunBase : WeaponBase

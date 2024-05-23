@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PhantomDanmaku
+namespace PhantomDanmaku.Runtime
 {
     
     public class ItemWeapon : ItemBase

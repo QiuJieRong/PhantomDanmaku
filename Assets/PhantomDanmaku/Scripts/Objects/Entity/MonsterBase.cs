@@ -1,7 +1,7 @@
-using System;
 using UnityEngine;
+using NotImplementedException = System.NotImplementedException;
 
-namespace PhantomDanmaku
+namespace PhantomDanmaku.Runtime
 {
     public class MonsterBase : EntityBase
     {
@@ -14,6 +14,8 @@ namespace PhantomDanmaku
             m_Camp = Camp.Monster;
             rig2D = GetComponent<Rigidbody2D>();
         }
+
+
         protected virtual void Update()
         {
             if (curAttackTarget != null)
@@ -23,10 +25,11 @@ namespace PhantomDanmaku
                 rig2D.velocity = dir * m_Speed;
             }
         }
-
+        
         protected override void Attack()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
+        
     }
 }
