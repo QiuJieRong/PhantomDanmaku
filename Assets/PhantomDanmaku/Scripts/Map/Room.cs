@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -239,16 +240,16 @@ namespace PhantomDanmaku
         public void CopyRoom()
         {
             //被复制的tilemap
-            Tilemap target_tilemap_wall = roomPrefab.transform.Find("Wall").GetComponent<Tilemap>();
-            Tilemap target_tilemap_object = roomPrefab.transform.Find("Object").GetComponent<Tilemap>();
+            var targetTilemapWall = roomPrefab.transform.Find("Wall").GetComponent<Tilemap>() ?? throw new ArgumentNullException("roomPrefab.transform.Find(\"Wall\").GetComponent<Tilemap>()");
+            var targetTilemapObject = roomPrefab.transform.Find("Object").GetComponent<Tilemap>();
             //获取要复制的所有tile
-            foreach (var position in target_tilemap_wall.cellBounds.allPositionsWithin)
+            foreach (var position in targetTilemapWall.cellBounds.allPositionsWithin)
             {
-                if (target_tilemap_wall.GetTile(position) != null)
-                    TilemapWall.SetTile((Vector3Int)CenterCoord + position, target_tilemap_wall.GetTile(position));
-                if (target_tilemap_object.GetTile(position) != null)
+                if (targetTilemapWall.GetTile(position) != null)
+                    TilemapWall.SetTile((Vector3Int)CenterCoord + position, targetTilemapWall.GetTile(position));
+                if (targetTilemapObject.GetTile(position) != null)
                 {
-                    TilemapObject.SetTile((Vector3Int)CenterCoord + position, target_tilemap_object.GetTile(position));
+                    TilemapObject.SetTile((Vector3Int)CenterCoord + position, targetTilemapObject.GetTile(position));
                     GameObject obj = TilemapObject.GetInstantiatedObject((Vector3Int)CenterCoord + position);
                     monsters.Add(obj);
                 }

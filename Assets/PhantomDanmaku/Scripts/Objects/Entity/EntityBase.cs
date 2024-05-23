@@ -1,57 +1,130 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PhantomDanmaku
 {
-
     public abstract class EntityBase : MonoBehaviour
     {
-        protected int hp = 5; //生命值
-        public int Hp => hp;
-        protected int curHp = 5; //当前生命值
-        public int CurHp => curHp; //当前生命值
-        protected int shield = 3; //护盾值
-        public int Shield => shield; //
-        protected int curShield = 3; //当前护盾值
-        public int CurShield => curShield;
-        protected int energy = 100; //能量值
-        public int Energy => energy; //
-        protected int curEnergy = 100; //当前能量值
-        public int CurEnergy => curEnergy;
+        /// <summary>
+        /// 最大生命值
+        /// </summary>
+        private int m_MaxHp = 5;
+        public int MaxHp => m_MaxHp;
+        /// <summary>
+        /// 当前生命值
+        /// </summary>
+        private int m_Hp = 5;
+        public int Hp => m_Hp;
+        /// <summary>
+        /// 最大护盾值
+        /// </summary>
+        private int m_MaxShield = 3;
+        public int MaxShield => m_MaxShield;
+        /// <summary>
+        /// 当前护盾值
+        /// </summary>
+        private int m_Shield = 3;
+        public int Shield => m_Shield;
+        
+        /// <summary>
+        /// 最大能量值
+        /// </summary>
+        private int m_MaxEnergy = 100;
+        public int MaxEnergy => m_MaxEnergy;
+        /// <summary>
+        /// 当前能量值
+        /// </summary>
+        private int m_CurEnergy = 100;
+        public int CurEnergy => m_CurEnergy;
 
-        protected int speed = 3; //移动速度
-        protected string camp;
-        public string Camp => camp;
+        private WeaponBase m_CurWeapon;
 
+        public WeaponBase CurWeapon => m_CurWeapon;
+
+        /// <summary>
+        /// 移动速度
+        /// </summary>
+        protected int m_Speed = 3; //移动速度
+        
+        /// <summary>
+        /// 阵营
+        /// </summary>
+        protected Camp m_Camp;
+        public Camp Camp => m_Camp;
+
+        private Transform m_Transform;
+
+        protected virtual void Start()
+        {
+            m_Transform = transform;
+        }
+        
         protected abstract void Attack();
 
         public virtual void Wounded(WeaponBase damageSource)
         {
-            int damage = damageSource.Atk;
-            if (damage >= curShield)
+            //如果已经死了，就不要执行剩下的代码。防止异常
+            if (m_Hp <= 0)
+                return;
+            var damage = damageSource.Atk;
+            if (damage >= m_Shield)
             {
-                damage = damage - curShield;
-                curShield = 0;
+                damage = damage - m_Shield;
+                m_Shield = 0;
             }
-            else if (damage < curShield)
+            else if (damage < m_Shield)
             {
-                curShield -= damage;
+                m_Shield -= damage;
                 damage = 0;
             }
 
-            curHp = curHp - damage < 0 ? 0 : curHp - damage;
-            if (curHp == 0)
+            m_Hp = m_Hp - damage < 0 ? 0 : m_Hp - damage;
+            if (m_Hp == 0)
                 Dead();
         }
 
-        public virtual void Dead()
+        protected virtual void Dead()
         {
             GameEntry.ObjectPool.PushObj(gameObject);
             // Destroy(this.gameObject);
         }
 
-        public abstract void SetCurrentWeapon(WeaponBase weapon);
+        public void SetCurrentWeapon(WeaponBase weapon)
+        {
+            m_CurWeapon = weapon;
+            //设置父对象和位置
+            var weaponTransform= weapon.transform;
+            weaponTransform.SetParent(transform.Find("Weapons").transform);
+            weaponTransform.localPosition = Vector3.zero;
+            //设置武器的拥有者
+            weapon.SetOwner(this);
+        }
+
+        /// <summary>
+        /// 实体朝向
+        /// </summary>
+        protected virtual void Aim(Vector3 targetPosWs)
+        {
+            var dir = targetPosWs - transform.position;
+            
+            if (dir.x < 0)
+            {
+                m_Transform.localScale = new Vector3(-1, 1, 1);
+            }
+            else
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+
+            if (m_CurWeapon != null)
+            {
+                m_CurWeapon.Aim(dir);
+            }
+        }
     }
 
+    public enum Camp
+    {
+        Player,
+        Monster
+    }
 }

@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 
 namespace PhantomDanmaku
@@ -10,40 +8,38 @@ namespace PhantomDanmaku
     {
         [HideInInspector]
         public EntityBase owner;
-        protected string camp;
-        public string Camp => camp;
+        private Camp m_Camp;
+        public Camp Camp => m_Camp;
+        
         protected int atk;//攻击力
         public int Atk => atk;
         protected int interval;//攻击间隔
         protected int consume;//攻击能量消耗
 
+        protected Transform m_Transform;
+
+        private static Vector3 _reverseXY = new(-1, -1, 1);
+
+        protected virtual void Start()
+        {
+            m_Transform = transform;
+        }
+
         public void SetOwner(EntityBase entity)
         {
             owner = entity;
-            camp = entity.Camp;
+            m_Camp = entity.Camp;
         }
 
         /// <summary>
         /// 武器的朝向也决定了角色的朝向
         /// </summary>
-        public void Ami(Vector3 targetPosWS)
+        public void Aim(Vector3 dir)
         {
-            Vector3 dir = targetPosWS - transform.position;
-            if (dir.x < 0)
-            {
-                transform.localScale = new Vector3(1, -1, 1);
-                owner.transform.localScale = new Vector3(-1, 1, 1);
-                transform.parent.transform.localScale = new Vector3(-1, 1, 1);
-            }
-            else
-            {
-                transform.localScale = new Vector3(1, 1, 1);
-                owner.transform.localScale = new Vector3(1, 1, 1);
-                transform.parent.transform.localScale = new Vector3(1, 1, 1);
-            }
-
+            m_Transform.localScale = dir.x < 0 ? _reverseXY : Vector3.one;
+            
             dir = Quaternion.AngleAxis(90, Vector3.forward) * dir;
-
+            
             gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, dir);
         }
         public abstract void Attack();

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PhantomDanmaku
@@ -11,10 +9,10 @@ namespace PhantomDanmaku
         public override void UseItem(Player owner)
         {
             //实例化武器
-            GameObject weaponObj = Instantiate(weaponPrefabs);
-            WeaponBase weapon = weaponObj.GetComponent<WeaponBase>();
+            var weaponObj = Instantiate(weaponPrefabs);
+            var weapon = weaponObj.GetComponent<WeaponBase>();
             //先判断是否已经拥有武器
-            if (owner.CurrentWeapon != null)//如果已经拥有武器
+            if (owner.CurWeapon != null)//如果已经拥有武器
             {
                 //调用玩家的切换武器函数
                 owner.ChangeCurrentWeapon(weapon);

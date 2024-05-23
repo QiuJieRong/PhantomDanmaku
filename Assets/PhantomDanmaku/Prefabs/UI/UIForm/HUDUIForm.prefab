@@ -825,9 +825,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FieldInChildUIForm:
   - {fileID: 1689610153276145402}
-  - {fileID: 1689610153436613244}
   - {fileID: 7171495656410427720}
+  - {fileID: 1689610153436613244}
   - {fileID: 9108288347218385886}
+  - {fileID: 1689610154043632948}
+  - {fileID: 2906435883566676600}
 --- !u!1 &3918461974353154214
 GameObject:
   m_ObjectHideFlags: 0

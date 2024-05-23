@@ -183,7 +183,10 @@ namespace PhantomDanmaku.Runtime.UI
         public void Close<T>() where T : UIFormBase
         {
             var uiForm = GetOpenedUIForm<T>();
-            Close(uiForm);
+            if (uiForm != null)
+            {
+                Close(uiForm);
+            }
         }
 
         public void Close(UIFormBase uiForm)
@@ -220,7 +223,7 @@ namespace PhantomDanmaku.Runtime.UI
                     return uiForm;
                 }
             }
-            Debug.LogError("UIForm未打开");
+            Debug.LogWarning("要获取的UIForm未打开");
             return null;
         }
 

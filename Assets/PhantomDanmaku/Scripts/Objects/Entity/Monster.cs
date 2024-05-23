@@ -4,65 +4,45 @@ using UnityEngine;
 namespace PhantomDanmaku
 {
 
-    public class Monster : EntityBase
+    public class Monster : MonsterBase
     {
-        private Transform attackTarget;
-        private Rigidbody2D rig;
         public WeaponBase weapon;
-        private Coroutine attackCoroutine;
-
-        public override void SetCurrentWeapon(WeaponBase weapon)
-        {
-            this.weapon = weapon;
-            weapon.SetOwner(this);
-        }
+        private Coroutine m_AttackCoroutine;
 
         protected override void Attack()
         {
             weapon.Attack();
         }
 
-        public override void Wounded(WeaponBase damageSource)
+        protected override void Start()
         {
-            base.Wounded(damageSource);
-        }
-
-        void Start()
-        {
-            camp = "Monster";
-            rig = GetComponent<Rigidbody2D>();
+            base.Start();
             SetCurrentWeapon(weapon);
-            // attackCoroutine = StartCoroutine(AttackIenum());
         }
 
-        void Update()
+        protected override void Update()
         {
+            base.Update();
             if (Player.instance.IsInRoom)
             {
                 //检测范围内是否有敌人，如果有的话设置攻击目标,如果没有的话攻击目标设置为空
                 Collider2D target =
                     Physics2D.OverlapCircle(transform.position, 15, 1 << LayerMask.NameToLayer("Player"));
                 if (target == null)
-                    attackTarget = null;
+                    curAttackTarget = null;
                 else
                 {
-                    if (attackCoroutine == null)
-                        attackCoroutine = StartCoroutine(AttackIenum());
-                    attackTarget = target.transform;
+                    if (m_AttackCoroutine == null)
+                        m_AttackCoroutine = StartCoroutine(AttackIenum());
+                    curAttackTarget = target.transform;
                 }
 
-                if (attackTarget != null)
+                if (curAttackTarget== null)
                 {
-                    weapon.Ami(attackTarget.position);
-                    Vector3 dir = Vector3.Normalize(attackTarget.position - transform.position);
-                    rig.velocity = dir * speed;
-                }
-                else
-                {
-                    rig.velocity = Vector3.zero;
-                    if (attackCoroutine != null)
-                        StopCoroutine(attackCoroutine);
-                    attackCoroutine = null;
+                    rig2D.velocity = Vector3.zero;
+                    if (m_AttackCoroutine != null)
+                        StopCoroutine(m_AttackCoroutine);
+                    m_AttackCoroutine = null;
                 }
             }
         }
@@ -76,7 +56,7 @@ namespace PhantomDanmaku
             }
         }
 
-        public override void Dead()
+        protected override void Dead()
         {
             base.Dead();
             GameEntry.EventCenter.EventTrigger(CustomEvent.MonsterDead, gameObject);

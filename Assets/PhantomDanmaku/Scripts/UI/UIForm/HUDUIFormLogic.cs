@@ -11,13 +11,19 @@ namespace PhantomDanmaku.Runtime.UI
             RegisterUIMessage("RefreshHUDUIForm",Refresh);
         }
 
+        public override void OnOpen(object userData)
+        {
+            base.OnOpen(userData);
+            Refresh(userData);
+        }
+
         private void Refresh(object userData)
         {
             if (userData is EntityBase player)
             {
-                RefreshState(m_HpFillImage, m_HpTextMeshProUGUI, player.CurHp, player.Hp);
-                RefreshState(m_ShieldFillImage, m_ShieldTextMeshProUGUI, player.CurShield, player.Shield);
-                RefreshState(m_HpFillImage, m_HpTextMeshProUGUI, player.CurEnergy, player.Energy);
+                RefreshState(m_HpFillImage, m_HpTextMeshProUGUI, player.Hp, player.MaxHp);
+                RefreshState(m_ShieldFillImage, m_ShieldTextMeshProUGUI, player.Shield, player.MaxShield);
+                RefreshState(m_EnergyFillImage, m_EnergyTextMeshProUGUI, player.CurEnergy, player.MaxEnergy);
             }
         }
 

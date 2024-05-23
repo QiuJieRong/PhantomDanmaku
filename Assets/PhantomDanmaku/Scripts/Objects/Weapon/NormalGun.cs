@@ -1,17 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace PhantomDanmaku
 {
     
     public class NormalGun : GunBase
     {
-        void Start()
+        protected override void Start()
         {
+            base.Start();
             atk = 1;
         }
-
 
         public override void Attack()
         {

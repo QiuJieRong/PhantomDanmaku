@@ -12,55 +12,54 @@ namespace PhantomDanmaku
         private Rigidbody2D rig;
         private Animator animator;
         private Controls controls;
-        private WeaponBase currentWeapon;
-
-        public WeaponBase CurrentWeapon => currentWeapon;
 
         //是否在房间中
         public bool IsInRoom = true;
+        private Camera m_MainCamera;
 
-        void Awake()
+        private void Awake()
         {
             instance = this;
         }
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+            m_MainCamera = Camera.main;
             GameEntry.EventCenter.EventTrigger<EntityBase>(CustomEvent.PlayerSpawn, this);
             GameEntry.UI.SendUIMessage("RefreshHUDUIForm",this);
-            camp = "Player";
-            speed = 10;
+            m_Camp = Camp.Player;
+            m_Speed = 10;
             rig = GetComponent<Rigidbody2D>();
             animator = GetComponentInChildren<Animator>();
 
             controls = new Controls();
             controls.Enable();
             controls.Player.Attack.performed += (context) => { Attack(); };
-            GameEntry.UI.Open<HUDUIForm>(null);
+            GameEntry.UI.Open<HUDUIForm>(this);
         }
 
-        void Update()
+        private void Update()
         {
             Vector2 dir = controls.Player.Move.ReadValue<Vector2>();
-            rig.velocity = dir * speed;
+            rig.velocity = dir * m_Speed;
             animator.SetFloat("Speed", rig.velocity.magnitude);
-
-            Vector3 mousePosWS = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if (currentWeapon != null)
-                currentWeapon.Ami(mousePosWS);
+            
+            var mousePosWs = m_MainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Aim(mousePosWs);
             CheckIsEnterRoom();
         }
 
         /// <summary>
         /// 判断是否进入了哪个房间
         /// </summary>
-        void CheckIsEnterRoom()
+        private void CheckIsEnterRoom()
         {
             bool isInRoom = false;
             List<Room> rooms = MapGenerator.Instance.Rooms;
             if (rooms == null)
                 return;
-            foreach (Room room in rooms)
+            foreach (var room in rooms)
             {
                 if (transform.position.x > (room.CenterCoord.x - room.Info.Width / 2) &&
                     transform.position.x < (room.CenterCoord.x + room.Info.Width / 2 + 1) &&
@@ -74,19 +73,15 @@ namespace PhantomDanmaku
             }
 
             IsInRoom = isInRoom;
-            // if(!IsInRoom)
-            // {
-            //     EventCenter.Instance.EventTrigger(CustomEvent.RoomLeave);
-            // }
         }
 
-        void OnTriggerStay2D(Collider2D other)
+        private void OnTriggerStay2D(Collider2D other)
         {
-            if (other.gameObject.tag == "Item")
+            if (other.gameObject.CompareTag("Item"))
             {
                 if (controls.Player.Interact.ReadValue<float>() == 1)
                 {
-                    ItemBase item = other.GetComponent<ItemBase>();
+                    var item = other.GetComponent<ItemBase>();
                     //使用道具，如果是枪则装备，如果是道具则使用，具体逻辑判断在该函数内部
                     item.UseItem(this);
                 }
@@ -95,27 +90,16 @@ namespace PhantomDanmaku
 
         protected override void Attack()
         {
-            if (currentWeapon != null)
+            if (CurWeapon != null)
             {
-                currentWeapon.Attack();
+                CurWeapon.Attack();
                 GameEntry.Sound.PlaySound("Fire", false);
             }
         }
-
-        public override void SetCurrentWeapon(WeaponBase weapon)
-        {
-            currentWeapon = weapon;
-            //设置父对象和位置
-            weapon.transform.SetParent(transform.Find("Weapons").transform);
-            weapon.transform.localPosition = Vector3.zero;
-            //设置武器的拥有者
-            weapon.SetOwner(this);
-        }
-
         public void ChangeCurrentWeapon(WeaponBase weapon)
         {
             //销毁原本的武器
-            Destroy(currentWeapon.gameObject);
+            Destroy(CurWeapon.gameObject);
             //设置新武器为当前武器
             SetCurrentWeapon(weapon);
         }
@@ -127,7 +111,7 @@ namespace PhantomDanmaku
             GameEntry.UI.SendUIMessage("RefreshHUDUIForm",this);
         }
 
-        public override void Dead()
+        protected override void Dead()
         {
             base.Dead();
             controls.Dispose();
@@ -137,7 +121,7 @@ namespace PhantomDanmaku
             Destroy(gameObject);
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             controls.Dispose();
         }
