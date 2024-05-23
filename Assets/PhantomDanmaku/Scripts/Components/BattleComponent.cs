@@ -6,11 +6,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
-namespace PhantomDanmaku.Runtime.UI
+namespace PhantomDanmaku.Runtime
 {
     public class BattleComponent : GameFrameworkComponent
     {
-        public async UniTask StartBattle(int chapter,int level)
+        public static async UniTask StartBattle(int chapter,int level)
         {
             SceneManager.LoadScene("SampleScene", LoadSceneMode.Additive);
 

@@ -14,7 +14,7 @@ namespace PhantomDanmaku.Runtime.UI
             {
                 GameEntry.UI.Close(this);
                 
-                GameEntry.Battle.StartBattle(0, 0).Forget();
+                BattleComponent.StartBattle(0, 0).Forget();
             });
 
             m_ExitButton.onClick.AddListener(() =>

@@ -14,7 +14,7 @@ namespace PhantomDanmaku.Runtime.UI
                 GameEntry.ObjectPool.Clear();
                 GameEntry.UI.Close(this);
                 await SceneManager.UnloadSceneAsync("SampleScene");
-                GameEntry.Battle.StartBattle(0, 0).Forget();
+                BattleComponent.StartBattle(0, 0).Forget();
             });
             
             m_ExitButtonButton.onClick.AddListener(() =>

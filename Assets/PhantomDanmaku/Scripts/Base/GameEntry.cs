@@ -7,6 +7,7 @@ namespace PhantomDanmaku
         private void Start()
         {
             InitBuiltinComponents();
+            InitCustomComponents();
         }
     }
 }
