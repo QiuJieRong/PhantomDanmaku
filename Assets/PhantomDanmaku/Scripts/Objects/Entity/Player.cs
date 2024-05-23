@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using PhantomDanmaku.Runtime.UI;
@@ -12,7 +13,6 @@ namespace PhantomDanmaku.Runtime
         public static Player Instance => instance;
         private Rigidbody2D rig;
         private Animator animator;
-        private Controls controls;
 
         //是否在房间中
         public bool IsInRoom = true;
@@ -34,20 +34,23 @@ namespace PhantomDanmaku.Runtime
             rig = GetComponent<Rigidbody2D>();
             animator = GetComponentInChildren<Animator>();
 
-            controls = new Controls();
-            controls.Enable();
-            controls.Player.Attack.performed += (context) => { Attack(); };
+            Components.Input.Controls.Player.Attack.performed += AttackListener;
         }
 
         private void Update()
         {
-            Vector2 dir = controls.Player.Move.ReadValue<Vector2>();
+            Vector2 dir = Components.Input.Controls.Player.Move.ReadValue<Vector2>();
             rig.velocity = dir * m_Speed;
             animator.SetFloat("Speed", rig.velocity.magnitude);
             
             var mousePosWs = m_MainCamera.ScreenToWorldPoint(Input.mousePosition);
             Aim(mousePosWs);
             CheckIsEnterRoom();
+        }
+
+        private void AttackListener(UnityEngine.InputSystem.InputAction.CallbackContext context)
+        {
+            Attack();
         }
 
         /// <summary>
@@ -79,7 +82,7 @@ namespace PhantomDanmaku.Runtime
         {
             if (other.gameObject.CompareTag("Item"))
             {
-                if (controls.Player.Interact.ReadValue<float>() == 1)
+                if (Components.Input.Controls.Player.Interact.ReadValue<float>() == 1)
                 {
                     var item = other.GetComponent<ItemBase>();
                     //使用道具，如果是枪则装备，如果是道具则使用，具体逻辑判断在该函数内部
@@ -114,7 +117,7 @@ namespace PhantomDanmaku.Runtime
         protected override void Dead()
         {
             base.Dead();
-            controls.Dispose();
+            Components.Input.Controls.Player.Attack.performed -= AttackListener;
             Components.UI.Close<HUDUIForm>();
             Components.UI.Open<EndUIForm>(null).Forget();
             Components.Sound.PlaySound("Dead", false);
@@ -123,7 +126,7 @@ namespace PhantomDanmaku.Runtime
 
         private void OnDestroy()
         {
-            controls.Dispose();
+            Components.Input.Controls.Player.Attack.performed -= AttackListener;
         }
     }
 

@@ -1191,6 +1191,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 418488842919882564, guid: 4dd45f7eb8032d54084b51c935422937, type: 3}
+      propertyPath: m_Name
+      value: Weapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 418488843150804624, guid: 4dd45f7eb8032d54084b51c935422937, type: 3}
+      propertyPath: m_Name
+      value: Character
+      objectReference: {fileID: 0}
     - target: {fileID: 418488843150804629, guid: 4dd45f7eb8032d54084b51c935422937, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -1199,6 +1207,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: c057bd451683d1f4391c24c4e09d270e, type: 2}
+    - target: {fileID: 6214627314898404362, guid: 4dd45f7eb8032d54084b51c935422937, type: 3}
+      propertyPath: m_Name
+      value: MapSign
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dd45f7eb8032d54084b51c935422937, type: 3}
 --- !u!1001 &7954013600066736682

@@ -92,7 +92,7 @@ namespace PhantomDanmaku.Runtime
             m_CurWeapon = weapon;
             //设置父对象和位置
             var weaponTransform= weapon.transform;
-            weaponTransform.SetParent(transform.Find("Weapons").transform);
+            weaponTransform.SetParent(transform.Find("Weapon").transform);
             weaponTransform.localPosition = Vector3.zero;
             //设置武器的拥有者
             weapon.SetOwner(this);

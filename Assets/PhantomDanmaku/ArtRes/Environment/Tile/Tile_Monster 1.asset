@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Tile_Monster 1
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: 21300000, guid: 2619b5a36e26ca642b1e10d72d28d441, type: 3}
-  m_DefaultGameObject: {fileID: 7261956380097581605, guid: 6fc84e9d5969a694ca12b34b88811340, type: 3}
+  m_DefaultGameObject: {fileID: 5750948237165757997, guid: d0b1487ceac128743be564da9c95ccdd, type: 3}
   m_DefaultColliderType: 0
   m_TilingRules: []
