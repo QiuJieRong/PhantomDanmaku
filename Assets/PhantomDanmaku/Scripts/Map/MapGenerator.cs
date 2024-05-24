@@ -96,7 +96,7 @@ namespace PhantomDanmaku.Runtime
             }
         }
 
-        void RoomEnterCallback(Room room)
+        private void RoomEnterCallback(Room room)
         {
             //如果该房间还未清空怪物，则关门
             if (!room.isClear)
@@ -105,21 +105,14 @@ namespace PhantomDanmaku.Runtime
             }
         }
 
-        void RoomClearCallback(Room room)
+        private void RoomClearCallback(Room room)
         {
             room.isClear = true;
             room.OpenDoor();
-            bool isAllClear = true;
-            foreach (var item in m_Rooms)
-            {
-                if (!item.isClear)
-                    isAllClear = false;
-            }
 
-            if (isAllClear)
+            if (room.Info.m_RoomType == RoomType.FinalRoom)
             {
-                Components.UI.Close<HUDUIForm>();
-                Components.UI.Open<EndUIForm>(null).Forget();
+                Components.EventCenter.EventTrigger("FinalRoomClear");
             }
         }
 
@@ -140,8 +133,6 @@ namespace PhantomDanmaku.Runtime
         /// </summary>
         void GeneratorRoom()
         {
-            int id = 0;
-
             var roomTypeDic = new Dictionary<RoomType, int>();
             //根据配置生成房间列表
             foreach (var kvp in m_RoomTypeDic)
@@ -150,27 +141,60 @@ namespace PhantomDanmaku.Runtime
                 var count = m_LevelConfig.RoomCountDic[kvp.Key].GetRandom();
                 roomTypeDic.Add(kvp.Key, count);
             }
-            
+
+            var roomPrefabList = new List<GameObject>();
+            GameObject finalRoomPrefab = null;
+            GameObject firstRoomPrefab = null;
             foreach (var kvp in roomTypeDic)
             {
                 var count = kvp.Value;
                 while (count-- > 0)
                 {
                     var tileRoom = m_RoomTypeDic[kvp.Key].GetRandom();
-                    m_RoomPosList.Add(point);
-                    m_Rooms.Add(new Room(point, id, tileRoom));
-                    ++id;
-                    ChangeGeneratorPoint();
+                    if (kvp.Key == RoomType.FinalRoom)
+                        finalRoomPrefab = tileRoom;
+                    else if (kvp.Key == RoomType.FirstRoom)
+                        firstRoomPrefab = tileRoom;
+                    else
+                        roomPrefabList.Add(tileRoom);
                 }
+            }
+            
+            var id = 0;
+            //先生成初始房间
+            m_RoomPosList.Add(point);
+            m_Rooms.Add(new Room(point, id, firstRoomPrefab));
+            ++id;
+            ChangeGeneratorPoint();
+            
+            //再生成战斗房间和奖励房间
+            //打乱顺序，防止相同类型的房间总是相邻
+            roomPrefabList.Shuffle();
+            foreach (var roomPrefab in roomPrefabList)
+            {
+                m_RoomPosList.Add(point);
+                m_Rooms.Add(new Room(point, id, roomPrefab));
+                ++id;
+                ChangeGeneratorPoint();
+            }
+
+            //最后生成终点房间
+            //一般终点房间只有一个,在所有房间位置确定后再生成，防止距离起点过近
+            if (finalRoomPrefab != null)
+            {
+                m_RoomPosList.Add(point);
+                m_Rooms.Add(new Room(point, id, finalRoomPrefab));
+                ++id;
+                ChangeGeneratorPoint();
             }
         }
 
         /// <summary>
         /// 根据生成的房间信息，来绘制房间,和道路
         /// </summary>
-        void DrawRoom()
+        private void DrawRoom()
         {
-            foreach (Room room in m_Rooms)
+            foreach (var room in m_Rooms)
             {
                 //绘制地板
                 room.DrawGround();
@@ -191,7 +215,7 @@ namespace PhantomDanmaku.Runtime
         /// <summary>
         /// 改变下一个生成点位
         /// </summary>
-        void ChangeGeneratorPoint()
+        private void ChangeGeneratorPoint()
         {
             int dir = Random.Range(0, 4); //0:上 1:下 2:右 3:左 
             do

@@ -78,7 +78,7 @@ namespace MyFramework.Runtime
             //判断页面是否已经存在
             if (m_OpenedUIFormList.Exists(uiForm => uiForm.GetType() == typeof(T)))
             {
-                Debug.LogError("页面已存在");
+                Debug.Log("页面已存在");
                 return false;
             }
             

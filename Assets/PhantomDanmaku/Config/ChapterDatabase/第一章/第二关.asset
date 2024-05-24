@@ -40,7 +40,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
       Data: 
@@ -270,6 +270,52 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: 16|PhantomDanmaku.Config.RoomPrefabList, Assembly-CSharp
+    - Name: RoomPrefabs
+      Entry: 7
+      Data: 17|System.Collections.Generic.List`1[[UnityEngine.AddressableAssets.AssetReferenceGameObject,
+        Unity.Addressables]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 18|UnityEngine.AddressableAssets.AssetReferenceGameObject, Unity.Addressables
+    - Name: m_AssetGUID
+      Entry: 1
+      Data: 4f8465d357deeb34f8e202595e01fe08
+    - Name: m_SubObjectName
+      Entry: 1
+      Data: 
+    - Name: m_SubObjectType
+      Entry: 1
+      Data: 
+    - Name: m_EditorAssetChanged
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -277,11 +323,11 @@ MonoBehaviour:
       Data: 
     - Name: RoomCountDic
       Entry: 7
-      Data: 16|System.Collections.Generic.Dictionary`2[[PhantomDanmaku.RoomType,
+      Data: 19|System.Collections.Generic.Dictionary`2[[PhantomDanmaku.RoomType,
         Assembly-CSharp],[UnityEngine.Vector2Int, UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 17|System.Collections.Generic.EnumEqualityComparer`1[[PhantomDanmaku.RoomType,
+      Data: 20|System.Collections.Generic.EnumEqualityComparer`1[[PhantomDanmaku.RoomType,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
@@ -294,7 +340,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
       Data: 
@@ -359,6 +405,27 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
       Entry: 13
       Data: 
     - Name: 
@@ -366,10 +433,10 @@ MonoBehaviour:
       Data: 
     - Name: OnLevelStart
       Entry: 7
-      Data: 18|PhantomDanmaku.Config.StartFlowchart, Assembly-CSharp
+      Data: 21|PhantomDanmaku.Config.StartFlowchart, Assembly-CSharp
     - Name: Flowchart
       Entry: 7
-      Data: 19|UnityEngine.AddressableAssets.AssetReferenceGameObject, Unity.Addressables
+      Data: 22|UnityEngine.AddressableAssets.AssetReferenceGameObject, Unity.Addressables
     - Name: m_AssetGUID
       Entry: 1
       Data: 147930522ea52f34f998fecb67977c15
@@ -390,10 +457,10 @@ MonoBehaviour:
       Data: 
     - Name: OnLevelEnd
       Entry: 7
-      Data: 20|PhantomDanmaku.Config.StartFlowchart, Assembly-CSharp
+      Data: 23|PhantomDanmaku.Config.StartFlowchart, Assembly-CSharp
     - Name: Flowchart
       Entry: 7
-      Data: 21|UnityEngine.AddressableAssets.AssetReferenceGameObject, Unity.Addressables
+      Data: 24|UnityEngine.AddressableAssets.AssetReferenceGameObject, Unity.Addressables
     - Name: m_AssetGUID
       Entry: 1
       Data: 147930522ea52f34f998fecb67977c15

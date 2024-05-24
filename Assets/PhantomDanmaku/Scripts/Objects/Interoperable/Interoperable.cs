@@ -1,4 +1,4 @@
-namespace PhantomDanmaku.Scripts.Objects.Interoperable
+namespace PhantomDanmaku.Runtime
 {
     /// <summary>
     /// 可交互的对象
@@ -21,6 +21,6 @@ namespace PhantomDanmaku.Scripts.Objects.Interoperable
         /// 可交互判断，一般是距离小于某个数值
         /// </summary>
         /// <returns></returns>
-        bool CanInteract { get; set; }
+        bool CanInteract { get; }
     }
 }

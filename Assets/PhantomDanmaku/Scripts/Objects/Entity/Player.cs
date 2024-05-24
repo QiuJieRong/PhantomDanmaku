@@ -119,7 +119,7 @@ namespace PhantomDanmaku.Runtime
             base.Dead();
             Components.Input.Controls.Player.Attack.performed -= AttackListener;
             Components.UI.Close<HUDUIForm>();
-            Components.UI.Open<EndUIForm>(null).Forget();
+            Components.UI.Open<LevelEndUIForm>((Components.Battle.CurChapterIdx,Components.Battle.CurLevelIdx,false)).Forget();
             Components.Sound.PlaySound("Dead", false);
             Destroy(gameObject);
         }

@@ -16,8 +16,6 @@ namespace PhantomDanmaku.Runtime.UI
                
                 //进入大厅
                 SceneManager.LoadScene("HallScene", LoadSceneMode.Additive);
-
-                // BattleComponent.StartBattle(0, 0).Forget();
             });
 
             m_ExitButton.onClick.AddListener(() =>

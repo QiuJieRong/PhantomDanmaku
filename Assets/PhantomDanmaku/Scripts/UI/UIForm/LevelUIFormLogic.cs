@@ -40,6 +40,7 @@ namespace PhantomDanmaku.Runtime.UI
                 if (m_SelectedChapterIdx + 1 <= maxChapterIdx)
                 {
                     ++m_SelectedChapterIdx;
+                    m_SelectedLevelIdx = 0;
                     Refresh(null);
                 }
             });
@@ -75,7 +76,9 @@ namespace PhantomDanmaku.Runtime.UI
             {
                 if (idx < m_ContentRectTransform.childCount)
                 {
-                    var levelBtn = m_ContentRectTransform.GetChild(idx).gameObject.GetUIGroup<LevelBtn>();
+                    var go = m_ContentRectTransform.GetChild(idx).gameObject;
+                    go.SetActive(true);
+                    var levelBtn = go.GetUIGroup<LevelBtn>();
                     levelBtn.OnInit(idx);
                 }
                 else

@@ -38,7 +38,7 @@ namespace PhantomDanmaku.Runtime
             this.gridCoord = gridCoord;
             this.id = id;
             this.roomPrefab = roomPrefab;
-            if (Info.m_RoomType == RoomType.FightRoom)
+            if (Info.m_RoomType is RoomType.FightRoom or RoomType.FinalRoom)
                 isClear = false;
             Components.EventCenter.AddEventListener<GameObject>(CustomEvent.MonsterDead, MonsterDeadCallback);
         }
@@ -243,18 +243,23 @@ namespace PhantomDanmaku.Runtime
             var targetTilemapWall = roomPrefab.transform.Find("Wall").GetComponent<Tilemap>() ?? throw new ArgumentNullException("roomPrefab.transform.Find(\"Wall\").GetComponent<Tilemap>()");
             var targetTilemapObject = roomPrefab.transform.Find("Object").GetComponent<Tilemap>();
             //获取要复制的所有tile
-            foreach (var position in targetTilemapWall.cellBounds.allPositionsWithin)
+            var position = Vector3Int.zero;
+            for (var i = -Info.Width / 2; i <= Info.Width / 2; i++)
             {
-                if (targetTilemapWall.GetTile(position) != null)
-                    TilemapWall.SetTile((Vector3Int)CenterCoord + position, targetTilemapWall.GetTile(position));
-                if (targetTilemapObject.GetTile(position) != null)
+                for (var j = -Info.Height / 2; j < Info.Height / 2; j++)
                 {
-                    TilemapObject.SetTile((Vector3Int)CenterCoord + position, targetTilemapObject.GetTile(position));
-                    GameObject obj = TilemapObject.GetInstantiatedObject((Vector3Int)CenterCoord + position);
-                    monsters.Add(obj);
+                    position.x = i;
+                    position.y = j;
+                    if (targetTilemapWall.GetTile(position) != null)
+                        TilemapWall.SetTile((Vector3Int)CenterCoord + position, targetTilemapWall.GetTile(position));
+                    if (targetTilemapObject.GetTile(position) != null)
+                    {
+                        TilemapObject.SetTile((Vector3Int)CenterCoord + position, targetTilemapObject.GetTile(position));
+                        var obj = TilemapObject.GetInstantiatedObject((Vector3Int)CenterCoord + position);
+                        monsters.Add(obj);
+                    }
                 }
             }
-
         }
 
         /// <summary>
