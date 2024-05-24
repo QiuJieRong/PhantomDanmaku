@@ -1,3 +1,4 @@
+using System;
 using PhantomDanmaku.Runtime;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -43,6 +44,12 @@ namespace PhantomDanmaku.Scripts.Objects.Interoperable
             //取消监听交互按键
             Components.Input.Controls.Player.Interact.performed -= InteractKeyListener;
             HideTip();
+        }
+
+        private void OnDestroy()
+        {
+            //取消监听交互按键
+            Components.Input.Controls.Player.Interact.performed -= InteractKeyListener;
         }
 
         public virtual void ShowTip()

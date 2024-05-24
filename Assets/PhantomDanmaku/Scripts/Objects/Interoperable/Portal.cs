@@ -1,4 +1,6 @@
-using UnityEngine;
+using Cysharp.Threading.Tasks;
+using PhantomDanmaku.Runtime;
+using PhantomDanmaku.Runtime.UI;
 
 namespace PhantomDanmaku.Scripts.Objects.Interoperable
 {
@@ -7,7 +9,7 @@ namespace PhantomDanmaku.Scripts.Objects.Interoperable
         public override void Interact()
         {
             //打开选关界面
-            Debug.Log("打开选择关卡界面");
+            Components.UI.Open<LevelUIForm>(null).Forget();
         }
     }
 }

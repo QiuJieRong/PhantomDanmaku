@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Sirenix.OdinInspector;
-using UnityEngine;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using PhantomDanmaku;
+using Sirenix.OdinInspector;
 using UnityEditor;
-using UnityEngine.Serialization;
+using UnityEngine;
 
 namespace MyFramework.Runtime
 {
-    public class UIFormPlaceholder : MonoBehaviour
+    public class UIGroupPlaceholder : MonoBehaviour
     {
         [ValueDropdown("ValuesGetter", IsUniqueList = true)]
         public List<Component> FieldInChildren;
@@ -88,7 +87,7 @@ namespace MyFramework.Runtime
             var classDeclaration = SyntaxFactory.ClassDeclaration(gameObject.name)
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PartialKeyword))
-                .AddBaseListTypes(SyntaxFactory.SimpleBaseType(SyntaxFactory.IdentifierName("UIFormBase")))
+                .AddBaseListTypes(SyntaxFactory.SimpleBaseType(SyntaxFactory.IdentifierName("UIGroupBase")))
                 .AddMembers(members.ToArray());
 
 
@@ -114,13 +113,13 @@ namespace MyFramework.Runtime
             var code = syntaxTree.GetRoot().NormalizeWhitespace().ToFullString();
 
             // 将字符串写入文件
-            File.WriteAllText($"Assets/PhantomDanmaku/Scripts/UI/UIForm/{gameObject.name}.cs", code);
+            File.WriteAllText($"Assets/PhantomDanmaku/Scripts/UI/UIGroup/{gameObject.name}.cs", code);
 
             #endregion
 
             #region 如果文件已经存在则不生成的代码
 
-            if (!File.Exists($"Assets/PhantomDanmaku/Scripts/UI/UIForm/{gameObject.name}Logic.cs"))
+            if (!File.Exists($"Assets/PhantomDanmaku/Scripts/UI/UIGroup/{gameObject.name}Logic.cs"))
             {
                 
                 // 构建一个类声明
@@ -141,7 +140,7 @@ namespace MyFramework.Runtime
                 var logicCode = logicSyntaxTree.GetRoot().NormalizeWhitespace().ToFullString();
 
                 // 将字符串写入文件
-                File.WriteAllText($"Assets/PhantomDanmaku/Scripts/UI/UIForm/{gameObject.name}Logic.cs", logicCode);
+                File.WriteAllText($"Assets/PhantomDanmaku/Scripts/UI/UIGroup/{gameObject.name}Logic.cs", logicCode);
             }
 
             #endregion

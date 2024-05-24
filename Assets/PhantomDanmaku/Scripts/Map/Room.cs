@@ -66,7 +66,7 @@ namespace PhantomDanmaku.Runtime
                 {
                     Vector3Int drawPos = (Vector3Int)(CenterCoord + new Vector2Int(i, j) -
                                                       new Vector2Int(Info.Width / 2, Info.Height / 2));
-                    TilemapGround.SetTile(drawPos, Info.tileBase_ground);
+                    TilemapGround.SetTile(drawPos, MapGenerator.Instance.TileBaseGround);
                 }
             }
         }
@@ -79,7 +79,7 @@ namespace PhantomDanmaku.Runtime
             {
                 Vector3Int drawPos = (Vector3Int)(CenterCoord + new Vector2Int(i, Info.Height) -
                                                   new Vector2Int(Info.Width / 2, Info.Height / 2));
-                TilemapWall.SetTile(drawPos, Info.tileBase_wall);
+                TilemapWall.SetTile(drawPos, MapGenerator.Instance.TileBaseWall);
             }
 
             //底部
@@ -87,7 +87,7 @@ namespace PhantomDanmaku.Runtime
             {
                 Vector3Int drawPos = (Vector3Int)(CenterCoord + new Vector2Int(i, -1) -
                                                   new Vector2Int(Info.Width / 2, Info.Height / 2));
-                TilemapWall.SetTile(drawPos, Info.tileBase_wall);
+                TilemapWall.SetTile(drawPos, MapGenerator.Instance.TileBaseWall);
             }
 
             //右侧
@@ -95,7 +95,7 @@ namespace PhantomDanmaku.Runtime
             {
                 Vector3Int drawPos = (Vector3Int)(CenterCoord + new Vector2Int(Info.Width, i) -
                                                   new Vector2Int(Info.Width / 2, Info.Height / 2));
-                TilemapWall.SetTile(drawPos, Info.tileBase_wall);
+                TilemapWall.SetTile(drawPos, MapGenerator.Instance.TileBaseWall);
             }
 
             //左侧
@@ -103,7 +103,7 @@ namespace PhantomDanmaku.Runtime
             {
                 Vector3Int drawPos = (Vector3Int)(CenterCoord + new Vector2Int(-1, i) -
                                                   new Vector2Int(Info.Width / 2, Info.Height / 2));
-                TilemapWall.SetTile(drawPos, Info.tileBase_wall);
+                TilemapWall.SetTile(drawPos, MapGenerator.Instance.TileBaseWall);
             }
         }
 
@@ -155,22 +155,22 @@ namespace PhantomDanmaku.Runtime
                     {
                         if (j == 0)
                         {
-                            TilemapGround.SetTile((Vector3Int)curpoint, Info.tileBase_ground);
+                            TilemapGround.SetTile((Vector3Int)curpoint, MapGenerator.Instance.TileBaseGround);
                         }
                         else
                         {
                             TilemapGround.SetTile((Vector3Int)curpoint + new Vector3Int(-j, 0, 0),
-                                Info.tileBase_ground);
+                                MapGenerator.Instance.TileBaseGround);
                             TilemapGround.SetTile((Vector3Int)curpoint + new Vector3Int(j, 0, 0),
-                                Info.tileBase_ground);
+                                MapGenerator.Instance.TileBaseGround);
                         }
                     }
 
                     //绘制道路的墙壁
                     TilemapWall.SetTile((Vector3Int)curpoint + new Vector3Int(roadWidth / 2 + 1, 0, 0),
-                        Info.tileBase_wall);
+                        MapGenerator.Instance.TileBaseWall);
                     TilemapWall.SetTile((Vector3Int)curpoint + new Vector3Int(-roadWidth / 2 - 1, 0, 0),
-                        Info.tileBase_wall);
+                        MapGenerator.Instance.TileBaseWall);
                     curpoint += new Vector2Int(0, 1);
                 }
             }
@@ -216,22 +216,22 @@ namespace PhantomDanmaku.Runtime
                     {
                         if (j == 0)
                         {
-                            TilemapGround.SetTile((Vector3Int)curpoint, Info.tileBase_ground);
+                            TilemapGround.SetTile((Vector3Int)curpoint, MapGenerator.Instance.TileBaseGround);
                         }
                         else
                         {
                             TilemapGround.SetTile((Vector3Int)curpoint + new Vector3Int(0, -j, 0),
-                                Info.tileBase_ground);
+                                MapGenerator.Instance.TileBaseGround);
                             TilemapGround.SetTile((Vector3Int)curpoint + new Vector3Int(0, j, 0),
-                                Info.tileBase_ground);
+                                MapGenerator.Instance.TileBaseGround);
                         }
                     }
 
                     //绘制道路两边的墙壁
                     TilemapWall.SetTile((Vector3Int)curpoint + new Vector3Int(0, roadWidth / 2 + 1, 0),
-                        Info.tileBase_wall);
+                        MapGenerator.Instance.TileBaseWall);
                     TilemapWall.SetTile((Vector3Int)curpoint + new Vector3Int(0, -roadWidth / 2 - 1, 0),
-                        Info.tileBase_wall);
+                        MapGenerator.Instance.TileBaseWall);
                     curpoint += new Vector2Int(1, 0);
                 }
             }

@@ -32,7 +32,9 @@ namespace PhantomDanmaku.Runtime
         private int m_RoadWidth = 5;
         
         private TileBase m_TileBaseGround;
+        public TileBase TileBaseGround => m_TileBaseGround;
         private TileBase m_TileBaseWall;
+        public TileBase TileBaseWall => m_TileBaseWall;
         private TileBase m_TileBaseDoor;
         public TileBase TileBaseDoor => m_TileBaseDoor;
         public Tilemap TilemapGround { get; private set; }

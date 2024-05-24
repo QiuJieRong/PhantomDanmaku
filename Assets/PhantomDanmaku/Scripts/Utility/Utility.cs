@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using PhantomDanmaku.Runtime;
+using PhantomDanmaku.Runtime.UI;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace PhantomDanmaku
 {
@@ -32,6 +36,18 @@ namespace PhantomDanmaku
             path = $"{cur.name}/{path}";
             path = component.GetRelativePath(root, cur.parent, path);
             return path;
+        }
+
+        public static UIGroupBase GetUIGroup<T>(this GameObject gameObject) where T : UIGroupBase
+        {
+            return Components.UI.GetUIGroup<T>(gameObject);
+        }
+
+        public static UIGroupBase AddUIGroup<T>(this GameObject gameObject) where T : UIGroupBase
+        {
+            var uiGroup = Activator.CreateInstance<T>();
+            Components.UI.RegisterUIGroup(uiGroup, gameObject);
+            return uiGroup;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace PhantomDanmaku.Runtime
 {
     public class BattleComponent : GameFrameworkComponent
     {
-        public static async UniTask StartBattle(int chapter,int level)
+        public async UniTask StartBattle(int chapter,int level)
         {
             //打开加载界面
             await Components.UI.Open<LoadingUIForm>(null);

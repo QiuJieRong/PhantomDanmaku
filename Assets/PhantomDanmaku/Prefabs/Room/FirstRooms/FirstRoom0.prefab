@@ -208,8 +208,6 @@ MonoBehaviour:
   m_Width: 15
   m_Height: 15
   m_RoomType: 1
-  tileBase_ground: {fileID: 11400000, guid: dfb6f29bba710774480a6083bda06ce1, type: 2}
-  tileBase_wall: {fileID: 11400000, guid: 087da673c86054d41956a665670875ea, type: 2}
 --- !u!1 &8694493581872600893
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,7 +395,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0, y: 0.53499997, z: 0}
+  m_ChunkCullingBounds: {x: 0, y: 0.5468749, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0

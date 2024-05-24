@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using MyFramework.Runtime;
+using PhantomDanmaku.Runtime.UI;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace PhantomDanmaku.Runtime.UI
+namespace MyFramework.Runtime
 {
     public class UIComponent : GameFrameworkComponent
     {
@@ -18,6 +18,8 @@ namespace PhantomDanmaku.Runtime.UI
         private readonly Dictionary<Type, UIFormLoadState> m_UIFormLoadStateDic = new();
 
         private readonly List<UIFormBase> m_StandbyUIFormList = new();
+
+        private readonly List<UIGroupBase> m_UIGroupBases = new();
         
         private UIFormBase Current => m_OpenedUIFormList.Last();
         
@@ -231,6 +233,25 @@ namespace PhantomDanmaku.Runtime.UI
                 }
             }
             Debug.LogError("UIForm未待机");
+            return null;
+        }
+
+        public void RegisterUIGroup(UIGroupBase uiGroup,GameObject gameObject)
+        {
+            m_UIGroupBases.Add(uiGroup);
+            uiGroup.gameObject = gameObject;
+        }
+
+        public UIGroupBase GetUIGroup<T>(GameObject gameObject) where T : UIGroupBase
+        {
+            foreach (var uiGroupBase in m_UIGroupBases)
+            {
+                if (uiGroupBase is T && gameObject == uiGroupBase.gameObject)
+                {
+                    return uiGroupBase;
+                }
+            }
+
             return null;
         }
     }

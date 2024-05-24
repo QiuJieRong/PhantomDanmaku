@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17c3cb985795ea3498ca8c84621dcd26, type: 3}
-  m_Name: "\u7B2C\u4E00\u5173"
+  m_Name: "\u7B2C\u4E8C\u5173"
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -327,10 +327,10 @@ MonoBehaviour:
       Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 3
     - Name: 
       Entry: 3
-      Data: 2
+      Data: 4
     - Name: 
       Entry: 8
       Data: 
@@ -351,7 +351,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -412,12 +412,12 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Guid: 5125b7e7-e6d9-4ec8-9bf3-b7e51f49e91e
-  Id: 0
-  Name: "\u65B0\u624B\u5173\u5361"
-  Desc: "\u5B66\u4F1A\u6218\u6597\u7684\u6700\u597D\u65B9\u5F0F\u5C31\u662F\u5B9E\u8DF5\uFF01"
-  RoomDistance: 40
+  Guid: 391a995f-3ee8-4778-8f22-6692cd801134
+  Id: 1
+  Name: "\u8F7B\u8F7B\u677E\u677E"
+  Desc: "\u8FD9\u91CC\u677E\u677E\u6563\u6563\u7684\u5206\u5E03\u7740\u4E00\u4E9B\u6BEB\u65E0\u5A01\u80C1\u6027\u7684\u654C\u4EBA\uFF0C\u5FEB\u901F\u51FB\u8D25\u4ED6\u4EEC\u5427\uFF01"
+  RoomDistance: 30
   RoadWidth: 5
-  TileBaseGround: {fileID: 11400000, guid: dfb6f29bba710774480a6083bda06ce1, type: 2}
-  TileBaseWall: {fileID: 11400000, guid: 087da673c86054d41956a665670875ea, type: 2}
+  TileBaseGround: {fileID: 11400000, guid: 003483ecc26103240b069f22cd15cd84, type: 2}
+  TileBaseWall: {fileID: 11400000, guid: 580fd902f534b9e45ab4038d43139c5d, type: 2}
   TileBaseDoor: {fileID: 11400000, guid: 06b8a5ca57a6fcf4e84622ee75b216bc, type: 2}

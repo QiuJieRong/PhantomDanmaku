@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c13ba5fe94b4b7180448640a8e944bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FieldInChildUIForm:
+  FieldInChildren:
   - {fileID: 6294294735445548692}
   - {fileID: 2878694450084477516}
 --- !u!223 &-7797410807498584199
