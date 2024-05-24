@@ -11,6 +11,9 @@ namespace PhantomDanmaku.Runtime.System
     {
         private static Dictionary<Type, SerializedScriptableObject> s_Configs;
 
+        private PlayerData m_PlayerData;
+        public PlayerData PlayerData => m_PlayerData;
+        
         /// <summary>
         /// 加载配置
         /// </summary>
@@ -25,6 +28,16 @@ namespace PhantomDanmaku.Runtime.System
                 }
             });
             await handle;
+        }
+
+        public void LoadPlayerData()
+        {
+            m_PlayerData = Components.Save.BinaryLoad<PlayerData>("PlayerData") ?? new PlayerData();
+        }
+
+        public async void SavePlayerData()
+        {
+            await Components.Save.BinarySaveAsync("PlayerData", m_PlayerData);
         }
         
         /// <summary>

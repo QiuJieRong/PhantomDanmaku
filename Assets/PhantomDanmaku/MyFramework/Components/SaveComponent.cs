@@ -109,7 +109,7 @@ namespace MyFramework.Runtime
 
             if (!File.Exists(path))
             {
-                Debug.LogError("文件不存在");
+                Debug.Log("存档不存在，新建一个");
                 return default;
             }
             

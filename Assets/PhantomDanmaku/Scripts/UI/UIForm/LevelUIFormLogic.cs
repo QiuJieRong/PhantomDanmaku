@@ -62,6 +62,11 @@ namespace PhantomDanmaku.Runtime.UI
             
             RegisterUIMessage("RefreshLevelUIForm",Refresh);
             RegisterUIMessage("SelectLevel",SelectLevel);
+        }
+
+        public override void OnOpen(object userData)
+        {
+            base.OnOpen(userData);
             Refresh(null);
         }
 
@@ -79,7 +84,7 @@ namespace PhantomDanmaku.Runtime.UI
                     var go = m_ContentRectTransform.GetChild(idx).gameObject;
                     go.SetActive(true);
                     var levelBtn = go.GetUIGroup<LevelBtn>();
-                    levelBtn.OnInit(idx);
+                    levelBtn.OnInit((m_SelectedChapterIdx,idx));
                 }
                 else
                 {
@@ -88,7 +93,7 @@ namespace PhantomDanmaku.Runtime.UI
                     AddDependence(handle);
                     var go = await handle;
                     var levelBtn = go.AddUIGroup<LevelBtn>();
-                    levelBtn.OnInit(idx);
+                    levelBtn.OnInit((m_SelectedChapterIdx,idx));
                 }
                 ++idx;
             }
@@ -99,9 +104,9 @@ namespace PhantomDanmaku.Runtime.UI
                 ++idx;
             }
             
-            //根据当前章节禁用下一章、上一章按钮
+            //根据当前章节禁用下一章、上一章按钮,如果下一章没有解锁则不能点击
             m_PreChapterBtnButton.interactable = m_SelectedChapterIdx > 0;
-            m_NextChapterBtnButton.interactable = m_SelectedChapterIdx + 1 < m_ChapterDatabase.Values.Count;
+            m_NextChapterBtnButton.interactable = m_SelectedChapterIdx + 1 < m_ChapterDatabase.Values.Count && PhantomSystem.Instance.PlayerData.ChapterIsUnlock(m_SelectedChapterIdx + 1);
             
             //根据当前选择关卡刷新标题和介绍
             m_LevelNameTextMeshProUGUI.text = SelectedLevelConfig.Name;

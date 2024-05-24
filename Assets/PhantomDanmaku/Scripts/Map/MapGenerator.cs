@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using PhantomDanmaku.Config;
-using PhantomDanmaku.Runtime.UI;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.Tilemaps;
@@ -236,6 +235,11 @@ namespace PhantomDanmaku.Runtime
                         break;
                 }
             } while (m_RoomPosList.Contains(point));
+        }
+
+        public void Clear()
+        {
+            m_Rooms = null;
         }
     }
 

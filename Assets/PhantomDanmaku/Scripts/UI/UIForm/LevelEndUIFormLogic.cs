@@ -50,6 +50,15 @@ namespace PhantomDanmaku.Runtime.UI
                 m_CurChapterIdx = curChapter;
                 m_CurLevelIdx = curLevelIdx;
                 Refresh(clear);
+
+                if (clear)
+                {
+                    PhantomSystem.Instance.PlayerData.LevelClear(m_CurChapterIdx,m_CurLevelIdx);
+                }
+                
+                PhantomSystem.Instance.SavePlayerData();
+                //关卡结束，清空地图房间信息
+                MapGenerator.Instance.Clear();
             }
         }
 
