@@ -70,7 +70,7 @@ namespace PhantomDanmaku.Runtime
         public virtual void Wounded(WeaponBase damageSource)
         {
             //如果已经死了，就不要执行剩下的代码。防止异常
-            if (m_Hp <= 0 || damageSource.owner.Hp <= 0)
+            if (m_Hp <= 0 || damageSource.owner.Hp <= 0 || damageSource.Transform == null)
                 return;
             var damage = damageSource.Atk;
             if (damage >= m_Shield)

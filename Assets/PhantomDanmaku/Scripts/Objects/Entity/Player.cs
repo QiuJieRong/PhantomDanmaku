@@ -46,7 +46,10 @@ namespace PhantomDanmaku.Runtime
                     .Completed +=
                 handle =>
                 {
-                    SetCurrentWeapon(handle.Result.GetComponent<WeaponBase>());
+                    if (CurWeapon != null)
+                        ChangeCurrentWeapon(handle.Result.GetComponent<WeaponBase>());
+                    else
+                        SetCurrentWeapon(handle.Result.GetComponent<WeaponBase>());
                 };
         }
 

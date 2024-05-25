@@ -29,6 +29,8 @@ namespace PhantomDanmaku.Runtime
 
         protected Transform m_Transform;
 
+        public Transform Transform => m_Transform;
+
         // private static readonly Vector3 _reverseX = new(-1, 1, 1);
         
         /// <summary>
