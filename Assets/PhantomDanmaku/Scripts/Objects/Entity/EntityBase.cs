@@ -27,7 +27,7 @@ namespace PhantomDanmaku.Runtime
         /// <summary>
         /// 最大能量值
         /// </summary>
-        private int m_MaxEnergy = 100;
+        private int m_MaxEnergy = 500;
         public int MaxEnergy => m_MaxEnergy;
         /// <summary>
         /// 当前能量值

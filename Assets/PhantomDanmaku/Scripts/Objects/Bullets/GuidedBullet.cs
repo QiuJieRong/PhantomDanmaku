@@ -4,10 +4,11 @@ namespace PhantomDanmaku.Runtime
     {
         protected override void Update()
         {
-            if (owner.transform != null)
+            if (owner != null && owner.transform != null)
             {
                 dir = owner.transform.up;
             }
+
             base.Update();
         }
     }

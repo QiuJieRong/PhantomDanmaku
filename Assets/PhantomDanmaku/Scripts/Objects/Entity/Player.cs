@@ -35,8 +35,13 @@ namespace PhantomDanmaku.Runtime
             animator = GetComponentInChildren<Animator>();
 
             Components.Input.Controls.Player.Attack.performed += AttackListener;
-            
-            //初始获得一把小刀
+            Components.Input.Controls.Player.SwitchWeapon.performed += SwitchWeaponListener;
+            GetKnife();
+        }
+
+        private void GetKnife()
+        {
+            //获得一把小刀
             Addressables.InstantiateAsync("Assets/PhantomDanmaku/Prefabs/Weapons/CloseInWeapon/Dagger.prefab")
                     .Completed +=
                 handle =>
@@ -59,6 +64,11 @@ namespace PhantomDanmaku.Runtime
         private void AttackListener(UnityEngine.InputSystem.InputAction.CallbackContext context)
         {
             Attack();
+        }
+
+        private void SwitchWeaponListener(UnityEngine.InputSystem.InputAction.CallbackContext context)
+        {
+            GetKnife();
         }
 
         /// <summary>
@@ -126,6 +136,7 @@ namespace PhantomDanmaku.Runtime
         {
             base.Dead();
             Components.Input.Controls.Player.Attack.performed -= AttackListener;
+            Components.Input.Controls.Player.SwitchWeapon.performed -= SwitchWeaponListener;
             Components.UI.Close<HUDUIForm>();
             Components.UI.Open<LevelEndUIForm>((Components.Battle.CurChapterIdx,Components.Battle.CurLevelIdx,false)).Forget();
             Components.Sound.PlaySound("Dead", false);
@@ -135,6 +146,7 @@ namespace PhantomDanmaku.Runtime
         private void OnDestroy()
         {
             Components.Input.Controls.Player.Attack.performed -= AttackListener;
+            Components.Input.Controls.Player.SwitchWeapon.performed -= SwitchWeaponListener;
         }
     }
 

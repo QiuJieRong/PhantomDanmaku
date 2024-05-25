@@ -5,12 +5,12 @@ namespace PhantomDanmaku.Runtime
 
     public class BulletBase : MonoBehaviour
     {
-        public float speed = 3;
+        public float speed = 5;
         public GameObject bulletEffect; //子弹销毁特效
         protected WeaponBase owner; //所属武器
         private Camp m_Camp; //阵营
         private Camp Camp => m_Camp;
-        private Rigidbody2D rig;
+        protected Rigidbody2D rig2D;
         protected Vector3 dir;
 
         public void SetOwner(WeaponBase weapon)
@@ -23,12 +23,12 @@ namespace PhantomDanmaku.Runtime
         protected virtual void Start()
         {
             dir = owner.transform.up;
-            rig = GetComponent<Rigidbody2D>();
+            rig2D = GetComponent<Rigidbody2D>();
         }
 
         protected virtual void Update()
         {
-            rig.velocity = dir * speed;
+            rig2D.velocity = dir * speed;
         }
 
         void OnTriggerEnter2D(Collider2D other)
