@@ -15,14 +15,14 @@ namespace PhantomDanmaku.Runtime
 
         public void SetOwner(WeaponBase weapon)
         {
-            this.owner = weapon;
+            owner = weapon;
             m_Camp = owner.Camp;
-            dir = owner.transform.right;
+            dir = owner.transform.up;
         }
 
         protected virtual void Start()
         {
-            dir = owner.transform.right;
+            dir = owner.transform.up;
             rig = GetComponent<Rigidbody2D>();
         }
 

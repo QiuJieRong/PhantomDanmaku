@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using PhantomDanmaku.Runtime.UI;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace PhantomDanmaku.Runtime
 {
@@ -35,6 +36,14 @@ namespace PhantomDanmaku.Runtime
             animator = GetComponentInChildren<Animator>();
 
             Components.Input.Controls.Player.Attack.performed += AttackListener;
+            
+            //初始获得一把小刀
+            Addressables.InstantiateAsync("Assets/PhantomDanmaku/Prefabs/Weapons/CloseInWeapon/Dagger.prefab")
+                    .Completed +=
+                handle =>
+                {
+                    SetCurrentWeapon(handle.Result.GetComponent<WeaponBase>());
+                };
         }
 
         private void Update()
@@ -96,7 +105,6 @@ namespace PhantomDanmaku.Runtime
             if (CurWeapon != null)
             {
                 CurWeapon.Attack();
-                Components.Sound.PlaySound("Fire", false);
             }
         }
         public void ChangeCurrentWeapon(WeaponBase weapon)

@@ -59,5 +59,10 @@ namespace PhantomDanmaku
                 (list[k], list[n]) = (list[n], list[k]);
             }
         }
+
+        public static bool InRange(this Vector2 range, float value)
+        {
+            return value >= range.x && value <= range.y;
+        }
     }
 }

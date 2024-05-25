@@ -5,7 +5,12 @@ namespace PhantomDanmaku.Config
 {
     public class SerializedConfig : SerializedScriptableObject
     {
-        [ReadOnly]
+        [InlineButton("Refresh","刷新")]
         public string Guid = System.Guid.NewGuid().ToString();
+
+        private void Refresh()
+        {
+            Guid = System.Guid.NewGuid().ToString();
+        }
     }
 }

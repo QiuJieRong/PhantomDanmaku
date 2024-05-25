@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Tile_GuidelGun
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: 23042c5008fd91b48a7e47515e264f82, type: 3}
+  m_DefaultSprite: {fileID: 21300000, guid: fd00cd7e5e6ec0d40b9db02b2df58ed0, type: 3}
   m_DefaultGameObject: {fileID: 2732342895612790792, guid: 8b7e95012735fea468dc7d1b0c01a9a5, type: 3}
   m_DefaultColliderType: 0
   m_TilingRules: []

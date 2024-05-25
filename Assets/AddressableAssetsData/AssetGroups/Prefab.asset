@@ -33,6 +33,10 @@ MonoBehaviour:
     m_Address: Assets/PhantomDanmaku/Prefabs/UI/LevelBtn.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: ed8c0d401bd032a48b5859382e8a0de4
+    m_Address: Assets/PhantomDanmaku/Prefabs/Weapons
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d6641b4f9e340bd468c18fff35834d09, type: 2}
   m_SchemaSet:

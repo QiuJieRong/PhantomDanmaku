@@ -27,3 +27,5 @@ MonoBehaviour:
   Desc: 
   LevelConfigs:
   - {fileID: 11400000, guid: 4beedd535919b2148861deecda5b24fb, type: 2}
+  - {fileID: 11400000, guid: 7ee715ea25edcac45bdd28b6f38a4bac, type: 2}
+  - {fileID: 11400000, guid: 578943de2aa28754d8474f012d64a3b1, type: 2}

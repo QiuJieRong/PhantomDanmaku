@@ -34,6 +34,7 @@ namespace PhantomDanmaku.Runtime.UI
                 //返回大厅
                 Components.ObjectPool.Clear();
                 Components.UI.Close(this);
+                Components.UI.Close<HUDUIForm>();
                 await SceneManager.UnloadSceneAsync("BattleScene");
                 
                 //进入大厅
