@@ -36,7 +36,8 @@ namespace PhantomDanmaku.Runtime
             //如果是不同阵营或不是子弹则销毁自己,执行对象的受伤函数,创建特效
             if (
                 ((1 << other.gameObject.layer) & (1 << LayerMask.NameToLayer(m_Camp.ToString()))) == 0 &&
-                ((1 << other.gameObject.layer) & LayerMask.GetMask("Bullet")) == 0
+                ((1 << other.gameObject.layer) & LayerMask.GetMask("Bullet")) == 0 &&
+                ((1 << other.gameObject.layer) & LayerMask.GetMask("Item")) == 0
             )
             {
                 EntityBase otherEntity;

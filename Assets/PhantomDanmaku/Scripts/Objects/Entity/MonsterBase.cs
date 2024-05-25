@@ -6,6 +6,11 @@ namespace PhantomDanmaku.Runtime
     public class MonsterBase : EntityBase
     {
         protected Transform curAttackTarget;
+
+        /// <summary>
+        /// 掉落的物品
+        /// </summary>
+        public GameObject ItemWeapon;
         
         protected override void Start()
         {
@@ -31,8 +36,14 @@ namespace PhantomDanmaku.Runtime
 
         protected override void Dead()
         {
-            base.Dead();
             Components.EventCenter.EventTrigger(CustomEvent.MonsterDead, this);
+            if (Random.Range(0f, 1f) < 0.2f)
+            {
+                //50%掉落武器
+                ItemWeapon.gameObject.SetActive(true);
+                ItemWeapon.transform.SetParent(transform.parent);
+            }
+            base.Dead();
         }
         
     }

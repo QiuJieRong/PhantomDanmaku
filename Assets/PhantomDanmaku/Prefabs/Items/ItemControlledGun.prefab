@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3493945201802707529}
   - component: {fileID: 2274990594424787347}
   - component: {fileID: 9100610452145293553}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ItemControlledGun
   m_TagString: Item
   m_Icon: {fileID: 0}

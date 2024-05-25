@@ -32,7 +32,7 @@ namespace PhantomDanmaku.Runtime
         /// <summary>
         /// 当前能量值
         /// </summary>
-        private int m_CurEnergy = 100;
+        private int m_CurEnergy = 500;
 
         public int CurEnergy
         {
@@ -70,7 +70,7 @@ namespace PhantomDanmaku.Runtime
         public virtual void Wounded(WeaponBase damageSource)
         {
             //如果已经死了，就不要执行剩下的代码。防止异常
-            if (m_Hp <= 0)
+            if (m_Hp <= 0 || damageSource.owner.Hp <= 0)
                 return;
             var damage = damageSource.Atk;
             if (damage >= m_Shield)
@@ -98,8 +98,8 @@ namespace PhantomDanmaku.Runtime
 
         protected virtual void Dead()
         {
-            Components.ObjectPool.PushObj(gameObject);
-            // Destroy(this.gameObject);
+            // Components.ObjectPool.PushObj(gameObject);
+            Destroy(gameObject);
         }
 
         public void SetCurrentWeapon(WeaponBase weapon)

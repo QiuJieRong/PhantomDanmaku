@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7822150762688267186}
   - component: {fileID: 4855799514994249832}
   - component: {fileID: 2502590684383906058}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ItemMachete
   m_TagString: Item
   m_Icon: {fileID: 0}

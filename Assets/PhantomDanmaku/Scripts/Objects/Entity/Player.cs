@@ -134,7 +134,6 @@ namespace PhantomDanmaku.Runtime
 
         protected override void Dead()
         {
-            base.Dead();
             Components.Input.Controls.Player.Attack.performed -= AttackListener;
             Components.Input.Controls.Player.SwitchWeapon.performed -= SwitchWeaponListener;
             Components.UI.Close<HUDUIForm>();
