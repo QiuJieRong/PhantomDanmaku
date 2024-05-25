@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using PhantomDanmaku.Runtime.UI;
-using UnityEngine;
 
 namespace PhantomDanmaku.Runtime
 {

@@ -55,12 +55,5 @@ namespace PhantomDanmaku.Runtime
                 yield return new WaitForSeconds(1);
             }
         }
-
-        protected override void Dead()
-        {
-            base.Dead();
-            Components.EventCenter.EventTrigger(CustomEvent.MonsterDead, gameObject);
-        }
     }
-
 }

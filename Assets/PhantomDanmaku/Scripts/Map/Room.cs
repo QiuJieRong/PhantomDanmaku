@@ -21,7 +21,7 @@ namespace PhantomDanmaku.Runtime
         }
 
         public bool isClear = true; //该房间是否清空怪物
-        private List<GameObject> monsters = new(); //该房间存在的怪物列表
+        private List<MonsterBase> monsters = new(); //该房间存在的怪物列表
 
         private List<Door> doors = new();
 
@@ -40,20 +40,20 @@ namespace PhantomDanmaku.Runtime
             this.roomPrefab = roomPrefab;
             if (Info.m_RoomType is RoomType.FightRoom or RoomType.FinalRoom)
                 isClear = false;
-            Components.EventCenter.AddEventListener<GameObject>(CustomEvent.MonsterDead, MonsterDeadCallback);
+            Components.EventCenter.AddEventListener<MonsterBase>(CustomEvent.MonsterDead, MonsterDeadCallback);
         }
 
-        void MonsterDeadCallback(GameObject monster)
+        void MonsterDeadCallback(MonsterBase monster)
         {
             if (monsters.Contains(monster))
             {
                 monsters.Remove(monster);
-            }
 
-            if (monsters.Count == 0 && !isClear)
-            {
-                isClear = true;
-                Components.EventCenter.EventTrigger(CustomEvent.RoomClear, this);
+                if (monsters.Count == 0)
+                {
+                    isClear = true;
+                    Components.EventCenter.EventTrigger(CustomEvent.RoomClear, this);
+                }
             }
         }
 
@@ -256,7 +256,10 @@ namespace PhantomDanmaku.Runtime
                     {
                         TilemapObject.SetTile((Vector3Int)CenterCoord + position, targetTilemapObject.GetTile(position));
                         var obj = TilemapObject.GetInstantiatedObject((Vector3Int)CenterCoord + position);
-                        monsters.Add(obj);
+                        if (obj.TryGetComponent<MonsterBase>(out var monster))
+                        {
+                            monsters.Add(monster);
+                        }
                     }
                 }
             }
@@ -282,6 +285,11 @@ namespace PhantomDanmaku.Runtime
             {
                 door.Close();
             }
+        }
+
+        public void Release()
+        {
+            Components.EventCenter.RemoveEventListener<MonsterBase>(CustomEvent.MonsterDead, MonsterDeadCallback);
         }
     }
 

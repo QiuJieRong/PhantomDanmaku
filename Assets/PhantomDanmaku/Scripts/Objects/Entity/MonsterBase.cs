@@ -30,6 +30,12 @@ namespace PhantomDanmaku.Runtime
         {
             throw new NotImplementedException();
         }
+
+        protected override void Dead()
+        {
+            base.Dead();
+            Components.EventCenter.EventTrigger(CustomEvent.MonsterDead, this);
+        }
         
     }
 }

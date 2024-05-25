@@ -239,6 +239,10 @@ namespace PhantomDanmaku.Runtime
 
         public void Clear()
         {
+            foreach (var room in m_Rooms)
+            {
+                room.Release();
+            }
             m_Rooms = null;
         }
     }
