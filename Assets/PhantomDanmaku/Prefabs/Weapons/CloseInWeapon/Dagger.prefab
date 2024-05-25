@@ -36,6 +36,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2628675038592488170, guid: 7aa40047cb267a6428bf5081eba28def, type: 3}
+      propertyPath: Repel
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628675038592488170, guid: 7aa40047cb267a6428bf5081eba28def, type: 3}
       propertyPath: Animator
       value: 
       objectReference: {fileID: 5761774838105020463}

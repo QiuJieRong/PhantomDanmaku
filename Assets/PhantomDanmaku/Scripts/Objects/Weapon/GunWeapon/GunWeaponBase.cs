@@ -11,6 +11,7 @@ namespace PhantomDanmaku.Runtime
 
         public override void Attack()
         {
+            base.Attack();
             Components.Sound.PlaySound("Fire", false);
             GameObject obj = Components.ObjectPool.GetObj(bulletPrefab.name, bulletPrefab);
             BulletBase bullet = obj.GetComponent<BulletBase>();

@@ -12,7 +12,6 @@ namespace PhantomDanmaku.Runtime
     {
         private static Player instance;
         public static Player Instance => instance;
-        private Rigidbody2D rig;
         private Animator animator;
 
         //是否在房间中
@@ -32,7 +31,7 @@ namespace PhantomDanmaku.Runtime
             Components.UI.SendUIMessage("RefreshHUDUIForm",this);
             m_Camp = Camp.Player;
             m_Speed = 10;
-            rig = GetComponent<Rigidbody2D>();
+            rig2D = GetComponent<Rigidbody2D>();
             animator = GetComponentInChildren<Animator>();
 
             Components.Input.Controls.Player.Attack.performed += AttackListener;
@@ -49,8 +48,8 @@ namespace PhantomDanmaku.Runtime
         private void Update()
         {
             Vector2 dir = Components.Input.Controls.Player.Move.ReadValue<Vector2>();
-            rig.velocity = dir * m_Speed;
-            animator.SetFloat("Speed", rig.velocity.magnitude);
+            rig2D.velocity = dir * m_Speed;
+            animator.SetFloat("Speed", rig2D.velocity.magnitude);
             
             var mousePosWs = m_MainCamera.ScreenToWorldPoint(Input.mousePosition);
             Aim(mousePosWs);
@@ -102,9 +101,10 @@ namespace PhantomDanmaku.Runtime
 
         protected override void Attack()
         {
-            if (CurWeapon != null)
+            if (CurWeapon != null && CurEnergy >= CurWeapon.EnergyConsume)
             {
                 CurWeapon.Attack();
+                Components.UI.SendUIMessage("RefreshHUDUIForm",this);
             }
         }
         public void ChangeCurrentWeapon(WeaponBase weapon)

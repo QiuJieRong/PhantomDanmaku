@@ -25,11 +25,17 @@ namespace PhantomDanmaku.Runtime
         /// </summary>
         protected float lastAttackTime;
         
-        protected int consume;//攻击能量消耗
+        public int EnergyConsume;//攻击能量消耗
 
         protected Transform m_Transform;
 
         // private static readonly Vector3 _reverseX = new(-1, 1, 1);
+        
+        /// <summary>
+        /// 击退力
+        /// </summary>
+        public float Repel;
+
 
         protected virtual void Start()
         {
@@ -50,8 +56,10 @@ namespace PhantomDanmaku.Runtime
             
             gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, dir);
         }
-        public abstract void Attack();
 
+        public virtual void Attack()
+        {
+            owner.CurEnergy -= EnergyConsume;
+        }
     }
-
 }

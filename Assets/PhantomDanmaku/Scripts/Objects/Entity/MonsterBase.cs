@@ -6,13 +6,11 @@ namespace PhantomDanmaku.Runtime
     public class MonsterBase : EntityBase
     {
         protected Transform curAttackTarget;
-        protected Rigidbody2D rig2D;
         
         protected override void Start()
         {
             base.Start();
             m_Camp = Camp.Monster;
-            rig2D = GetComponent<Rigidbody2D>();
         }
 
 

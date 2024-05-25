@@ -1,6 +1,5 @@
 namespace PhantomDanmaku.Runtime
 {
-    
     public class GuidedBullet : BulletBase
     {
         protected override void Update()
@@ -12,5 +11,4 @@ namespace PhantomDanmaku.Runtime
             base.Update();
         }
     }
-
 }

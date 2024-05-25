@@ -112,6 +112,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2628675038592488170, guid: 7aa40047cb267a6428bf5081eba28def, type: 3}
+      propertyPath: Repel
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628675038592488170, guid: 7aa40047cb267a6428bf5081eba28def, type: 3}
       propertyPath: EffectivePeriod.x
       value: 0.1
       objectReference: {fileID: 0}

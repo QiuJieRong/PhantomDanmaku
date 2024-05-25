@@ -33,7 +33,12 @@ namespace PhantomDanmaku.Runtime
         /// 当前能量值
         /// </summary>
         private int m_CurEnergy = 100;
-        public int CurEnergy => m_CurEnergy;
+
+        public int CurEnergy
+        {
+            get => m_CurEnergy;
+            set => m_CurEnergy = Mathf.Max(value, 0);
+        }
 
         private WeaponBase m_CurWeapon;
 
@@ -51,10 +56,13 @@ namespace PhantomDanmaku.Runtime
         public Camp Camp => m_Camp;
 
         private Transform m_Transform;
+        
+        protected Rigidbody2D rig2D;
 
         protected virtual void Start()
         {
             m_Transform = transform;
+            rig2D = GetComponent<Rigidbody2D>();
         }
         
         protected abstract void Attack();
@@ -77,6 +85,13 @@ namespace PhantomDanmaku.Runtime
             }
 
             m_Hp = m_Hp - damage < 0 ? 0 : m_Hp - damage;
+            
+            //进行击退效果结算
+            var repel = damageSource.Repel;
+            var dir = m_Transform.position - damageSource.transform.position;
+            dir = dir.normalized;
+            rig2D.AddForce(dir * repel);
+            
             if (m_Hp == 0)
                 Dead();
         }

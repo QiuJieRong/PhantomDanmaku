@@ -100,6 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
   atk: 1
+  EnergyConsume: 1
+  Repel: 3000
   bulletPrefab: {fileID: 6823809302984772549, guid: 9d0700c638673e44b8ea9f9e494863d8, type: 3}
   fireEffect: {fileID: 5580243645167952475}
 --- !u!1 &5303540741467467123
