@@ -1,5 +1,8 @@
+using Cysharp.Threading.Tasks;
 using PhantomDanmaku.Config;
+using PhantomDanmaku.Runtime.System;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 namespace PhantomDanmaku.Runtime.UI
@@ -31,9 +34,26 @@ namespace PhantomDanmaku.Runtime.UI
             Refresh();
         }
 
-        private void Refresh()
+        public async void Refresh()
         {
-            m_TalentNameTextMeshProUGUI.text = m_TalentConfig.TalentName;
+            var handle = m_TalentConfig.Icon.LoadAssetAsync();
+            m_TalentToggleImage.sprite = await handle;
+            Addressables.Release(handle);
+            
+            var playerData = PhantomSystem.Instance.PlayerData;
+            if (m_TalentConfig.PreTalent != null && !playerData.UnlockTalents.Contains(m_TalentConfig.PreTalent.Guid))
+            {
+                //如果前置天赋没有解锁则自己也不能解锁
+                m_TalentToggleToggle.interactable = false;
+                m_LockRectTransform.gameObject.SetActive(true);
+            }
+            else
+            {
+                m_TalentToggleToggle.interactable = true;
+                m_LockRectTransform.gameObject.SetActive(false);
+            }
+
+            m_ActiveRectTransform.gameObject.SetActive(playerData.UnlockTalents.Contains(m_TalentConfig.Guid));
         }
     }
 }

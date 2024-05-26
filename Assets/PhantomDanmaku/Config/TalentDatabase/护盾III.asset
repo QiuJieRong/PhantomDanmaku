@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e0b3dfc2c5443178c4d391386751f87, type: 3}
-  m_Name: "\u901F\u5EA6I"
+  m_Name: "\u62A4\u76FEIII"
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -36,10 +36,10 @@ MonoBehaviour:
       Data: 2|PhantomDanmaku.Runtime.Modifier, Assembly-CSharp
     - Name: m_State
       Entry: 3
-      Data: 3
+      Data: 1
     - Name: m_Ratio
       Entry: 4
-      Data: 0.1
+      Data: 0.3
     - Name: 
       Entry: 8
       Data: 
@@ -52,13 +52,13 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  Guid: 9562409f-07c4-4f2a-8bd3-b0fb6ad3f49d
-  TalentName: "\u901F\u5EA6I"
-  TalentDesc: "\u901F\u5EA6\u589E\u52A010%"
+  Guid: 1faffcb9-4e16-4ca1-8afd-9461adb69c9e
+  TalentName: "\u62A4\u76FEIII"
+  TalentDesc: "\u62A4\u76FE\u589E\u52A030%"
   Icon:
-    m_AssetGUID: 38653a0dfbefe5c4ca3c8b6c752f20fc
+    m_AssetGUID: 163e01dbc55646242b45e19aff16587b
     m_SubObjectName: 
     m_SubObjectType: 
     m_EditorAssetChanged: 0
-  PreTalent: {fileID: 11400000, guid: 6c34d8ab98eca8f48b765cc2bf23ab4c, type: 2}
+  PreTalent: {fileID: 11400000, guid: 2055d6f1939ca30469660c6c3f2fca7d, type: 2}
   SkillPointCost: 0

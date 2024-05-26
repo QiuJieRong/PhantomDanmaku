@@ -47,6 +47,8 @@ namespace PhantomDanmaku.Runtime.UI
                     }
                 }
                 Refresh(null);
+                //保存
+                PhantomSystem.Instance.SavePlayerData();
             });
             m_CloseBtnButton.onClick.AddListener(() =>
             {
@@ -138,6 +140,12 @@ namespace PhantomDanmaku.Runtime.UI
             {
                 //如果没有选中则默认选中第一个根节点
                 SelectTalent(m_TalentRootNodes[0].TalentConfig);
+            }
+
+            //刷新所有的天赋按钮
+            foreach (var talentToggle in m_TalentToggles)
+            {
+                talentToggle.Refresh();
             }
         }
     }

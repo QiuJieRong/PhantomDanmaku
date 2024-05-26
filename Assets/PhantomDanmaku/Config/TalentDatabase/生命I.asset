@@ -55,5 +55,10 @@ MonoBehaviour:
   Guid: b33171bf-6162-4f44-9cc9-62de54aa86a1
   TalentName: "\u751F\u547DI"
   TalentDesc: "\u751F\u547D\u589E\u52A010%"
+  Icon:
+    m_AssetGUID: dccb71e04729ffe4fa4359e633a6a353
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
   PreTalent: {fileID: 0}
   SkillPointCost: 0

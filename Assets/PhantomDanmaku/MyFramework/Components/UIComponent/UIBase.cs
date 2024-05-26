@@ -13,7 +13,7 @@ namespace PhantomDanmaku.Runtime.UI
 
         public Transform transform => gameObject.transform;
 
-        private readonly List<AsyncOperationHandle<GameObject>> m_Handles = new();
+        private readonly List<AsyncOperationHandle> m_Handles = new();
         public virtual void OnInit(object userData)
         {
             InstallField();
@@ -49,7 +49,7 @@ namespace PhantomDanmaku.Runtime.UI
             Components.UI.SendUIMessage(key,userData);
         }
 
-        protected void AddDependence(AsyncOperationHandle<GameObject> handle)
+        protected void AddDependence(AsyncOperationHandle handle)
         {
             m_Handles.Add(handle);
         }
