@@ -6,38 +6,38 @@ namespace PhantomDanmaku.Runtime
         /// <summary>
         /// 最大生命值
         /// </summary>
-        private int m_MaxHp = 5;
-        public int MaxHp => m_MaxHp;
+        protected float maxHp = 5;
+        public float MaxHp => maxHp;
         /// <summary>
         /// 当前生命值
         /// </summary>
-        private int m_Hp = 5;
-        public int Hp => m_Hp;
+        protected float curHp;
+        public float CurHp => curHp;
         /// <summary>
         /// 最大护盾值
         /// </summary>
-        private int m_MaxShield = 3;
-        public int MaxShield => m_MaxShield;
+        protected float maxShield = 3;
+        public float MaxShield => maxShield;
         /// <summary>
         /// 当前护盾值
         /// </summary>
-        private int m_Shield = 3;
-        public int Shield => m_Shield;
+        protected float curShield;
+        public float CurShield => curShield;
         
         /// <summary>
         /// 最大能量值
         /// </summary>
-        private int m_MaxEnergy = 500;
-        public int MaxEnergy => m_MaxEnergy;
+        protected float maxEnergy = 500;
+        public float MaxEnergy => maxEnergy;
         /// <summary>
         /// 当前能量值
         /// </summary>
-        private int m_CurEnergy = 500;
+        protected float curEnergy;
 
-        public int CurEnergy
+        public float CurEnergy
         {
-            get => m_CurEnergy;
-            set => m_CurEnergy = Mathf.Max(value, 0);
+            get => curEnergy;
+            set => curEnergy = Mathf.Max(value, 0);
         }
 
         private WeaponBase m_CurWeapon;
@@ -47,7 +47,7 @@ namespace PhantomDanmaku.Runtime
         /// <summary>
         /// 移动速度
         /// </summary>
-        protected int m_Speed = 3; //移动速度
+        protected float speed = 3; //移动速度
         
         /// <summary>
         /// 阵营
@@ -63,6 +63,17 @@ namespace PhantomDanmaku.Runtime
         {
             m_Transform = transform;
             rig2D = GetComponent<Rigidbody2D>();
+            InitStateValue();
+        }
+
+        /// <summary>
+        /// 初始化数值
+        /// </summary>
+        protected virtual void InitStateValue()
+        {
+            curHp = maxHp;
+            curShield = maxShield;
+            curEnergy = maxEnergy;
         }
         
         protected abstract void Attack();
@@ -70,21 +81,21 @@ namespace PhantomDanmaku.Runtime
         public virtual void Wounded(WeaponBase damageSource)
         {
             //如果已经死了，就不要执行剩下的代码。防止异常
-            if (m_Hp <= 0 || damageSource.owner.Hp <= 0 || damageSource.Transform == null)
+            if (curHp <= 0 || damageSource.owner.CurHp <= 0 || damageSource.Transform == null)
                 return;
             var damage = damageSource.Atk;
-            if (damage >= m_Shield)
+            if (damage >= curShield)
             {
-                damage = damage - m_Shield;
-                m_Shield = 0;
+                damage = damage - curShield;
+                curShield = 0;
             }
-            else if (damage < m_Shield)
+            else if (damage < curShield)
             {
-                m_Shield -= damage;
+                curShield -= damage;
                 damage = 0;
             }
 
-            m_Hp = m_Hp - damage < 0 ? 0 : m_Hp - damage;
+            curHp = curHp - damage < 0 ? 0 : curHp - damage;
             
             //进行击退效果结算
             var repel = damageSource.Repel;
@@ -92,7 +103,7 @@ namespace PhantomDanmaku.Runtime
             dir = dir.normalized;
             rig2D.AddForce(dir * repel);
             
-            if (m_Hp == 0)
+            if (curHp == 0)
                 Dead();
         }
 

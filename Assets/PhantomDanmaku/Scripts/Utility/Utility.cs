@@ -43,10 +43,11 @@ namespace PhantomDanmaku
             return Components.UI.GetUIGroup<T>(gameObject);
         }
 
-        public static UIGroupBase AddUIGroup<T>(this GameObject gameObject) where T : UIGroupBase
+        public static T AddUIGroup<T>(this GameObject gameObject,object userData) where T : UIGroupBase
         {
             var uiGroup = Activator.CreateInstance<T>();
             Components.UI.RegisterUIGroup(uiGroup, gameObject);
+            uiGroup.OnInit(userData);
             return uiGroup;
         }
         public static void Shuffle<T>(this IList<T> list)

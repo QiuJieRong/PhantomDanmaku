@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e0b3dfc2c5443178c4d391386751f87, type: 3}
+  m_Name: "\u901F\u5EA6II"
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: TalentEffect
+      Entry: 7
+      Data: 0|PhantomDanmaku.Config.TalentEffect, Assembly-CSharp
+    - Name: Modifiers
+      Entry: 7
+      Data: 1|System.Collections.Generic.List`1[[PhantomDanmaku.Runtime.Modifier,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 2|PhantomDanmaku.Runtime.Modifier, Assembly-CSharp
+    - Name: m_State
+      Entry: 3
+      Data: 3
+    - Name: m_Ratio
+      Entry: 4
+      Data: 0.2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  Guid: 8bef62eb-42b3-4d76-9f78-deae0d542ebc
+  TalentName: "\u901F\u5EA6II"
+  TalentDesc: "\u901F\u5EA6\u589E\u52A020%"
+  PreTalent: {fileID: 11400000, guid: 355835706ca89414d98ffa8f43e41a48, type: 2}
+  SkillPointCost: 0

@@ -16,8 +16,8 @@ namespace PhantomDanmaku.Runtime
         public Camp Camp => m_Camp;
         
         [LabelText("攻击力")]
-        public int atk;//攻击力
-        public int Atk => atk;
+        public float atk;//攻击力
+        public float Atk => atk;
         protected float interval;//攻击间隔
 
         /// <summary>

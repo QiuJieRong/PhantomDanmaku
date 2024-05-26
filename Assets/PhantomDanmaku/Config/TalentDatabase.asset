@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10fb1738c9184bb1b2e23a62bff4c360, type: 3}
+  m_Name: TalentDatabase
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Guid: 47bd7b38-78cd-4144-ad62-fa51992b6f76
+  Values:
+  - {fileID: 11400000, guid: 2b9f6fa504ce5b84794963a28f0bb50d, type: 2}
+  - {fileID: 11400000, guid: 6c34d8ab98eca8f48b765cc2bf23ab4c, type: 2}
+  - {fileID: 11400000, guid: a254342b4e3bb334690462c798396008, type: 2}
+  - {fileID: 11400000, guid: 355835706ca89414d98ffa8f43e41a48, type: 2}
+  - {fileID: 11400000, guid: e8075681e03de4a4382bdc2e00b0f41f, type: 2}
+  - {fileID: 11400000, guid: 695a6569d89432640b461b1aec77877e, type: 2}
+  - {fileID: 11400000, guid: f903556b332ccd14791607d99251e677, type: 2}

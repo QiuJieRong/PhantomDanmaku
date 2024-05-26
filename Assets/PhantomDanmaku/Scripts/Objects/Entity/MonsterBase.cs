@@ -25,7 +25,7 @@ namespace PhantomDanmaku.Runtime
             {
                 Aim(curAttackTarget.position);
                 var dir = Vector3.Normalize(curAttackTarget.position - transform.position);
-                rig2D.velocity = dir * m_Speed;
+                rig2D.velocity = dir * speed;
             }
         }
         

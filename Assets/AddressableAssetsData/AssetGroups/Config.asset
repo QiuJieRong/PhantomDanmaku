@@ -22,6 +22,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Config
+  - m_GUID: b46357edc719cac4986a5ed25cf6b293
+    m_Address: Assets/PhantomDanmaku/Config/DefaultDatabase.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Config
+  - m_GUID: 80e5b7fc6374e624bb2ed4dc6f4ab931
+    m_Address: Assets/PhantomDanmaku/Config/TalentDatabase.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Config
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: d6641b4f9e340bd468c18fff35834d09, type: 2}
   m_SchemaSet:

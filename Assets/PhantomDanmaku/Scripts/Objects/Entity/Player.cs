@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using PhantomDanmaku.Runtime.System;
 using PhantomDanmaku.Runtime.UI;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -30,13 +31,28 @@ namespace PhantomDanmaku.Runtime
             Components.EventCenter.EventTrigger<EntityBase>(CustomEvent.PlayerSpawn, this);
             Components.UI.SendUIMessage("RefreshHUDUIForm",this);
             m_Camp = Camp.Player;
-            m_Speed = 10;
+            speed = 10;
             rig2D = GetComponent<Rigidbody2D>();
             animator = GetComponentInChildren<Animator>();
 
             Components.Input.Controls.Player.Attack.performed += AttackListener;
             Components.Input.Controls.Player.SwitchWeapon.performed += SwitchWeaponListener;
             GetKnife();
+        }
+
+        /// <summary>
+        /// 重写初始化属性函数
+        /// </summary>
+        protected override void InitStateValue()
+        {
+            var playerData = PhantomSystem.Instance.PlayerData;
+            maxHp = playerData.GetStateValue(State.MaxHp).Value;
+            curHp = maxHp;
+            maxShield = playerData.GetStateValue(State.MaxShield).Value;
+            curShield = maxShield;
+            maxEnergy = playerData.GetStateValue(State.MaxEnergy).Value;
+            curEnergy = maxEnergy;
+            speed = playerData.GetStateValue(State.Speed).Value;
         }
 
         private void GetKnife()
@@ -56,7 +72,7 @@ namespace PhantomDanmaku.Runtime
         private void Update()
         {
             Vector2 dir = Components.Input.Controls.Player.Move.ReadValue<Vector2>();
-            rig2D.velocity = dir * m_Speed;
+            rig2D.velocity = dir * speed;
             animator.SetFloat("Speed", rig2D.velocity.magnitude);
             
             var mousePosWs = m_MainCamera.ScreenToWorldPoint(Input.mousePosition);

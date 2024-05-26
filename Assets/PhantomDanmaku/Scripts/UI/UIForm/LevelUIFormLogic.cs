@@ -92,8 +92,7 @@ namespace PhantomDanmaku.Runtime.UI
                     var handle = Addressables.InstantiateAsync("Assets/PhantomDanmaku/Prefabs/UI/LevelBtn.prefab",m_ContentRectTransform);
                     AddDependence(handle);
                     var go = await handle;
-                    var levelBtn = go.AddUIGroup<LevelBtn>();
-                    levelBtn.OnInit((m_SelectedChapterIdx,idx));
+                    var levelBtn = go.AddUIGroup<LevelBtn>((m_SelectedChapterIdx,idx));
                 }
                 ++idx;
             }

@@ -21,15 +21,15 @@ namespace PhantomDanmaku.Runtime.UI
         {
             if (userData is EntityBase player)
             {
-                RefreshState(m_HpFillImage, m_HpTextMeshProUGUI, player.Hp, player.MaxHp);
-                RefreshState(m_ShieldFillImage, m_ShieldTextMeshProUGUI, player.Shield, player.MaxShield);
+                RefreshState(m_HpFillImage, m_HpTextMeshProUGUI, player.CurHp, player.MaxHp);
+                RefreshState(m_ShieldFillImage, m_ShieldTextMeshProUGUI, player.CurShield, player.MaxShield);
                 RefreshState(m_EnergyFillImage, m_EnergyTextMeshProUGUI, player.CurEnergy, player.MaxEnergy);
             }
         }
 
-        private void RefreshState(Image fillImage,TextMeshProUGUI text,int curValue,int maxValue)
+        private void RefreshState(Image fillImage,TextMeshProUGUI text,float curValue,float maxValue)
         {
-            fillImage.fillAmount = (float)curValue / maxValue;
+            fillImage.fillAmount = curValue / maxValue;
             text.text = $"{curValue}/{maxValue}";
         }
     }

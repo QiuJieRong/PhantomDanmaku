@@ -1,0 +1,186 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f31a1398d31b4f48b2b25adedc2e9844, type: 3}
+  m_Name: "\u9ED8\u8BA4\u5C5E\u6027\u914D\u7F6E"
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: DefaultPlayerStateDic
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[PhantomDanmaku.Runtime.State,
+        Assembly-CSharp],[PhantomDanmaku.Runtime.StateValue, Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[PhantomDanmaku.Runtime.State,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 7
+      Data: 2|PhantomDanmaku.Runtime.StateValue, Assembly-CSharp
+    - Name: m_State
+      Entry: 3
+      Data: 0
+    - Name: m_Value
+      Entry: 4
+      Data: 10
+    - Name: m_Modifiers
+      Entry: 7
+      Data: 3|System.Collections.Generic.List`1[[PhantomDanmaku.Runtime.Modifier,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 7
+      Data: 4|PhantomDanmaku.Runtime.StateValue, Assembly-CSharp
+    - Name: m_State
+      Entry: 3
+      Data: 1
+    - Name: m_Value
+      Entry: 4
+      Data: 5
+    - Name: m_Modifiers
+      Entry: 7
+      Data: 5|System.Collections.Generic.List`1[[PhantomDanmaku.Runtime.Modifier,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: 6|PhantomDanmaku.Runtime.StateValue, Assembly-CSharp
+    - Name: m_State
+      Entry: 3
+      Data: 2
+    - Name: m_Value
+      Entry: 4
+      Data: 500
+    - Name: m_Modifiers
+      Entry: 7
+      Data: 7|System.Collections.Generic.List`1[[PhantomDanmaku.Runtime.Modifier,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: 8|PhantomDanmaku.Runtime.StateValue, Assembly-CSharp
+    - Name: m_State
+      Entry: 3
+      Data: 3
+    - Name: m_Value
+      Entry: 4
+      Data: 3
+    - Name: m_Modifiers
+      Entry: 7
+      Data: 9|System.Collections.Generic.List`1[[PhantomDanmaku.Runtime.Modifier,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  Guid: 268d356a-ca68-4277-bbcb-e7d21baacd0d

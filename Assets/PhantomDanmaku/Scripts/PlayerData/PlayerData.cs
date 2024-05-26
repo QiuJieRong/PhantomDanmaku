@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using PhantomDanmaku.Config;
+using PhantomDanmaku.Runtime.System;
 
-namespace PhantomDanmaku.Runtime.System
+namespace PhantomDanmaku.Runtime
 {
     [Serializable]
     public class PlayerData
@@ -31,6 +33,24 @@ namespace PhantomDanmaku.Runtime.System
         /// </summary>
         private int m_SkillPoint;
 
+        public int SkillPoint => m_SkillPoint;
+
+        #region 战斗相关
+
+        /// <summary>
+        /// 玩家属性字典
+        /// </summary>
+        private Dictionary<State,StateValue> m_StateDic;
+
+        #endregion
+
+        /// <summary>
+        /// 解锁的天赋Guid列表
+        /// </summary>
+        private List<string> m_UnlockTalents;
+
+        public List<string> UnlockTalents => m_UnlockTalents;
+
         public PlayerData()
         {
             m_MaxChapterIdx = 0;
@@ -38,6 +58,26 @@ namespace PhantomDanmaku.Runtime.System
             m_PlayerLevel = 1;
             m_Exp = 0;
             m_SkillPoint = 0;
+            m_StateDic = new Dictionary<State, StateValue>();
+            m_UnlockTalents = new List<string>();
+            
+            //读取默认数据配置
+            var database = PhantomSystem.Get<DefaultDatabase>();
+            var defaultValueDic = database.Values[0].DefaultPlayerStateDic;
+            foreach (var kvp in defaultValueDic)
+            {
+                m_StateDic.Add(kvp.Key,kvp.Value);
+            }
+        }
+
+        /// <summary>
+        /// 获得玩家属性
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        public StateValue GetStateValue(State state)
+        {
+            return m_StateDic.TryGetValue(state, out var stateValue) ? stateValue : null;
         }
 
         /// <summary>
