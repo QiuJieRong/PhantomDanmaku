@@ -47,7 +47,9 @@ namespace PhantomDanmaku.Runtime
         /// <summary>
         /// 移动速度
         /// </summary>
-        protected float speed = 3; //移动速度
+        protected float speed = 20; //移动速度
+
+        public float Speed => speed;
         
         /// <summary>
         /// 阵营
@@ -56,8 +58,26 @@ namespace PhantomDanmaku.Runtime
         public Camp Camp => m_Camp;
 
         private Transform m_Transform;
-        
+
+        public Vector2Int V2IPos
+        {
+            get
+            {
+                var tempPosition = transform.position;
+                return new Vector2Int((int)tempPosition.x, (int)tempPosition.y);
+            }
+        }
+
+        public Vector2 V2Pos => transform.position;
+
         protected Rigidbody2D rig2D;
+
+        public Rigidbody2D Rig2D => rig2D;
+
+        /// <summary>
+        /// 当前所处房间
+        /// </summary>
+        public Room CurRoom;
 
         protected virtual void Start()
         {

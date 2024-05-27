@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using NotImplementedException = System.NotImplementedException;
 
@@ -18,16 +19,15 @@ namespace PhantomDanmaku.Runtime
             m_Camp = Camp.Monster;
         }
 
-
-        protected virtual void Update()
-        {
-            if (curAttackTarget != null)
-            {
-                Aim(curAttackTarget.position);
-                var dir = Vector3.Normalize(curAttackTarget.position - transform.position);
-                rig2D.velocity = dir * speed;
-            }
-        }
+        // protected virtual void Update()
+        // {
+        //     if (curAttackTarget != null)
+        //     {
+        //         Aim(curAttackTarget.position);
+        //         var dir = Vector3.Normalize(curAttackTarget.position - transform.position);
+        //         rig2D.velocity = dir * speed;
+        //     }
+        // }
         
         protected override void Attack()
         {
@@ -45,6 +45,10 @@ namespace PhantomDanmaku.Runtime
             }
             base.Dead();
         }
-        
+        public async UniTask AttackForBehaviorTree()
+        {
+            Attack();
+            await UniTask.Delay(1000);
+        }
     }
 }

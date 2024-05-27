@@ -258,6 +258,7 @@ namespace PhantomDanmaku.Runtime
                         var obj = TilemapObject.GetInstantiatedObject((Vector3Int)CenterCoord + position);
                         if (obj.TryGetComponent<MonsterBase>(out var monster))
                         {
+                            monster.CurRoom = this;
                             monsters.Add(monster);
                         }
                     }

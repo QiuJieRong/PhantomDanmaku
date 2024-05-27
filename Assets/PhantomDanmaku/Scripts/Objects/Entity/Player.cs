@@ -107,12 +107,18 @@ namespace PhantomDanmaku.Runtime
                     transform.position.y < (room.CenterCoord.y + room.Info.Height / 2 + 1))
                 {
                     isInRoom = true;
+                    CurRoom = room;
                     Components.EventCenter.EventTrigger(CustomEvent.RoomEnter, room);
                     break;
                 }
             }
 
             IsInRoom = isInRoom;
+
+            if (!isInRoom)
+            {
+                CurRoom = null;
+            }
         }
 
         private void OnTriggerStay2D(Collider2D other)

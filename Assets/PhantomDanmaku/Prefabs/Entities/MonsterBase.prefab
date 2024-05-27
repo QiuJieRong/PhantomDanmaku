@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7261956380097581603}
   - component: {fileID: 7261956380097581600}
   - component: {fileID: 7261956380097581601}
+  - component: {fileID: 4895231993908711030}
   m_Layer: 9
   m_Name: MonsterBase
   m_TagString: Untagged
@@ -49,7 +50,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03264761, y: -0.4635952}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -60,7 +61,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9347048, y: 0.69964254}
+  m_Size: {x: 0.8, y: 0.6}
   m_EdgeRadius: 0
 --- !u!50 &7261956380097581600
 Rigidbody2D:
@@ -75,7 +76,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 200
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -95,7 +96,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74acd1dbd30a8d4998fd32030b21d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemWeapon: {fileID: 0}
   weapon: {fileID: 0}
+--- !u!114 &4895231993908711030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7261956380097581605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d7b55c7ecdb49a4a89fa5e6f9022861, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startWhenEnabled: 1
+  asynchronousLoad: 0
+  pauseWhenDisabled: 0
+  restartWhenComplete: 1
+  logTaskChanges: 0
+  group: 0
+  resetValuesOnRestart: 0
+  externalBehavior: {fileID: 0}
+  mBehaviorSource:
+    behaviorName: Behavior
+    behaviorDescription: 
+    mTaskData:
+      types: []
+      parentIndex: 
+      startIndex: 
+      variableStartIndex: 
+      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(366.5,30)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(32.385498,111.801712)"},"ID":1,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"PhantomDanmaku.Runtime.Behavior.PlayerEnterRoom","NodeData":{"Offset":"(-143.705841,141.414581)"},"ID":2,"Name":"Player
+        Enter Room","Instant":true},{"Type":"BehaviorDesigner.Runtime.Tasks.Selector","NodeData":{"Offset":"(91.93542,170)"},"ID":3,"Name":"Selector","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-127.926483,128.863281)"},"ID":4,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Inverter","NodeData":{"Offset":"(-177.3956,126.883759)"},"ID":5,"Name":"Inverter","Instant":true,"Children":[{"Type":"PhantomDanmaku.Runtime.Behavior.CanAttackPlayer","NodeData":{"Offset":"(2.22223282,118.333344)"},"ID":6,"Name":"Can
+        Attack Player","Instant":true}]},{"Type":"PhantomDanmaku.Runtime.Behavior.MoveToAttackPoint","NodeData":{"Offset":"(42.0513,145.04274)"},"ID":7,"Name":"Move
+        To Attack Point","Instant":true}]},{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(276.0291,131.883789)"},"ID":8,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"PhantomDanmaku.Runtime.Behavior.CanAttackPlayer","NodeData":{"Offset":"(-65.71425,162.857178)"},"ID":9,"Name":"Can
+        Attack Player","Instant":true},{"Type":"PhantomDanmaku.Runtime.Behavior.AttackPlayer","NodeData":{"Offset":"(123.245422,174.829651)"},"ID":10,"Name":"Attack
+        Player","Instant":true}]}]}]}}'
+      fieldSerializationData:
+        typeName: []
+        fieldNameHash: 
+        startIndex: 
+        dataPosition: 
+        unityObjects: []
+        byteData: 
+        byteDataArray: 
+      Version: 1.7.1
+  gizmoViewMode: 2
+  showBehaviorDesignerGizmo: 1
 --- !u!1 &7261956380480569813
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,7 +167,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7261956380480569813}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.079, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -152,7 +199,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7261956381371672087}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0}
+  m_LocalPosition: {x: 0, y: 0.514, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

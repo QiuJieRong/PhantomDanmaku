@@ -197,6 +197,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: QQR
       objectReference: {fileID: 0}
+    - target: {fileID: 7261956380480569810, guid: 0e7eb87848c46f044ae4a3516e1e755c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.047
+      objectReference: {fileID: 0}
+    - target: {fileID: 7261956381371672084, guid: 0e7eb87848c46f044ae4a3516e1e755c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.847
+      objectReference: {fileID: 0}
     - target: {fileID: 7261956381371672085, guid: 0e7eb87848c46f044ae4a3516e1e755c, type: 3}
       propertyPath: m_Sprite
       value: 
