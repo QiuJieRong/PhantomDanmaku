@@ -8,7 +8,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using PhantomDanmaku;
 using UnityEditor;
-using UnityEngine.Serialization;
 
 namespace MyFramework.Runtime
 {
@@ -17,6 +16,7 @@ namespace MyFramework.Runtime
         [ValueDropdown("ValuesGetter", IsUniqueList = true)]
         public List<Component> FieldInChildren;
 
+#if UNITY_EDITOR
         [Button("生成代码")]
         public void Generate()
         {
@@ -148,6 +148,7 @@ namespace MyFramework.Runtime
             
             AssetDatabase.Refresh();
         }
+#endif
 
         public IEnumerable ValuesGetter()
         {

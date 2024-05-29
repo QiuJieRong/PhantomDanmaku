@@ -11,6 +11,7 @@ namespace PhantomDanmaku.Runtime.UI
         private TextMeshProUGUI m_ShieldTextMeshProUGUI;
         private Image m_EnergyFillImage;
         private TextMeshProUGUI m_EnergyTextMeshProUGUI;
+        private RawImage m_MapRawImage;
         protected override void InstallField()
         {
             base.InstallField();
@@ -20,6 +21,7 @@ namespace PhantomDanmaku.Runtime.UI
             m_ShieldTextMeshProUGUI = transform.Find("StateBackground/Image_ShieldContainer/Shield/").GetComponent<TextMeshProUGUI>();
             m_EnergyFillImage = transform.Find("StateBackground/Image_EnergyContainer/EnergyFill/").GetComponent<Image>();
             m_EnergyTextMeshProUGUI = transform.Find("StateBackground/Image_EnergyContainer/Energy/").GetComponent<TextMeshProUGUI>();
+            m_MapRawImage = transform.Find("MapBackground/Map/").GetComponent<RawImage>();
         }
     }
 }

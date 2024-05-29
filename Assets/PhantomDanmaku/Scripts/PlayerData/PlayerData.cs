@@ -18,15 +18,15 @@ namespace PhantomDanmaku.Runtime
         /// </summary>
         private int m_MaxLevelIdx;
 
-        /// <summary>
-        /// 玩家等级
-        /// </summary>
-        private int m_PlayerLevel;
-
-        /// <summary>
-        /// 积累了多少经验
-        /// </summary>
-        private int m_Exp;
+        // /// <summary>
+        // /// 玩家等级
+        // /// </summary>
+        // private int m_PlayerLevel;
+        //
+        // /// <summary>
+        // /// 积累了多少经验
+        // /// </summary>
+        // private int m_Exp;
 
         /// <summary>
         /// 剩余技能点
@@ -55,8 +55,8 @@ namespace PhantomDanmaku.Runtime
         {
             m_MaxChapterIdx = 0;
             m_MaxLevelIdx = -1;//-1代表一关都没通过
-            m_PlayerLevel = 1;
-            m_Exp = 0;
+            // m_PlayerLevel = 1;
+            // m_Exp = 0;
             m_SkillPoint = 0;
             m_StateDic = new Dictionary<State, StateValue>();
             m_UnlockTalents = new List<string>();

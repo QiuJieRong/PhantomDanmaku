@@ -832,6 +832,7 @@ MonoBehaviour:
   - {fileID: 9108288347218385886}
   - {fileID: 1689610154043632948}
   - {fileID: 2906435883566676600}
+  - {fileID: 1006237528134386378}
 --- !u!223 &-3495260102826166474
 Canvas:
   m_ObjectHideFlags: 0
@@ -849,7 +850,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -1148,7 +1149,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 8400000, guid: 31ec1d8278f9b4347aa298cb739bc4fd, type: 2}
+  m_Texture: {fileID: 0}
   m_UVRect:
     serializedVersion: 2
     x: 0
