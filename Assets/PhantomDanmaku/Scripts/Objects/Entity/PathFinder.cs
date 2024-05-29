@@ -103,8 +103,8 @@ namespace PhantomDanmaku.Runtime
                             }
                         }
                         //如果该地方不是墙壁,并且不在闭列表里
-                        else if (m_WallTilemap.GetTile(new Vector3Int(neighbor.x, neighbor.y, 0)) == null &&
-                            m_CloseList.Find(node => node.Pos == neighbor) == null)
+                        else if (m_WallTilemap != null && m_WallTilemap.GetTile(new Vector3Int(neighbor.x, neighbor.y, 0)) == null &&
+                                 m_CloseList.Find(node => node.Pos == neighbor) == null)
                         {
                             //计算代价
                             var g = minPathNode.G + 1;

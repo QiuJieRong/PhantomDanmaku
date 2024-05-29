@@ -5,6 +5,7 @@ using PhantomDanmaku.Runtime.System;
 using PhantomDanmaku.Runtime.UI;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.SceneManagement;
 
 namespace PhantomDanmaku.Runtime
 {
@@ -38,6 +39,7 @@ namespace PhantomDanmaku.Runtime
             Components.Input.Controls.Player.Attack.performed += AttackListener;
             Components.Input.Controls.Player.SwitchWeapon.performed += SwitchWeaponListener;
             Components.Input.Controls.Player.ShowLine.performed += ShowLineListener;
+            Components.Input.Controls.Player.Exit.performed += ExitListener;
             GetKnife();
         }
 
@@ -89,6 +91,18 @@ namespace PhantomDanmaku.Runtime
         private void SwitchWeaponListener(UnityEngine.InputSystem.InputAction.CallbackContext context)
         {
             GetKnife();
+        }
+        
+        
+        private async void ExitListener(UnityEngine.InputSystem.InputAction.CallbackContext context)
+        {
+            //返回大厅
+            Components.ObjectPool.Clear();
+            Components.UI.Close<HUDUIForm>();
+            await SceneManager.UnloadSceneAsync("BattleScene");
+                
+            //进入大厅
+            SceneManager.LoadScene("HallScene", LoadSceneMode.Additive);
         }
         
         private void ShowLineListener(UnityEngine.InputSystem.InputAction.CallbackContext context)
@@ -168,6 +182,7 @@ namespace PhantomDanmaku.Runtime
             Components.Input.Controls.Player.Attack.performed -= AttackListener;
             Components.Input.Controls.Player.SwitchWeapon.performed -= SwitchWeaponListener;
             Components.Input.Controls.Player.ShowLine.performed -= ShowLineListener;
+            Components.Input.Controls.Player.Exit.performed -= ExitListener;
             Components.UI.Close<HUDUIForm>();
             Components.UI.Open<LevelEndUIForm>((Components.Battle.CurChapterIdx,Components.Battle.CurLevelIdx,false)).Forget();
             Components.Sound.PlaySound("Dead", false);
@@ -179,6 +194,7 @@ namespace PhantomDanmaku.Runtime
             Components.Input.Controls.Player.Attack.performed -= AttackListener;
             Components.Input.Controls.Player.SwitchWeapon.performed -= SwitchWeaponListener;
             Components.Input.Controls.Player.ShowLine.performed -= ShowLineListener;
+            Components.Input.Controls.Player.Exit.performed -= ExitListener;
         }
     }
 
