@@ -64,7 +64,7 @@ namespace PhantomDanmaku.Runtime
             get
             {
                 var tempPosition = transform.position;
-                return new Vector2Int((int)tempPosition.x, (int)tempPosition.y);
+                return new Vector2Int((int)Mathf.Floor(tempPosition.x), (int)Mathf.Floor(tempPosition.y));
             }
         }
 

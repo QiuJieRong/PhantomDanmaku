@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine;
 
@@ -8,18 +9,22 @@ namespace PhantomDanmaku.Runtime.Behavior
     {
         private MonsterBase m_Monster;
 
-        private Stack<Vector2Int> m_Path;
+        private Stack<Vector2> m_Path;
 
-        private Vector2Int m_CurPoint;
+        private Vector2 m_CurPoint;
 
         /// <summary>
         /// 移动持续时间，如果时间到了还没到达目的地，则直接退出该行为
         /// </summary>
         private float m_DurationTime;
 
+        private static Vector2 s_Offset = new Vector2(0.5f,0.5f);
+
         public override async void OnStart()
         {
             base.OnStart();
+            if (Player.Instance == null)
+                return;
             m_DurationTime = 2f;
             m_Monster = GetComponent<MonsterBase>();
             
@@ -27,11 +32,33 @@ namespace PhantomDanmaku.Runtime.Behavior
             pathFinder.Init(MapGenerator.Instance.TilemapWall, m_Monster.V2IPos, Player.Instance.V2IPos);
             m_Path = await pathFinder.GetPathList();
             if (m_Path != null)
-                m_CurPoint = m_Path.Pop();
+                m_CurPoint = m_Path.Pop() + s_Offset;
         }
 
         public override TaskStatus OnUpdate()
         {
+
+            if (Player.Instance == null)
+                return TaskStatus.Failure;
+            #region 绘制调试路线
+
+            m_Monster.LineRenderer.enabled = MonsterBase.ShowLine;
+            
+            if (m_Path != null && MonsterBase.ShowLine)
+            {
+                var pathList = m_Path.ToList();
+                var points = new Vector3[m_Path.Count];
+                for (var i = 0; i < pathList.Count; i++)
+                {
+                    points[i] = new Vector3(pathList[i].x, pathList[i].y, -2) + new Vector3(s_Offset.x, s_Offset.y, 0);
+                }
+
+                m_Monster.LineRenderer.positionCount = points.Length;
+                m_Monster.LineRenderer.SetPositions(points);
+            }
+
+            #endregion
+            
             m_DurationTime -= Time.deltaTime;
             if (m_DurationTime <= 0)
             {
@@ -52,7 +79,7 @@ namespace PhantomDanmaku.Runtime.Behavior
             }
             else if(m_Path is { Count: > 0 })
             {
-                m_CurPoint = m_Path.Pop();
+                m_CurPoint = m_Path.Pop() + s_Offset;
             }
             else
             {

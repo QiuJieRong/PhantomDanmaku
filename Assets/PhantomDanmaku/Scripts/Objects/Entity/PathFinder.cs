@@ -50,8 +50,10 @@ namespace PhantomDanmaku.Runtime
         /// 获得路径列表
         /// </summary>
         /// <returns></returns>
-        public async UniTask<Stack<Vector2Int>> GetPathList()
+        public async UniTask<Stack<Vector2>> GetPathList()
         {
+            if (m_WallTilemap == null)
+                return null;
             var dis = Vector2.Distance(m_StartPoint, m_Destination);
             var startPathNode = new PathNode(m_StartPoint, null, 0, dis);
 
@@ -116,7 +118,7 @@ namespace PhantomDanmaku.Runtime
                             //如果该位置是终点
                             if (neighbor == m_Destination)
                             {
-                                var result = new Stack<Vector2Int>();
+                                var result = new Stack<Vector2>();
                                 while (pathNode.PrePathNode != null)
                                 {
                                     result.Push(pathNode.Pos);

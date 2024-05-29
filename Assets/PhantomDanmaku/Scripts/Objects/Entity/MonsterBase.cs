@@ -8,6 +8,11 @@ namespace PhantomDanmaku.Runtime
     {
         protected Transform curAttackTarget;
 
+        private LineRenderer m_LineRenderer;
+        public LineRenderer LineRenderer => m_LineRenderer;
+
+        public static bool ShowLine;
+        
         /// <summary>
         /// 掉落的物品
         /// </summary>
@@ -17,6 +22,7 @@ namespace PhantomDanmaku.Runtime
         {
             base.Start();
             m_Camp = Camp.Monster;
+            m_LineRenderer = GetComponent<LineRenderer>();
         }
 
         // protected virtual void Update()

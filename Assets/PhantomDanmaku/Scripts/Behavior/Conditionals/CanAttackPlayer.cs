@@ -29,6 +29,8 @@ namespace PhantomDanmaku.Runtime.Behavior
 
         public override TaskStatus OnUpdate()
         {
+            if (Player.Instance == null)
+                return TaskStatus.Failure;
             var monsterTransform = transform;
 
             if (m_Monster.CurRoom != Player.Instance.CurRoom)

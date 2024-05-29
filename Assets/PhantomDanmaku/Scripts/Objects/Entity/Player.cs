@@ -37,6 +37,7 @@ namespace PhantomDanmaku.Runtime
 
             Components.Input.Controls.Player.Attack.performed += AttackListener;
             Components.Input.Controls.Player.SwitchWeapon.performed += SwitchWeaponListener;
+            Components.Input.Controls.Player.ShowLine.performed += ShowLineListener;
             GetKnife();
         }
 
@@ -88,6 +89,11 @@ namespace PhantomDanmaku.Runtime
         private void SwitchWeaponListener(UnityEngine.InputSystem.InputAction.CallbackContext context)
         {
             GetKnife();
+        }
+        
+        private void ShowLineListener(UnityEngine.InputSystem.InputAction.CallbackContext context)
+        {
+            MonsterBase.ShowLine = !MonsterBase.ShowLine;
         }
 
         /// <summary>
@@ -161,6 +167,7 @@ namespace PhantomDanmaku.Runtime
         {
             Components.Input.Controls.Player.Attack.performed -= AttackListener;
             Components.Input.Controls.Player.SwitchWeapon.performed -= SwitchWeaponListener;
+            Components.Input.Controls.Player.ShowLine.performed -= ShowLineListener;
             Components.UI.Close<HUDUIForm>();
             Components.UI.Open<LevelEndUIForm>((Components.Battle.CurChapterIdx,Components.Battle.CurLevelIdx,false)).Forget();
             Components.Sound.PlaySound("Dead", false);
@@ -171,6 +178,7 @@ namespace PhantomDanmaku.Runtime
         {
             Components.Input.Controls.Player.Attack.performed -= AttackListener;
             Components.Input.Controls.Player.SwitchWeapon.performed -= SwitchWeaponListener;
+            Components.Input.Controls.Player.ShowLine.performed -= ShowLineListener;
         }
     }
 
