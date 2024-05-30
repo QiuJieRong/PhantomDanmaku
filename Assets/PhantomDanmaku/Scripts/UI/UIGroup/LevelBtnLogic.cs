@@ -11,6 +11,7 @@ namespace PhantomDanmaku.Runtime.UI
             if (userData is (int chapterIdx,int levelIdx))
             {
                 m_LevelIdx = levelIdx;
+                m_LevelBtnButton.onClick.RemoveAllListeners();
                 m_LevelBtnButton.onClick.AddListener(() =>
                 {
                     SendUIMessage("SelectLevel", m_LevelIdx);

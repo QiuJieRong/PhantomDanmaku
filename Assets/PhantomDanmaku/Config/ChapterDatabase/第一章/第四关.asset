@@ -481,7 +481,7 @@ MonoBehaviour:
       Data: 
   Guid: 83e0f348-e2b2-4859-9a6e-5100cb11b4b0
   Id: 3
-  Name: "\u8F7B\u8F7B\u677E\u677E"
+  Name: "\u7B2C\u56DB\u5173"
   Desc: "\u8FD9\u91CC\u677E\u677E\u6563\u6563\u7684\u5206\u5E03\u7740\u4E00\u4E9B\u6BEB\u65E0\u5A01\u80C1\u6027\u7684\u654C\u4EBA\uFF0C\u5FEB\u901F\u51FB\u8D25\u4ED6\u4EEC\u5427\uFF01"
   RoomDistance: 30
   RoadWidth: 5
