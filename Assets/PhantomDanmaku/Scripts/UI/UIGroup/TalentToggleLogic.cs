@@ -3,6 +3,7 @@ using PhantomDanmaku.Config;
 using PhantomDanmaku.Runtime.System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 namespace PhantomDanmaku.Runtime.UI
@@ -11,6 +12,8 @@ namespace PhantomDanmaku.Runtime.UI
     {
         private TalentConfig m_TalentConfig;
 
+        private AsyncOperationHandle<Sprite> m_Handle;
+        
         public Toggle Toggle => m_TalentToggleToggle;
 
         public Transform ChildrenTransform => m_ChildrenRectTransform;
@@ -36,9 +39,14 @@ namespace PhantomDanmaku.Runtime.UI
 
         public async void Refresh()
         {
-            var handle = m_TalentConfig.Icon.LoadAssetAsync();
-            m_TalentToggleImage.sprite = await handle;
-            Addressables.Release(handle);
+            if (!m_Handle.IsValid())
+            {
+                m_Handle = m_TalentConfig.Icon.LoadAssetAsync();
+                await m_Handle;
+            }
+
+            m_TalentToggleImage.sprite = m_Handle.Result;
+            // Addressables.Release(handle);
             
             var playerData = PhantomSystem.Instance.PlayerData;
             if (m_TalentConfig.PreTalent != null && !playerData.UnlockTalents.Contains(m_TalentConfig.PreTalent.Guid))

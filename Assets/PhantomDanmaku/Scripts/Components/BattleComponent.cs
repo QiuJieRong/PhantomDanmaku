@@ -48,7 +48,10 @@ namespace PhantomDanmaku.Runtime
             await Components.UI.Open<HUDUIForm>(Player.Instance);
             
             //场景加载完成后，执行关卡开始事件
-            levelConfig.OnLevelStart.StartEvent().Forget();
+            if (levelConfig.OnLevelStart != null)
+            {
+                levelConfig.OnLevelStart.StartEvent().Forget();
+            }
         }
     }
 }
